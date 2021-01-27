@@ -325,3 +325,21 @@ So basically developer can define what data should be and how should it be. Main
             'unique' => false
         ]
     ]
+### **How to use models**
+
+**EXAMPLE**
+    $model = new Core\App\Models\MainModel;
+    $model->CallModel('user');
+    $data = [
+        'username' => 'myusername,
+        'password' => 'password_example', /*please do not store passwords in plain text! Use password_hash -function!*/
+        'birthday' => 'month, day, year'
+    ];
+    $model->Insert($data);
+
+## Donate me
+
+You can donate me with cryptocurrencies.
+
+**ETH:** 0x50410AcC7a4B7f3dcC36D102ed82b5437A34c477
+**BTC:** 17dbaqTn5KFY41rrM2MzKjmhYXMoh8uM44

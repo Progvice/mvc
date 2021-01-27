@@ -12,8 +12,8 @@ great tool together!
     - [Core plugins](#core-plugins)
     - [Plugin structure](#Plugin-structure)
     - [Plugin request structure](#Plugin-request-structure)
-    - [What about composer?](#What-about-composer?)
-    - [How do i create plugins?](#How-to-create-plugins)
+    - [What about composer](#What-about-composer)
+    - [How to create plugins](#How-to-create-plugins)
     - [Plugin aliases](#Plugin-aliases)
   - [Request path](#Request-path)
   - [File structure](#File-structure)
@@ -22,7 +22,7 @@ great tool together!
     - [/public](#/public)
   - [Language](#Language)
   - [Template loader](#Template-loader)
-    - [How to create template?](#How-to-create-template)
+    - [How to create template](#How-to-create-template)
   - [Models](#Models)
 
 
@@ -76,7 +76,7 @@ In this file developer can create aliases for plugins. Aliases make it easier to
     -> Pass file path to loader
     -> request plugin if it is not already requested
         
-### **What about composer?**
+### **What about composer**
 
 Composer folder
 

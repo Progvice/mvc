@@ -301,3 +301,27 @@ This is what our example model has in it. Now i am going to explain what all thi
   - unique -> Check that if this data exists already. 
 
 So basically developer can define what data should be and how should it be. MainModel checks that every piece of data is set correctly before sending it to database. None of these settings are not required to set. Every setting is optional but makes it easier for developer to maintain data integrity with database.
+
+**EXAMPLE**
+
+    $this->rules = [
+        'primary_key' => 'id',
+        'username' => [
+            'length' => 255,
+            'type' => 'string',
+            'required' => true,
+            'unique' => true
+        ],
+        'password' => [
+            'length' => 255,
+            'type' => 'string',
+            'required' => true,
+            'unique' => false
+        ],
+        'birthday' => [
+            // We do not need any length for birthday as we are only accepting date. 
+            'type' => 'date',
+            'required' => false,
+            'unique' => false
+        ]
+    ]

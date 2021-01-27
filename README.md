@@ -13,7 +13,7 @@ great tool together!
     - [Plugin structure](#Plugin-structure)
     - [Plugin request structure](#Plugin-request-structure)
     - [What about composer?](#What-about-composer?)
-    - [How do i create plugins?](#How-do-i-create-plugins?)
+    - [How do i create plugins?](#How-do-i-create-plugins%3F)
     - [Plugin aliases](#Plugin-aliases)
   - [Request path](#Request-path)
   - [File structure](#File-structure)
@@ -22,7 +22,7 @@ great tool together!
     - [/public](#/public)
   - [Language](#Language)
   - [Template loader](#Template-loader)
-    - [How to create template?](#How-to-create-template?)
+    - [How to create template?](#How-to-create-template%3F)
   - [Models](#Models)
 
 

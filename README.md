@@ -122,6 +122,10 @@ This is what plugin JSON should look like:
         }
     }
 
+How plugins are stored with information that is set above:
+
+    /app/plugins/data/[author]/[plugin_name]/[1.0]/index.php
+
 And then how to load plugins:
 
     plugin::load('

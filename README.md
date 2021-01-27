@@ -328,6 +328,7 @@ So basically developer can define what data should be and how should it be. Main
 ### **How to use models**
 
 **EXAMPLE**
+
     $model = new Core\App\Models\MainModel;
     $model->CallModel('user');
     $data = [

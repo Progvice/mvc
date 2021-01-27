@@ -103,10 +103,10 @@ This is what plugin JSON should look like:
 
 And then how to load plugins:
 
-        plugin::load('
-            author:pluginname:1.0,
-            otherauthor:pluginname:1.2
-        ');
+    plugin::load('
+        author:pluginname:1.0,
+        otherauthor:pluginname:1.2
+    ');
         
 It is recommended to load plugins this way. It makes syntax easier to read.
         
@@ -117,7 +117,7 @@ PLUGIN VERSION NUMBERING
 
 There are multiple ways to implement version numbering.
         
-EXAMPLE
+**EXAMPLE**
 - "a1.0"
 - "b1.0"
 - "new_plugin1.0"
@@ -182,7 +182,7 @@ in the future this feature will be included.
 
 ### **/App**
 
-App folder contains whole software logic in. Reason why software is built to App folder is that enduser is not able to gain access to .php -files. Every use of functionality is controlled by developer.
+App folder contains whole software logic in. Reason why software is built to App folder is that user does not have access to any critical part of the software. It makes this software one step more secure.
 
 ### **/logs**
 
@@ -211,14 +211,12 @@ W.I.P ( WORK IN PROGRESS )
 Developer can create templates that can be loaded easily with custom data
 from database. For now this feature is not fully designed.
 
-FOLDER
+### **FOLDER**
+This folder is used for storing templates.
+
     /app/views/templates
-        This folder is for storing templates.
         
-    /app/plugins/data/core/1.0/temploader
-        This folder contains logic for loading templates.
-        
-HOW TO CREATE TEMPLATE?
+**HOW TO CREATE TEMPLATE?**
 
     <?php
         namespace Core\App\Template;

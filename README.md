@@ -331,9 +331,10 @@ So basically developer can define what data should be and how should it be. Main
 
     $model = new Core\App\Models\MainModel;
     $model->CallModel('user');
+    /*please do not store passwords in plain text! Use password_hash -function!*/
     $data = [
         'username' => 'myusername,
-        'password' => 'password_example', /*please do not store passwords in plain text! Use password_hash -function!*/
+        'password' => 'password_example',
         'birthday' => 'month, day, year'
     ];
     $model->Insert($data);

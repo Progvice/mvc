@@ -7,6 +7,27 @@ for everyone to use. I decided to create this tool for myself
 but now i want to share it with you all! Let's make this
 great tool together!
 
+
+  - [Plugins](#plugins) 
+    - [Core plugins](#core-plugins)
+    - [Plugin structure](#Plugin-structure)
+    - [Plugin request structure](#Plugin-request-structure)
+    - [What about composer?](#What-about-composer?)
+    - [How do i create plugins?](#How-do-i-create-plugins?)
+    - [Plugin aliases](#Plugin-aliases)
+  - [Request path](#Request-path)
+  - [File structure](#File-structure)
+    - [/app](#/app)
+    - [/logs](#/logs)
+    - [/public](#/public)
+  - [Language](#Language)
+  - [Template loader](#Template-loader)
+    - [How to create template?](#How-to-create-template?)
+  - [Models](#Models)
+
+
+
+
 ## **Plugins**
 
 JJMVC has its own plugin loader that handles loading of plugins. Plugins
@@ -180,7 +201,7 @@ in the future this feature will be included.
     
 ## **File structure**
 
-### **/App**
+### **/app**
 
 App folder contains whole software logic in. Reason why software is built to App folder is that user does not have access to any critical part of the software. It makes this software one step more secure.
 
@@ -216,7 +237,7 @@ This folder is used for storing templates.
 
     /app/views/templates
         
-**HOW TO CREATE TEMPLATE?**
+### **How to create template?**
 
     <?php
         namespace Core\App\Template;
@@ -240,7 +261,9 @@ template loader.
 
 ## **Models**
 
-Models give developer easy way to control flow of data to database. Models are very easy to create when using JJCLI
+Models give developer easy way to control flow of data to database. Models are very easy to create when using JJCLI commandline commands.
+
+
         
         
 

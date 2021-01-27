@@ -1,17 +1,13 @@
-# JJMVC
+# **JJMVC**
+
+## **Introduction**
 
 Welcome to JJMVC! This is MVC that i have created
-for everyone to use. I have made myself tool that i can
-use to make backend programming easier and now i want
-to share it with everyone!
+for everyone to use. I decided to create this tool for myself
+but now i want to share it with you all! Let's make this
+great tool together!
 
-## Introduction
-
-JJMVC is simple MVC system that makes it easy to create new pages and use
-JJMVC's core tools to make things easier. JJMVC is easy to learn because
-of its simple structure. JJVMC is way to easier developing.
-
-## Plugins
+## **Plugins**
 
 JJMVC has its own plugin loader that handles loading of plugins. Plugins
 can be loaded in every part of request. Plugins can be loaded in other plugins too if needed!
@@ -20,25 +16,27 @@ Plugin loader is lightweight and simple to use.
 
     plugin::load('plugin_name1, plugin_name2, etc...');
 
-### Core plugins
+### **Core plugins**
 
-Core plugins are plugins that are made for basic functioning of JJMVC. Core plugins are stored at "/app/plugins/data/core". 
+Core plugins are plugins that are made for basic functioning of JJMVC. Core plugins are stored at:
+
+    /app/plugins/data/core
         
-Every core plugin uses namespace that defines that it is part of core.
+Every core plugin uses namespace that defines that it is part of the core.
         
-### Plugin structure
+### **Plugin structure**
     
 When developer creates new plugins it is important to know how to create new plugin properly.
         
-This folder is for storing plugins.
+This folder is for storing plugin logic.
 
     /app/plugins/data
 
-If plugin requires any additional data to be stored it should be stored here as JSON -file. Plugins can use database aswell.
+If plugin requires any additional data (ex. config files) to be stored it should be stored here:
         
     /app/plugins/json  
 
-This file contains information about plugins. When plugins are loaded, plugin loader checks information from this specific file.   
+This file contains information about plugins. When plugins are loaded, plugin loader checks information from this specific file:
 
     /app/plugins/plugins.json
 
@@ -46,7 +44,7 @@ In this file developer can create aliases for plugins. Aliases make it easier to
 
     /app/plugins/plugin_aliases.json
                                     
-### Plugin request structure
+### **Plugin request structure**
     
     plugin::load('
         maker:name:version,
@@ -57,7 +55,7 @@ In this file developer can create aliases for plugins. Aliases make it easier to
     -> Pass file path to loader
     -> request plugin if it is not already requested
         
-### What about composer?
+### **What about composer?**
 
 Composer folder
 
@@ -70,7 +68,7 @@ If developer feels like loading composer on every request developer can include/
  
 The reason why composer is supposed to load manually is that it loads less files that are not necessary. For necessary stuff JJMVC has it's own plugin loader which resembles composer but it is meant for manual loading. 
         
-### How do i create plugins?
+### **How do i create plugins?**
 
 At the moment developer can add new plugins only manually but in future JJMVC does have feature that makes adding new plugins easier.
         
@@ -87,7 +85,11 @@ Not required but recommended:
 In future with this information developer is able to upload plugin to jjmvc.net or to other 
 unofficial plugin libraries and it is easily accessible to other developers. 
         
-Below is simple example what plugin JSON should look like.
+Data where all plugins are listed can be found in:
+
+    /app/plugins/plugins.json
+
+This is what plugin JSON should look like:
         
     {
         "author": {
@@ -134,9 +136,9 @@ RECOMMENDED VERSION NUMBERING
 
 "a" indicates alpha and "b" indicates "beta"
         
-### PLUGIN ALIASES
+### **PLUGIN ALIASES**
 
-Developer can set aliases for plugins. Aliases can be found here
+Developer can set aliases for plugins. Aliases can be found here:
 
     /app/plugins/plugin_aliases.json
 
@@ -144,26 +146,26 @@ Aliases can be useful for plugins that are used often for example core plugins. 
 Aliases are enabled by default. If developer wants
 to disable aliases it is possible to set 2nd argument of Plugin Load to false. Aliases are simple to set.
 
-EXAMPLE 
+**EXAMPLE**
 
     "alias_name": "core:view:1.0"
         
 After that developer is able to load plugin as "alias_name"
 
-EXAMPLE
+**EXAMPLE**
 
     plugin::load('alias_name');
         
 Aliases and normal syntax can used at the same time.
 
-EXAMPLE
+**EXAMPLE**
         
-            plugin::load('
-                alias_name,
-                author:pluginname:1.0
-            ');
+    plugin::load('
+        alias_name,
+        author:pluginname:1.0
+    ');
         
-## Request path
+## **Request path**
 
 Request path is made simple. Every request goes through /public/index.php
 and it redirects request data to /app/Controller.php that redirects data straight
@@ -176,18 +178,20 @@ URI path does not include $_GET data in URL so you are free to use $_GET in URL.
 For now prettyURL is not possible and it would require huge changes. How ever
 in the future this feature will be included.
     
-## File structure
+## **File structure**
 
-/app - App folder contains whole software logic in. Reason why software is built to App folder
-is that enduser is not able to gain access to .php -files. Every use of functionality is
-controlled by developer.
+### **/App**
 
-/logs - Logs from web server
+App folder contains whole software logic in. Reason why software is built to App folder is that enduser is not able to gain access to .php -files. Every use of functionality is controlled by developer.
 
-/public - Webservers main folder that is accessible by user. User can use every resource
-in Public folder unless restricted by developer.
+### **/logs**
+
+Webserver logs come here
+
+### **/public**
+Webservers main folder that is accessible by user. User can use every resource in Public folder unless restricted by developer.
     
-## Language
+## **Language**
 
 Developer can load langauge translations from 2 different sources.
 
@@ -201,7 +205,7 @@ DATABASE
     Developer should use database for big text and text that possibly requires
     changes to it. In most cases text is loaded from database.
         
-## Template loader
+## **Template loader**
 
 W.I.P ( WORK IN PROGRESS )
 Developer can create templates that can be loaded easily with custom data
@@ -236,7 +240,9 @@ Here is our example template. Class name of template should be same as filename.
 This way we can easily call for file name and class at the same time in
 template loader.
 
-## JJCLI
+## **Models**
+
+Models give developer easy way to control flow of data to database. Models are very easy to create when using JJCLI
         
         
 

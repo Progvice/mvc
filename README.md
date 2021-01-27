@@ -24,6 +24,8 @@ great tool together!
   - [Template loader](#Template-loader)
     - [How to create template](#How-to-create-template)
   - [Models](#Models)
+    - [How to create model](#How-to-create-model)
+    - [Model structure](#Model-structure)
 
 
 
@@ -267,7 +269,35 @@ template loader.
 
 Models give developer easy way to control flow of data to database. Models are very easy to create when using JJCLI commandline commands.
 
+### **How to create model**
 
-        
-        
+You can simply create model by using JJCLI. Let's start by going to our approot folder with terminal/CMD/etc. Approot folder is folder that contains all 3 main folders (app, public, logs)
 
+Write this command to create new model:
+
+    php jjcli.php createmodel MODELNAME
+
+Replace MODELNAME with table name you use in database. Now we have created basic model and we can start editing it.
+
+### **Model structure**
+
+    $this->rules = [
+        'primary_key' => 'id',
+        'example_column' => [
+            'length' => 255,
+            'type' => 'string',
+            'required' => true,
+            'unique' => false
+        ]
+    ];
+
+This is what our example model has in it. Now i am going to explain what all this means.
+
+- Primary key -> This tells MainModel that this is our tables primary key.
+- Example column -> This contains every setting for column named "example_column"
+  - length -> Sets maximum length that column can store in database
+  - type -> Sets datatype that column should contain
+  - required -> If set to true this data can't be empty otherwise it will not be send.
+  - unique -> Check that if this data exists already. 
+
+So basically developer can define what data should be and how should it be. MainModel checks that every piece of data is set correctly before sending it to database. None of these settings are not required to set. Every setting is optional but makes it easier for developer to maintain data integrity with database.

@@ -1,0 +1,11 @@
+{
+    "page": 
+    {
+        "url" : "/login",
+        "controller" : "/login/index.php",
+        "actions" : ["index"],
+        "name" : "login",
+        "title" : "Kirjaudu Sisään",
+        "id" : 0
+    }
+}

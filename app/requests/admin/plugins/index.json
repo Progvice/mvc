@@ -1,0 +1,12 @@
+{
+    "page": 
+    {
+        "url" : "/admin/plugins",
+        "hidden": true,
+        "controller" : "/admin/plugins/index.php",
+        "actions" : ["index"],
+        "name" : "plugins",
+        "title" : "Plugins",
+        "id" : 0
+    }
+}

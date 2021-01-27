@@ -1,0 +1,12 @@
+{
+    "page": 
+    {
+        "url" : "/admin/pages",
+        "hidden": true,
+        "controller" : "/admin/pages/index.php",
+        "actions" : ["index"],
+        "name" : "pages",
+        "title" : "Pages - Admin panel",
+        "id" : 0
+    }
+}

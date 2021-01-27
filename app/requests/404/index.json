@@ -1,0 +1,11 @@
+{
+    "page": 
+    {
+        "url" : "/404",
+        "controller" : "/404/index.php",
+        "hidden": true,
+        "name" : "notfound",
+        "title" : "404",
+        "id" : 404
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "page": 
+    {
+        "url" : "/admin/onfiguration",
+        "hidden": "true",
+        "controller" : "/admin/configuration/index.php",
+        "actions" : ["index"],
+        "name" : "configuration",
+        "title" : "Konffit",
+        "id" : 0
+    }
+}

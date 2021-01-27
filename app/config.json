@@ -1,0 +1,45 @@
+{
+    "environment": "development",
+    "version": 1,
+    "version_stage": "alpha",
+    "development": {
+        "server": {
+            "host": "localhost",
+            "name": "JJMVC"
+        },
+        "database": {
+            "dbtype": "mysql",
+            "host": "localhost",
+            "dbname": "portfolio",
+            "username": "root",
+            "password": "",
+            "charset": "utf8"
+        }
+    },
+    "production": {
+        "server": {
+            "host": "localhost",
+            "name": "JJMVC"
+        },
+        "database": {
+            "dbtype": "mysql",
+            "host": "localhost",
+            "dbname": "",
+            "username": "",
+            "password": "",
+            "charset": "utf8"
+        }
+    },
+    "settings": {
+        "demosettings": {
+            "value": "production",
+            "anyvalue": true,
+            "possible_values": [
+                "test1",
+                "test2",
+                "test3",
+                "production"
+            ]
+        }
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "page": 
+    {
+        "url" : "/admin/system",
+        "hidden": true,
+        "controller" : "/admin/system/index.php",
+        "actions" : ["index"],
+        "name" : "system",
+        "title" : "System",
+        "id" : 0
+    }
+}

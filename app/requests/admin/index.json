@@ -1,0 +1,12 @@
+{
+    "page": 
+    {
+        "url" : "/admin",
+        "hidden": true,
+        "controller" : "/admin/index.php",
+        "actions" : ["index"],
+        "name" : "admin",
+        "title" : "Package",
+        "id" : 0
+    }
+}

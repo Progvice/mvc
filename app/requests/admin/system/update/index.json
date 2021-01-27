@@ -1,0 +1,12 @@
+{
+    "page": 
+    {
+        "url" : "/admin/system/update",
+        "hidden": true,
+        "controller" : "/admin/system/updateindex.php",
+        "actions" : ["index"],
+        "name" : "system",
+        "title" : "System",
+        "id" : 0
+    }
+}

@@ -155,7 +155,7 @@ EOT;
         $template = <<<EOT
         <?php
         namespace Core\App\Models;
-        class {$modelname} {
+        class {$modelname} extends MainModel {
             protected \$rules;
             public function __construct() {
                 \$this->rules = [

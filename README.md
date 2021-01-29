@@ -328,7 +328,7 @@ So basically developer can define what data should be and how should it be. Main
     ]
 ### **How to use models**
 
-**EXAMPLE**
+**EXAMPLE - INSERT**
 
     $model = new Core\App\Models\MainModel;
     $model->CallModel('user');
@@ -339,6 +339,16 @@ So basically developer can define what data should be and how should it be. Main
         'birthday' => 'month, day, year'
     ];
     $model->Insert($data);
+
+**EXAMPLE - SELECT**
+
+    $model = new Core\App\Models\MainModel;
+    $model->CallModel('user');
+    $data = $model->Select([
+        'value' => 4,
+    ]);
+
+    /* $data has information about user number 4.*/
 
 ## Donate me
 

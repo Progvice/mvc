@@ -3,12 +3,11 @@
         public function index() {
             plugin::load('view, models');
             $model = new Core\App\Models\MainModel;
-            $model->CallModel('blocks');
+            $model->CallModel('user');
             $data = [
                 'otsikko' => 'Insert funktio',
                 'kuvaus' => 'Katsotaan että toimiiko tämä insert.'
             ];
-            $test = $model->Insert($data);
             $view = new Core\App\View();
             $view->variables = [
                 'title' => $this->title

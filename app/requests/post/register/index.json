@@ -1,0 +1,12 @@
+{
+    "page": 
+    {
+        "url" : "/post/register",
+        "hidden" : true,
+        "controller" : "/post/register/index.php",
+        "actions" : ["index"],
+        "name" : "registerpost",
+        "title" : "Registering",
+        "id" : 0
+    }
+}

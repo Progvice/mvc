@@ -7,7 +7,7 @@ for everyone to use. I decided to create this tool for myself
 but now i want to share it with you all! Let's make this
 great tool together!
 
-
+  - [Request path](#Request-path)
   - [Plugins](#plugins) 
     - [Core plugins](#core-plugins)
     - [Plugin structure](#Plugin-structure)
@@ -15,7 +15,6 @@ great tool together!
     - [What about composer](#What-about-composer)
     - [How to create plugins](#How-to-create-plugins)
     - [Plugin aliases](#Plugin-aliases)
-  - [Request path](#Request-path)
   - [File structure](#File-structure)
     - [/app](#/app)
     - [/logs](#/logs)
@@ -30,6 +29,54 @@ great tool together!
 
 
 
+
+## **Request path**
+
+Request path is made simple. Every request goes through /public/index.php
+and it redirects request data to /app/Controller.php that redirects data straight
+to controller that URI is connected to. 
+
+/public/index.php -> /app/Controller.php -> /app/controller/[URI_PATH]/index.php
+
+URI path does not include $_GET data in URL so you are free to use $_GET in URL. 
+
+For now prettyURL is not possible and it would require huge changes. How ever
+in the future this feature will be included.
+    
+## **File structure**
+
+### **/app**
+
+App folder contains whole software logic in. Reason why software is built to App folder is that user does not have access to any critical part of the software. It makes this software one step more secure. App folder has 5 different main folders in it and now this documentation is going to explain every folder.
+
+**/app/controllers**
+
+Controllers folder contains controllers that handle requests. Every URI has its own controller.
+
+**/app/models/**
+
+Models folder is for database models. Models are explained later in this document. 
+
+**/app/plugins**
+
+Plugin folder contains plugins that developer can load in any part of request. More about plugins structure later in this document. 
+
+**/app/requests**
+
+This folder contains request data for every URI. Here developer can create request settings for URI. Example developer can set that what controller to load. Default way to load controller is to use URI. For now request files needs to be created manually.
+
+**EXAMPLE**
+
+    /controllers/products/index.php
+    /requests/products/index.json
+
+
+### **/logs**
+
+Webserver logs come here
+
+### **/public**
+Webservers main folder that is accessible by user. User can use every resource in Public folder unless restricted by developer.
 
 ## **Plugins**
 
@@ -205,19 +252,6 @@ URI path does not include $_GET data in URL so you are free to use $_GET in URL.
 
 For now prettyURL is not possible and it would require huge changes. How ever
 in the future this feature will be included.
-    
-## **File structure**
-
-### **/app**
-
-App folder contains whole software logic in. Reason why software is built to App folder is that user does not have access to any critical part of the software. It makes this software one step more secure.
-
-### **/logs**
-
-Webserver logs come here
-
-### **/public**
-Webservers main folder that is accessible by user. User can use every resource in Public folder unless restricted by developer.
     
 ## **Language**
 

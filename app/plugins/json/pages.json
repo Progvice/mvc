@@ -1,0 +1,12 @@
+{
+    "pages": [
+        "/configuration",
+        "/",
+        "/login",
+        "/logout",
+        "/package",
+        "/plugins",
+        "/register",
+        "/update"
+    ]
+}

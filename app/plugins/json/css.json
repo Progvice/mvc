@@ -1,0 +1,22 @@
+{
+    "css": [
+        {
+            "global": [
+                "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css",
+                "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css",
+                "fonts.css",
+                "style.css"
+            ],
+            "custom": [
+                {
+                    "/editor": [
+                        "editor.css"
+                    ],
+                    "/editor/": [
+                        "editor.css"
+                    ]
+                }
+            ]
+        }
+    ]
+}

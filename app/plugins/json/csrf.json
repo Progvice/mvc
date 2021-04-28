@@ -1,0 +1,18 @@
+{
+    "setup": true,
+    "host": "localhost",
+    "generated_key": "278cd21da76f45640b38e2a4947e1492bfb65f4f28dd1787af6200c359150c40",
+    "algorithm": "sha256",
+    "forms": [
+        {
+            "/post/tilaa_kyyti": [
+                {
+                    "keys": [
+                        "6e8305f5c721a260ad964a79a735aa06176816efc6d3343ab79c4307ccbd177e",
+                        "2dd984b51df04eae777e7261154d6e6cc7a6a2d3cfd0eec65c05756af0bdf50d"
+                    ]
+                }
+            ]
+        }
+    ]
+}

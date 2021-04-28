@@ -1,0 +1,14 @@
+{
+    "view": "core:view:1.0",
+    "activerecord": "jpfuentes2:activerecord:1.0",
+    "db": "core:db:1.0",
+    "css": "core:css:1.0",
+    "js": "core:javascript:1.0",
+    "templateloader": "core:templateloader:1.0",
+    "csrf": "core:csrf:1.0",
+    "session": "core:loginsession:1.0",
+    "models": "core:models:1.0",
+    "response": "core:response:1.0",
+    "request": "core:request:1.0",
+    "jwtextra": "core:jwtextra:1.0"
+}

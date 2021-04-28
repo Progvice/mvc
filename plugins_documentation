@@ -1,0 +1,54 @@
+PLUGINS DOCUMENTATION
+
+This file has every documentation of plugins that are included in core. Developers
+can use same layout for creating document of their own plugins.
+
+
+    Config
+    
+        Description
+
+            Config is JJMVC's own configuration system.
+
+        Variables
+
+            config - Config variable contains decoded config.json -file.
+
+        Methods
+
+            __construct()
+
+                Construct loads /app/config.json file and sets it to Config class
+                as variable.
+
+            modify_settings(setting_key, setting_value)
+
+                This allows developer to modify configuration that has been
+                set. This method checks that if setting_value is valid to use.
+
+            create_setting(setting_key, setting_value, accepted_setting_values)
+
+                Adds new setting. accepted_setting_values makes it easy to set
+                specific values that only can be set as setting_value.
+
+            save()
+
+                Save setting data that has been set to config variable.
+                
+    CSS
+        
+        Description
+            
+            CSS is for loading CSS files in HTML. Developer is able to
+            specify which file should be loaded in which URI. 
+            
+        Variables
+        
+            css - Loads CSS .json file that has list of every CSS file.
+            
+        Methods
+        
+            __construct()
+            
+                
+

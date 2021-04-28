@@ -1,0 +1,29 @@
+{
+    "config": {
+        "submenu": {
+            "fa_icon_enabled": true,
+            "fa_icon": "fa fa-sort-desc",
+            "aria-hidden": true
+        }
+    },
+	"header": {
+        "projects": {
+            "lang": "projects",
+            "link": "/projects",
+            "fa_icon": "fa fa-cubes"
+        },
+        "resume": {
+            "lang": "resume",
+            "link": "/resume.pdf",
+            "fa_icon": "fa fa-file-text"
+        },
+        "contactme": {
+            "lang": "contactme",
+            "link": "/contactme",
+            "fa_icon": "fa fa-address-card-o"
+        }
+	},
+    "footer": {
+        
+    }
+}

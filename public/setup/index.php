@@ -47,7 +47,5 @@
         unlink(__DIR__ . '/progress.json');
         unlink(__FILE__);
         rmdir(__DIR__);
-        sleep(2);
-        header('Location: /');
     }
 ?>

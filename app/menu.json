@@ -8,19 +8,14 @@
     },
 	"header": {
         "projects": {
-            "lang": "projects",
-            "link": "/projects",
-            "fa_icon": "fa fa-cubes"
-        },
-        "resume": {
-            "lang": "resume",
-            "link": "/resume.pdf",
-            "fa_icon": "fa fa-file-text"
+            "lang": "homepage",
+            "link": "/",
+            "fa_icon": "fa fa-home"
         },
         "contactme": {
             "lang": "contactme",
             "link": "/contactme",
-            "fa_icon": "fa fa-address-card-o"
+            "fa_icon": "fa fa-comments-o"
         }
 	},
     "footer": {

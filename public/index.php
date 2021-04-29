@@ -42,7 +42,7 @@ if(isset($_SESSION['logses']['lang'])) {
     define('LANG', $lang[$_SESSION['logses']['lang']]);
 }
 else {
-    define('LANG', $lang['fi-fi']);
+    define('LANG', $lang['en-en']);
 }
 $menu = json_decode(file_get_contents(APP_PATH . '/menu.json'), true);
 define('MENU', $menu);

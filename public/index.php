@@ -13,6 +13,11 @@ define('JSON_PATH', APP_PATH . '/plugins/json');
  *
  */
 define('COMPOSER', PLUGIN_PATH . '/composer/vendor/autoload.php');
+if(file_exists(__DIR__ . '/setup')) {
+    header('Location: /setup/index.php');
+    return;
+}
+
 $config = json_decode(file_get_contents(APP_PATH . '/config.json'), true);
 
 /*

@@ -1,4 +1,4 @@
 {
-    "config": true,
-    "database": true
+    "config": false,
+    "database": false
 }

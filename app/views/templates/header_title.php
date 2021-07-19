@@ -8,7 +8,7 @@ class header_title extends \Core\App\Template {
             <div class="header_title">
                 <a href="/"><h2>{$name}</h2></a>
             </div>
-        EOT;
+EOT;
         return $this->template;
     }
 }

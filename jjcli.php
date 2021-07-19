@@ -6,7 +6,6 @@
  * 
  * 
  */
-
 class JJCLI {
     private $args;
     public function __construct($argv) {
@@ -21,7 +20,7 @@ EOT;
 
             --- Write "php jjcli.php help" to get more information
             --- about commands and arguments.
-        EOT;
+EOT;
         }
         else if(count($this->args) > 1) {
             switch($this->args[1]) {
@@ -50,7 +49,7 @@ EOT;
                     echo <<<EOT
                     \33[31m Command not found. \033[0m
 
-                    EOT;
+EOT;
                 break;
             }
         }
@@ -105,7 +104,7 @@ EOT;
             |                                                           |
             |________________________ COMMANDS _________________________|
             
-        EOT;
+EOT;
     }
     private function Createpage() {
 
@@ -124,7 +123,7 @@ EOT;
                 }
             }
         ?>
-        EOT;
+EOT;
         file_put_contents($path . '/index.php', $controller);
     }
     private function CreateRequest($name, $path, $uri) {
@@ -139,7 +138,7 @@ EOT;
                 "title" : "{$name}"
             }
         }
-        EOT;
+EOT;
         file_put_contents($path . '/index.json', $requestfile);
     }
     private function CreateCRUD() {
@@ -241,7 +240,7 @@ EOT;
         if(file_exists(__DIR__ . '/app/models/' . $this->args[2] . '.php')){
             echo <<<EOT
             \33[91m Model exists already! \033[0m
-            EOT;
+EOT;
             return;
         }
         $rules = '';
@@ -307,7 +306,7 @@ EOT;
                         'required' => true,
                         'unique' => false
                     ]
-        EOT;
+EOT;
         }
         $modelname = ucwords($this->args[2]);
         $template = <<<EOT
@@ -322,7 +321,7 @@ EOT;
             }
         }
         ?>
-        EOT;
+EOT;
         $modelfile = fopen(__DIR__ . '/app/models/' . $modelname . '.php', "w");
         fwrite($modelfile, $template);
         fclose($modelfile);
@@ -341,7 +340,7 @@ EOT;
         if(file_exists(__DIR__ . '/app/views/templates/' . $this->args[2] . '.php')){
             echo <<<EOT
             \33[91m Model exists already! \033[0m
-            EOT;
+EOT;
             return;
         }
         $eot = 'EOT;';
@@ -358,7 +357,7 @@ EOT;
             }
         }
         ?>
-        EOT;
+EOT;
         $modelfile = fopen(__DIR__ . '/app/views/templates/' . $this->args[2] . '.php', "w");
         fwrite($modelfile, $template);
         fclose($modelfile);

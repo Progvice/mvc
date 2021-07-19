@@ -60,48 +60,59 @@ define('MENU', $menu);
  */
 $parse_url = parse_url($_SERVER['REQUEST_URI']);
 $uri = explode("/", $parse_url['path']);
-$json_url = $uri;
-
-if(end($json_url) === '') {
-    array_pop($json_url);
+if(end($uri) === '') {
     array_pop($uri);
-    $json_url = implode("/", $json_url);
+}
+
+$count_uri = $uri;
+
+// All possible uris. We need this informatiion so we can load controller even though we set parameters to URI
+$ap_uris = [];
+$final_url = implode('/', $uri);
+$right_uri = '';
+
+if($parse_url['path'] === '/') {
+    $requests = file_get_contents(REQUEST_PATH . '/index.json');
+    $requests = json_decode($requests);
+    $view_path = '/index';
+    $method = 'index';
+    $right_uri = '/';
 }
 else {
-    $json_url = implode("/", $json_url);
-}
-switch($parse_url['path']) {
-    case '/':
-        $requests = file_get_contents(REQUEST_PATH . '/index.json');
-        $requests = json_decode($requests);
-        $view_path = '/index';
-        $method = 'index';
-    break;
-    default:
-        $requests = file_get_contents(REQUEST_PATH . $json_url . '/index.json');
-        if(!$requests) {
-            header('Location: /404');
-        die();
+    for($counter = 0; $counter <= count($uri); $counter++) {
+        $current_uri = implode('/', $count_uri);
+        if(file_exists(REQUEST_PATH . $current_uri . '/index.json')) {
+            $right_uri = $current_uri;
+            break;
         }
-        $requests = json_decode($requests);
-        $view_path = $parse_url['path'];
-    break;
+        array_pop($count_uri);
+    }
+    $requests = file_get_contents(REQUEST_PATH . $right_uri . '/index.json');
+    $requests = json_decode($requests);
+    $view_path = $right_uri;
 }
-
+if(isset($requests->page->params) === false) {
+    if($right_uri !== $final_url && $parse_url['path'] !== '/') {
+        header('Location: /404');
+    }
+}
 $url = $requests->page->url;
 $url_second = $requests->page->url . '/';
-if($requests->page->url === $parse_url['path'] || $url_second === $parse_url['path']) {
+
+$params = null;
+if(isset($requests->page->params)) {
+    $params = $requests->page->params;
+}
+if($url === $right_uri || $url_second === $right_uri) {
     $page_found = TRUE;
-    $count = count($uri) - 1;
-    $method = $requests->page->actions;
-    $class_name = $requests->page->name . 'Controller';
     require_once CONTROLLER_PATH . '/Controller.php';
     $controller = new Controller();
-    $controller->method = $method;
-    $controller->uri = $uri;
+    $controller->method = $requests->page->actions;
+    $controller->uri = $final_url;
     $controller->controller = $requests->page->controller;
+    $controller->params = $params;
     $controller->view = VIEW_PATH . $view_path . '/index.php';
-    $controller->classname = $class_name;
+    $controller->classname = $requests->page->name . 'Controller';
     $controller->title = $requests->page->title;
     $controller->cindex();
 }

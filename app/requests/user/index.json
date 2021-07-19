@@ -8,7 +8,8 @@
         "title" : "user",
         "params": {
             "id": {
-                "method": "getUserByID"
+                "method": "getUserByID",
+                "amount": 2
             }
         }
     }

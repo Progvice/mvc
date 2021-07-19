@@ -9,6 +9,8 @@
             ]);
         }
         public function getUserByID() {
+            var_dump($this->params);
+            exit;
             plugin::load('response');
             $response = new Core\App\Response;
             $response->Send('json', [

@@ -389,5 +389,3 @@ So basically developer can define what data should be and how should it be. Main
 You can donate me with cryptocurrencies.
 
 **ETH:** 0x50410AcC7a4B7f3dcC36D102ed82b5437A34c477
-
-**BTC:** 17dbaqTn5KFY41rrM2MzKjmhYXMoh8uM44

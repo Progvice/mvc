@@ -17,6 +17,7 @@ class Template {
      *  
      */
     public function Load($templatedata) {
+
         if(!file_exists(VIEW_PATH . '/../templates/' . $templatedata['name'] . '.php')) {
             echo 'Template does not exist.!';
             return;
@@ -30,7 +31,7 @@ class Template {
         }
         $class = new $name;
         $final_template = $class->Load($templatedata['data']);
-        echo $final_template;
+        return $final_template;
     }
 
     /*
@@ -65,11 +66,12 @@ class Template {
         if(!class_exists($name)) {
             require VIEW_PATH . '/../templates/'. $templatename . '.php';
         }
+        $class = new $name;
         foreach($templatedatas as $templatedata) {
-            $final_template = $name::Load($templatedata);
+            $final_template = $class->Load($templatedata);
             $all_data .= $final_template;
         }
-        echo $all_data;
+        return $all_data;
     }
 }
 

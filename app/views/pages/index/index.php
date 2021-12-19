@@ -1,3 +1,3 @@
-<div class="main">
-    <h1>Hello world!</h1>
+<div class="main row">
+    <?php echo $template->LoadRepetitive('repetitive', $products); ?>
 </div>

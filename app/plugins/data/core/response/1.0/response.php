@@ -26,10 +26,6 @@ class Response {
         header('Content-Type: application/json');
         echo json_encode($data, true);
     }
-    public function RawJSON($data) {
-        header('Content-Type: application/json');
-        echo $data;
-    }
     public function Text($data) {
         header('Content-Type: text/plain');
         if(gettype($data) === 'string') {

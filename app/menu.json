@@ -1,24 +1,22 @@
 {
-    "config": {
-        "submenu": {
-            "fa_icon_enabled": true,
-            "fa_icon": "fa fa-sort-desc",
-            "aria-hidden": true
-        }
-    },
-	"header": {
-        "projects": {
-            "lang": "homepage",
-            "link": "/",
-            "fa_icon": "fa fa-home"
-        },
-        "contactme": {
-            "lang": "contactme",
-            "link": "/contactme",
-            "fa_icon": "fa fa-comments-o"
-        }
-	},
-    "footer": {
-        
+  "config": {
+    "submenu": {
+      "fa_icon_enabled": true,
+      "fa_icon": "fa fa-sort-desc",
+      "aria-hidden": true
     }
+  },
+  "header": {
+    "homepage": {
+      "lang": "homepage",
+      "link": "/",
+      "fa_icon": "fa fa-home"
+    },
+    "contactme": {
+      "lang": "contactme",
+      "link": "/contactme",
+      "fa_icon": "fa fa-comments-o"
+    }
+  },
+  "footer": {}
 }

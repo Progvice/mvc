@@ -9,13 +9,12 @@
             ]);
         }
         public function getUserByID() {
-            var_dump($this->params);
-            exit;
             plugin::load('response');
             $response = new Core\App\Response;
             $response->Send('json', [
                 'status' => true,
-                'message' => 'Parameters are working'
+                'message' => 'Parameters are working',
+                'params' => $this->params
             ]);
         }
     }

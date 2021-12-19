@@ -16,8 +16,8 @@
     <header>
         <div class="inner_header">
             <?php
-                $template->Load(['name' => 'header_title']);
-                $template->Load(['name' => 'header_menu']);
+                echo $template->Load(['name' => 'header_title']);
+                echo $template->Load(['name' => 'header_menu']);
             ?>
         </div>
     </header>

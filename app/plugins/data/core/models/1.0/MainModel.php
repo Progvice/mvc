@@ -33,7 +33,7 @@ class MainModel {
      *  @return true||false - False means that datatype is not correct
      * 
      */
-    public function CheckDataType($data) {
+    private function CheckDataType($data) {
         $rvalue = [
             'status' => true
         ];
@@ -46,7 +46,7 @@ class MainModel {
                                 $rvalue = [
                                     'status' => false,
                                     'column' => $name,
-                                    'message' => 'notstring'
+                                    'msg' => 'notstring'
                                 ];
                             }
                         }
@@ -57,7 +57,7 @@ class MainModel {
                                 $rvalue = [
                                     'status' => false,
                                     'column' => $name,
-                                    'message' => 'notarray'
+                                    'msg' => 'notarray'
                                 ];
                             }
                         }
@@ -68,7 +68,7 @@ class MainModel {
                                 $rvalue = [
                                     'status' => false,
                                     'column' => $name,
-                                    'message' => 'notinteger'
+                                    'msg' => 'notinteger'
                                 ];
                             }
                         }
@@ -79,7 +79,7 @@ class MainModel {
                                 $rvalue = [
                                     'status' => false,
                                     'column' => $name,
-                                    'message' => 'notdecimal'
+                                    'msg' => 'notdecimal'
                                 ];
                             }
                         }
@@ -88,7 +88,10 @@ class MainModel {
                         
                     break;
                     default:
-                        return 'No proper datatype';
+                        $rvalue = [
+                            'status' => false,
+                            'msg' => 'invalidtype'
+                        ];
                     break;
                 }
             }
@@ -99,7 +102,7 @@ class MainModel {
      *  @return true||false - False means that data length is not correct
      * 
      */
-    public function CheckLength($data) {
+    private function CheckLength($data) {
         $rvalue = [
             'status' => true
         ];
@@ -110,7 +113,7 @@ class MainModel {
                         $rvalue = [
                             'status' => false,
                             'column' => $name,
-                            'message' => 'toolong'
+                            'msg' => 'toolong'
                         ];
                         continue;
                     }
@@ -124,7 +127,7 @@ class MainModel {
      *  @return true||false - False means that data is not set.
      * 
      */
-    public function IsRequired($data) {
+    private function IsRequired($data) {
         $rvalue = [
             'status' => true
         ];
@@ -135,7 +138,7 @@ class MainModel {
                         $rvalue = [
                             'status' => false,
                             'column' => $name,
-                            'message' => 'is empty'
+                            'msg' => 'is empty'
                         ];
                         continue;
                     }
@@ -144,7 +147,33 @@ class MainModel {
         }
         return $rvalue;
     }
-    public function IsUnique($data) {
+    private function IsRequiredUpdate($data) {
+        if(!isset($this->model->rules[$data['column']])) {
+            return [
+                'status' => false,
+                'column' => $data['column'],
+                'msg' => 'does not exist'
+            ];
+        }
+        if(!isset($this->model->rules[$data['column']]['required'])) {
+            return [
+                'status' => true,
+            ];
+        }
+        if($this->model->rules[$data['column']]['required'] === true) {
+            if(empty($data['value'])) {
+                return [
+                    'status' => false,
+                    'column' => $data['column'],
+                    'msg' => $data['column'] . ' is empty'
+                ];
+            }
+        }
+        return [
+            'status' => true
+        ];
+    }
+    private function IsUnique($data) {
         $rvalue = [
             'status' => true
         ];
@@ -158,9 +187,17 @@ class MainModel {
                                 'value' => $data[$name]
                             ]);
                             if(!empty($boolval)) {
+                                $msg_string = $name . 'exists';
+
+                                if(isset(LANG[$msg_string])) {
+                                    $msg = LANG[$msg_string];
+                                }
+                                else {
+                                    $msg = $msg_string;
+                                }
                                 $rvalue = [
                                     'status' => false,
-                                    'message' => $name . 'exists'
+                                    'msg' => $msg
                                 ];
                             }
                         }
@@ -187,7 +224,7 @@ class MainModel {
      *  @return  boolean
      *      
      */
-    public function Insert($data) {
+    public function Insert($data, $params = []) {
         $cdt = $this->CheckDataType($data);
         $cl = $this->CheckLength($data);
         $ir = $this->IsRequired($data);
@@ -203,6 +240,15 @@ class MainModel {
         }
         else if($iu['status'] === false) {
             return $iu;
+        }
+        if($data['password']) {
+            if(empty($params['PASSWORD_NO_HASH'])) {
+                $data['password'] = password_hash($data['password'], PASSWORD_ARGON2I, [
+                    'memory_cost' => CONFIG['argon_settings']['memory_cost'],
+                    'time_cost' => CONFIG['argon_settings']['time_cost'],
+                    'threads' => CONFIG['argon_settings']['threads']
+                ]);
+            }
         }
         $query = 'INSERT INTO ' . $this->mname . ' ';
         $columns = '(';
@@ -226,16 +272,124 @@ class MainModel {
         if($returnval === true) {
             return [
                 'status' => true,
-                'message' => 'insertsuccesful',
+                'msg' => 'insertsuccesful',
                 'id' => $this->conn->lastInsertId()
             ];
         }
-        else {
+        return [
+            'status' => false,
+            'msg' => 'unknownerror'
+        ];
+    }
+    /*
+     *  Update()
+     *  @param  $data   $array
+     * 
+     *  @example
+     *      TABLE: Users
+     *      [
+     *          'where' => [
+     *              'uuid' => '12' 
+     *          ],
+     *          'update' => [
+     *              'username' => 'newusername',
+     *              'email' => 'newemail@email.com'
+     *          ]
+     *      ]
+     * 
+     *      This would result in this kind of SQL query:
+     * 
+     *          UPDATE Users SET username=:username, email=:email WHERE uuid=:uuid
+     * 
+     *      And after preparing this query Update function will send all values for execution.
+     *      
+     * 
+     *  
+     */
+    public function Update($data) {
+        $cdt = $this->CheckDataType($data);
+        $cl = $this->CheckLength($data);
+        $iu = $this->IsUnique($data);
+        if(!$cdt['status']) {
             return [
                 'status' => false,
-                'message' => 'unknownerror'
+                'msg' => 'datatypeinvalid'
             ];
         }
+        else if(!$cl['status']) {
+            return [
+                'status' => false,
+                'msg' => 'lengthinvalid'
+            ];
+        }
+        else if(!$iu['status']) {
+            return [
+                'status' => false,
+                'msg' => 'uniquedata'
+            ];
+        }
+        $query = 'UPDATE ' . $this->mname . ' SET ';
+        $execarr = [];
+        if(!isset($data['data'])) {
+            return [
+                'status' => false,
+                'msg' => 'datafieldempty'
+            ];
+        }
+        if(!isset($data['where'])) {
+            return [
+                'status' => false,
+                'msg' => 'wherenotset'
+            ];
+        }
+        if(empty($data['data'])) {
+            return [
+                'status' => false,
+                'msg' => 'datafieldsempty'
+            ];
+        }
+        $last_arr_elem = end($data['data']);
+        $last_arr_elem_where = end($data['where']);
+        foreach($data['data'] as $column => $value) {
+            $checkReq = $this->IsRequiredUpdate([
+                'column' => $column,
+                'value' => $value
+            ]);
+            if(!$checkReq['status']) {
+                return $checkReq;
+            }
+            $cnarr = ':' . $column;
+            $execarr[$cnarr] = $value; 
+            if($last_arr_elem === $value) {
+                $query .= $column . '=:' .$column .' WHERE ';
+                continue;
+            }
+            $query .= $column . '=:' . $column . ', ';
+        }
+        foreach($data['where'] as $column => $value) {
+            $cnarr = ':' . $column;
+            if(isset($execarr[$cnarr])) {
+                $cnarr = ':' . $column . '_two';
+            }
+            $execarr[$cnarr] = $value;
+            if($last_arr_elem_where === $value) {
+                $query .= $column . '=' . $cnarr;
+                continue;
+            }
+            $query .= $column . '=' . $cnarr . ' AND ';
+        }
+        $result = $this->conn->prepare($query);
+        $returnval = $result->execute($execarr);
+        if($returnval) {
+            return [
+                'status' => true,
+                'msg' => 'updatesuccesful'
+            ];
+        }
+        return [
+            'status' => false,
+            'msg' => 'unknownerror'
+        ];
     }
     /*
      *  Select()
@@ -359,7 +513,8 @@ class MainModel {
         }
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
-    public function SelectMultiple($data) {
+
+    public function SelectWithJoin($data) {
         $this->CallModel($data['tables']['parent']);
         $parent_model = $this->model;
         $this->CallModel($data['tables']['child']);
@@ -372,6 +527,27 @@ class MainModel {
         }
         if($parent_model->rules['primarykey'] !== $child_model->rules['foreignkey']) {
             return false;
+        }
+        $join_mode = '';
+        switch($data['mode']) {
+            case 'innerjoin':
+                $join_mode = 'INNER JOIN';
+            break;
+
+            case 'leftjoin':
+                $join_mode = 'LEFT JOIN';
+            break;
+
+            case 'rightjoin':
+                $join_mode = 'RIGHT JOIN';
+            break;
+
+            case 'fullouterjoin':
+                $join_mode = 'FULL OUTER JOIN';
+            break;
+            default:
+                $join_mode = 'INNER JOIN';
+            break;
         }
         $where_clause = '';
         $execarr = [];
@@ -391,7 +567,7 @@ class MainModel {
         $parentn = $parent_model->rules['table'];
         $childn = $child_model->rules['table'];
         $query = <<<EOT
-            SELECT * FROM {$parentn} INNER JOIN {$childn}
+            SELECT * FROM {$parentn} {$join_mode} {$childn}
              ON {$parentn}.{$foreignkey} = {$childn}.{$foreignkey}
              {$where_clause}
         EOT;

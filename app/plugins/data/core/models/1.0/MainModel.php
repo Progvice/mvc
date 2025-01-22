@@ -201,8 +201,11 @@ class MainModel
                 foreach ($rules as $rname => $rule) {
                     if ($rname === 'unique' && $rule === true) {
                         $boolval = $this->Select([
-                            'value_field' => $name,
-                            'value' => $data[$name]
+                            'values' => [
+                                'normal' => [
+                                    $name => $data[$name]
+                                ]
+                            ]
                         ]);
                         if (!empty($boolval)) {
                             $msg_string = $name . 'exists';
@@ -316,7 +319,7 @@ class MainModel
      * 
      *  
      */
-    public function Update($data)
+    public function Update($data, $params = [])
     {
         $cdt = $this->CheckDataType($data['data']);
         $cl = $this->CheckLength($data['data']);

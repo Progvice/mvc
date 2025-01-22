@@ -7,25 +7,30 @@ for everyone to use. I decided to create this tool for myself
 but now i want to share it with you all! Let's make this
 great tool together!
 
-- [Request path](#Request-path)
-- [Plugins](#plugins)
-  - [Core plugins](#core-plugins)
-  - [Plugin structure](#Plugin-structure)
-  - [Plugin request structure](#Plugin-request-structure)
-  - [What about composer](#What-about-composer)
-  - [How to create plugins](#How-to-create-plugins)
-  - [Plugin aliases](#Plugin-aliases)
-- [File structure](#File-structure)
-  - [/app](#/app)
-  - [/logs](#/logs)
-  - [/public](#/public)
-- [Language](#Language)
-- [Template loader](#Template-loader)
-  - [How to create template](#How-to-create-template)
-- [Models](#Models)
-  - [How to create model](#How-to-create-model)
-  - [Model structure](#Model-structure)
-- [Donate me](#Donate-me)
+1. [Request Path](#request-path)
+2. [Plugins](#plugins)
+   - [Core Plugins](#core-plugins)
+   - [Plugin Structure](#plugin-structure)
+   - [Plugin Request Structure](#plugin-request-structure)
+   - [What About Composer](#what-about-composer)
+   - [How to Create Plugins](#how-to-create-plugins)
+   - [Plugin Aliases](#plugin-aliases)
+3. [File Structure](#file-structure)
+   - [App Folder (`/app`)](#app)
+   - [Logs Folder (`/logs`)](#logs)
+   - [Public Folder (`/public`)](#public)
+4. [Parameters in URI](#parameters-in-uri)
+5. [Language](#language)
+6. [Template Loader](#template-loader)
+   - [Template Folder](#folder)
+   - [How to Create a Template](#how-to-create-template)
+7. [Models](#models)
+   - [How to Create a Model](#how-to-create-model)
+   - [Model Structure](#model-structure)
+   - [Using Models](#how-to-use-models)
+   - [Advanced Select Methods](#example---advanced-select-methods)
+   - [Password Hashing](#password-hashing)
+8. [Donate Me](#donate-me)
 
 ## **Request path**
 
@@ -325,9 +330,8 @@ changes to it. In most cases text is loaded from database.
 
 ## **Template loader**
 
-W.I.P ( WORK IN PROGRESS )
 Developer can create templates that can be loaded easily with custom data
-from database. For now this feature is not fully designed.
+from JSON files. For now this feature is in beta state at the moment.
 
 ### **FOLDER**
 
@@ -383,7 +387,7 @@ Replace MODELNAME with table name you use in database. Now we have created basic
         ]
     ];
 
-This is what our example model has in it. Now i am going to explain what all this means.
+This is what our example model has in it. Now I am going to explain what all this means.
 
 - Primary key -> This tells MainModel that this is our tables primary key.
 - Example column -> This contains every setting for column named "example_column"
@@ -424,7 +428,7 @@ So basically developer can define what data should be and how should it be. Main
 
     $model = new Core\App\Models\MainModel;
     $model->CallModel('user');
-    /*please do not store passwords in plain text! Use password_hash -function!*/
+
     $data = [
         'username' => 'myusername,
         'password' => 'password_example',
@@ -437,10 +441,61 @@ So basically developer can define what data should be and how should it be. Main
     $model = new Core\App\Models\MainModel;
     $model->CallModel('user');
     $data = $model->Select([
-        'value' => 4,
+        'values' => [
+            'normal' => [
+                'username' => 'Foobar'
+            ]
+        ]
     ]);
 
-    /* $data has information about user number 4.*/
+    /* $data has information about user whose username is Foobar.*/
+
+This is just basic example of how to use Select function.
+However there are still other methods to search data. Here is list
+of those methods
+
+**EXAMPLE - Advanced Select methods**
+
+
+    $model->Select([
+        'values' => [
+            'normal' => [
+                'username' => 'Foobar' // FIELD = Foobar
+            ]
+            'contains' => [
+                'username' => 'oba' // FIELD = %oba%
+            ],
+            'starts' => [
+                'username' => 'Foo' // FIELD = Foo%
+            ],
+            'ends' => [
+                'username' => 'bar' // FIELD = %bar
+            ],
+            'bigger' => [
+                'balance' => '10' // FIELD > 10
+            ],
+            'smaller' => [
+                'balance' => '10' // FIELD < 10
+            ]
+        ]
+    ])
+
+Here you have all the Select methods that you can use. These methods can be chained together on the same Select request.
+
+### Password hashing ###
+
+Password hashing is done automatically when inserting 'password'
+field with data to $model->Insert or $model->Update. This is added
+security feature. However this can be turned off by setting additional parameter to Insert or Update function
+
+    $data = ['field' => 'data', 'password' => 'Foobar123!'];
+
+    $model->Insert($data, ['PASSWORD_NO_HASH' => true]);
+
+
+
+    
+
 
 ## Donate me
 

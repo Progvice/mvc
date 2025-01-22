@@ -1,99 +1,116 @@
 <?php
 
 namespace Core\App\Models;
-class MainModel {
+
+class MainModel
+{
     protected $model;
     protected $mname;
     protected $conn;
-    public function CallModel($name) {
+    public function CallModel($name)
+    {
         \plugin::load('db');
         $this->conn = \Core\App\DB::Connect();
         $name = ucfirst($name);
-        require MODEL_PATH . '/' . $name .'.php';
+        if (!file_exists(MODEL_PATH . '/' . $name . '.php')) {
+            return [
+                'status' => false,
+                'msg' => 'Model not found'
+            ];
+        }
+        require_once MODEL_PATH . '/' . $name . '.php';
         $modelname = 'Core\App\Models\\' . $name;
         $this->model = new $modelname;
-        if(isset($this->model->rules['table'])) {
+        if (isset($this->model->rules['table'])) {
             $this->mname = $this->model->rules['table'];
-        }
-        else {
+        } else {
             $this->mname = $name;
         }
     }
     /*  
      *  
      *  
-     */ 
-    public function BelongsTo() {
-
-    }
-    public function HasMany() {
-
-    }
+     */
+    public function BelongsTo() {}
+    public function HasMany() {}
     /*
      *  @return true||false - False means that datatype is not correct
      * 
      */
-    private function CheckDataType($data) {
+    private function CheckDataType($data)
+    {
         $rvalue = [
             'status' => true
         ];
-        foreach($this->model->rules as $name => $rules) {
-            if(isset($rules['type'])) {
-                switch($rules['type']) {
-                    case 'string':
-                        if(isset($data[$name])) {
-                            if(!is_string($data[$name])) {
-                                $rvalue = [
-                                    'status' => false,
-                                    'column' => $name,
-                                    'msg' => 'notstring'
-                                ];
-                            }
-                        }
-                    break;
-                    case 'array':
-                        if(isset($data[$name])) {
-                            if(!is_array($data[$name])) {
-                                $rvalue = [
-                                    'status' => false,
-                                    'column' => $name,
-                                    'msg' => 'notarray'
-                                ];
-                            }
-                        }
-                    break;
-                    case 'int':
-                        if(isset($data[$name])) {
-                            if(!is_int($data[$name])) {
-                                $rvalue = [
-                                    'status' => false,
-                                    'column' => $name,
-                                    'msg' => 'notinteger'
-                                ];
-                            }
-                        }
-                    break;
-                    case 'decimal':
-                        if(isset($data[$name])) {
-                            if(!is_float($data[$name])) {
-                                $rvalue = [
-                                    'status' => false,
-                                    'column' => $name,
-                                    'msg' => 'notdecimal'
-                                ];
-                            }
-                        }
-                    break;
-                    case 'date': 
-                        
-                    break;
-                    default:
+        foreach ($this->model->rules as $name => $rules) {
+            if (!isset($rules['type'])) continue;
+            if (!isset($rules[$name])) continue;
+
+            switch ($rules['type']) {
+                case 'string':
+
+                    if (!is_string($data[$name])) {
                         $rvalue = [
                             'status' => false,
-                            'msg' => 'invalidtype'
+                            'column' => $name,
+                            'msg' => 'notstring'
                         ];
+                    }
+
                     break;
-                }
+                case 'array':
+
+                    if (!is_array($data[$name])) {
+                        $rvalue = [
+                            'status' => false,
+                            'column' => $name,
+                            'msg' => 'notarray'
+                        ];
+                    }
+
+                    break;
+                case 'int':
+
+                    if (!is_int($data[$name])) {
+                        $rvalue = [
+                            'status' => false,
+                            'column' => $name,
+                            'msg' => 'notinteger'
+                        ];
+                    }
+
+                    break;
+                case 'decimal':
+
+                    if (!is_float($data[$name])) {
+                        $rvalue = [
+                            'status' => false,
+                            'column' => $name,
+                            'msg' => 'notdecimal'
+                        ];
+                    }
+
+                    break;
+                case 'tinyint':
+
+                    if ($data[$name] > 255) {
+                        $rvalue = [
+                            'status' => false,
+                            'column' => $name,
+                            'msg' => 'tinyintoverflow'
+                        ];
+                    }
+
+                    break;
+                case 'date':
+
+                    break;
+                default:
+                    $rvalue = [
+                        'status' => false,
+                        'msg' => 'invalidtype'
+                    ];
+                    break;
             }
         }
         return $rvalue;
@@ -102,22 +119,22 @@ class MainModel {
      *  @return true||false - False means that data length is not correct
      * 
      */
-    private function CheckLength($data) {
+    private function CheckLength($data)
+    {
         $rvalue = [
             'status' => true
         ];
-        foreach($this->model->rules as $name => $rules) {
-            if(isset($rules['length'])) {
-                if(isset($data[$name])) {
-                    if(strlen($data[$name]) > $rules['length']) {
-                        $rvalue = [
-                            'status' => false,
-                            'column' => $name,
-                            'msg' => 'toolong'
-                        ];
-                        continue;
-                    }
-                }
+        foreach ($this->model->rules as $name => $rules) {
+            if (!isset($rules['length'])) continue;
+            if (!isset($rules[$name])) continue;
+
+            if (strlen($data[$name]) > $rules['length']) {
+                $rvalue = [
+                    'status' => false,
+                    'column' => $name,
+                    'msg' => 'toolong'
+                ];
+                continue;
             }
         }
         return $rvalue;
@@ -127,41 +144,42 @@ class MainModel {
      *  @return true||false - False means that data is not set.
      * 
      */
-    private function IsRequired($data) {
+    private function IsRequired($data)
+    {
         $rvalue = [
             'status' => true
         ];
-        foreach($this->model->rules as $name => $rules) {
-            if(isset($rules['required'])) {
-                if($rules['required'] === true) {
-                    if(empty($data[$name])) {
-                        $rvalue = [
-                            'status' => false,
-                            'column' => $name,
-                            'msg' => 'is empty'
-                        ];
-                        continue;
-                    }
-                }
+        foreach ($this->model->rules as $name => $rules) {
+
+            if (!isset($rules['required'])) continue;
+            if (!$rules['required']) continue;
+
+            if (empty($data[$name])) {
+                $rvalue = [
+                    'status' => false,
+                    'column' => $name,
+                    'msg' => 'is empty'
+                ];
             }
         }
         return $rvalue;
     }
-    private function IsRequiredUpdate($data) {
-        if(!isset($this->model->rules[$data['column']])) {
+    private function IsRequiredUpdate($data)
+    {
+        if (!isset($this->model->rules[$data['column']])) {
             return [
                 'status' => false,
                 'column' => $data['column'],
                 'msg' => 'does not exist'
             ];
         }
-        if(!isset($this->model->rules[$data['column']]['required'])) {
+        if (!isset($this->model->rules[$data['column']]['required'])) {
             return [
                 'status' => true,
             ];
         }
-        if($this->model->rules[$data['column']]['required'] === true) {
-            if(empty($data['value'])) {
+        if ($this->model->rules[$data['column']]['required'] === true) {
+            if (empty($data['value'])) {
                 return [
                     'status' => false,
                     'column' => $data['column'],
@@ -173,33 +191,31 @@ class MainModel {
             'status' => true
         ];
     }
-    private function IsUnique($data) {
+    private function IsUnique($data)
+    {
         $rvalue = [
             'status' => true
         ];
-        foreach($this->model->rules as $name => $rules) {
-            if(isset($data[$name])) {
-                if(is_array($rules)) {
-                    foreach($rules as $rname => $rule) {
-                        if($rname === 'unique' && $rule === true) {
-                            $boolval = $this->Select([
-                                'value_field' => $name,
-                                'value' => $data[$name]
-                            ]);
-                            if(!empty($boolval)) {
-                                $msg_string = $name . 'exists';
+        foreach ($this->model->rules as $name => $rules) {
+            if (isset($data[$name]) && is_array($rules)) {
+                foreach ($rules as $rname => $rule) {
+                    if ($rname === 'unique' && $rule === true) {
+                        $boolval = $this->Select([
+                            'value_field' => $name,
+                            'value' => $data[$name]
+                        ]);
+                        if (!empty($boolval)) {
+                            $msg_string = $name . 'exists';
 
-                                if(isset(LANG[$msg_string])) {
-                                    $msg = LANG[$msg_string];
-                                }
-                                else {
-                                    $msg = $msg_string;
-                                }
-                                $rvalue = [
-                                    'status' => false,
-                                    'msg' => $msg
-                                ];
+                            if (isset(LANG[$msg_string])) {
+                                $msg = LANG[$msg_string];
+                            } else {
+                                $msg = $msg_string;
                             }
+                            $rvalue = [
+                                'status' => false,
+                                'msg' => $msg
+                            ];
                         }
                     }
                 }
@@ -224,44 +240,38 @@ class MainModel {
      *  @return  boolean
      *      
      */
-    public function Insert($data, $params = []) {
+    public function Insert($data, $params = [])
+    {
         $cdt = $this->CheckDataType($data);
         $cl = $this->CheckLength($data);
         $ir = $this->IsRequired($data);
         $iu = $this->IsUnique($data);
-        if($cdt['status'] === false) {
-            return $cdt;
+
+        if (!$cdt['status']) return $cdt;
+        if (!$cl['status']) return $cl;
+        if (!$ir['status']) return $ir;
+        if (!$iu['status']) return $iu;
+
+        if (isset($data['password']) && empty($params['PASSWORD_NO_HASH'])) {
+            $data['password'] = password_hash($data['password'], PASSWORD_ARGON2I, [
+                'memory_cost' => CONFIG['argon_settings']['memory_cost'],
+                'time_cost' => CONFIG['argon_settings']['time_cost'],
+                'threads' => CONFIG['argon_settings']['threads']
+            ]);
         }
-        else if($cl['status'] === false) {
-            return $cl;
-        }
-        else if($ir['status'] === false) {
-            return $ir;
-        }
-        else if($iu['status'] === false) {
-            return $iu;
-        }
-        if($data['password']) {
-            if(empty($params['PASSWORD_NO_HASH'])) {
-                $data['password'] = password_hash($data['password'], PASSWORD_ARGON2I, [
-                    'memory_cost' => CONFIG['argon_settings']['memory_cost'],
-                    'time_cost' => CONFIG['argon_settings']['time_cost'],
-                    'threads' => CONFIG['argon_settings']['threads']
-                ]);
-            }
-        }
+
         $query = 'INSERT INTO ' . $this->mname . ' ';
         $columns = '(';
         $values = '(';
         $last_arr_elem = end($data);
         $execarr = [];
-        foreach($data as $column_name => $column_value) {
+        foreach ($data as $column_name => $column_value) {
             $cnarr = ':' . $column_name;
             $execarr[$cnarr] = $column_value;
-            if($last_arr_elem === $column_value) {
+            if ($last_arr_elem === $column_value) {
                 $columns .= $column_name . ') VALUES ';
                 $values .= ':' . $column_name . ');';
-                continue;
+                break;
             }
             $columns .= $column_name . ', ';
             $values .= ':' . $column_name . ', ';
@@ -269,7 +279,7 @@ class MainModel {
         $query .= $columns . $values;
         $result = $this->conn->prepare($query);
         $returnval = $result->execute($execarr);
-        if($returnval === true) {
+        if ($returnval === true) {
             return [
                 'status' => true,
                 'msg' => 'insertsuccesful',
@@ -291,7 +301,7 @@ class MainModel {
      *          'where' => [
      *              'uuid' => '12' 
      *          ],
-     *          'update' => [
+     *          'data' => [
      *              'username' => 'newusername',
      *              'email' => 'newemail@email.com'
      *          ]
@@ -306,73 +316,121 @@ class MainModel {
      * 
      *  
      */
-    public function Update($data) {
-        $cdt = $this->CheckDataType($data);
-        $cl = $this->CheckLength($data);
-        $iu = $this->IsUnique($data);
-        if(!$cdt['status']) {
+    public function Update($data)
+    {
+        $cdt = $this->CheckDataType($data['data']);
+        $cl = $this->CheckLength($data['data']);
+        $iu = $this->IsUnique($data['data']);
+
+        if (!$cdt['status']) {
             return [
                 'status' => false,
                 'msg' => 'datatypeinvalid'
             ];
-        }
-        else if(!$cl['status']) {
+        } else if (!$cl['status']) {
             return [
                 'status' => false,
                 'msg' => 'lengthinvalid'
             ];
-        }
-        else if(!$iu['status']) {
+        } else if (!$iu['status']) {
             return [
                 'status' => false,
-                'msg' => 'uniquedata'
+                'msg' => $iu['msg']
             ];
         }
+
         $query = 'UPDATE ' . $this->mname . ' SET ';
         $execarr = [];
-        if(!isset($data['data'])) {
+        if (!isset($data['data'])) {
             return [
                 'status' => false,
                 'msg' => 'datafieldempty'
             ];
         }
-        if(!isset($data['where'])) {
+        if (!isset($data['where'])) {
             return [
                 'status' => false,
                 'msg' => 'wherenotset'
             ];
         }
-        if(empty($data['data'])) {
+        if (empty($data['data'])) {
             return [
                 'status' => false,
                 'msg' => 'datafieldsempty'
             ];
         }
+        if (isset($data['data']['password'])) {
+            if (empty($params['PASSWORD_NO_HASH'])) {
+                $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_ARGON2I, [
+                    'memory_cost' => CONFIG['argon_settings']['memory_cost'],
+                    'time_cost' => CONFIG['argon_settings']['time_cost'],
+                    'threads' => CONFIG['argon_settings']['threads']
+                ]);
+            }
+        }
         $last_arr_elem = end($data['data']);
         $last_arr_elem_where = end($data['where']);
-        foreach($data['data'] as $column => $value) {
+        $last_arr_elem_key = array_key_last($data['data']);
+        $last_arr_elem_where_key = array_key_last($data['where']);
+        foreach ($data['data'] as $column => $value) {
             $checkReq = $this->IsRequiredUpdate([
                 'column' => $column,
                 'value' => $value
             ]);
-            if(!$checkReq['status']) {
+            if (!$checkReq['status']) {
                 return $checkReq;
             }
             $cnarr = ':' . $column;
-            $execarr[$cnarr] = $value; 
-            if($last_arr_elem === $value) {
-                $query .= $column . '=:' .$column .' WHERE ';
+            $execarr[$cnarr] = $value;
+            if ($last_arr_elem === $value && $last_arr_elem_key === $column) {
+                $query .= $column . '=:' . $column . ' WHERE ';
                 continue;
             }
             $query .= $column . '=:' . $column . ', ';
         }
-        foreach($data['where'] as $column => $value) {
+        foreach ($data['where'] as $column => $value) {
             $cnarr = ':' . $column;
-            if(isset($execarr[$cnarr])) {
+            if (isset($execarr[$cnarr])) {
                 $cnarr = ':' . $column . '_two';
             }
             $execarr[$cnarr] = $value;
-            if($last_arr_elem_where === $value) {
+            if ($last_arr_elem_where === $value && $last_arr_elem_where_key === $column) {
+                $query .= $column . '=' . $cnarr;
+                continue;
+            }
+            $query .= $column . '=' . $cnarr . ' AND ';
+        }
+
+        $result = $this->conn->prepare($query);
+        $returnval = $result->execute($execarr);
+        if ($returnval) {
+            return [
+                'status' => true,
+                'msg' => 'updatesuccesful'
+            ];
+        }
+        return [
+            'status' => false,
+            'msg' => 'unknownerror'
+        ];
+    }
+    public function Delete($data)
+    {
+        if (empty($data['where'])) {
+            return [
+                'status' => false,
+                'msg' => 'wherenotset'
+            ];
+        }
+        $query = 'DELETE FROM ' . $this->mname . ' WHERE ';
+        $last_arr_elem_where = end($data['where']);
+        foreach ($data['where'] as $column => $value) {
+            $cnarr = ':' . $column;
+            if (isset($execarr[$cnarr])) {
+                $cnarr = ':' . $column . '_two';
+            }
+            $execarr[$cnarr] = $value;
+            if ($last_arr_elem_where === $value) {
                 $query .= $column . '=' . $cnarr;
                 continue;
             }
@@ -380,10 +438,10 @@ class MainModel {
         }
         $result = $this->conn->prepare($query);
         $returnval = $result->execute($execarr);
-        if($returnval) {
+        if ($returnval) {
             return [
                 'status' => true,
-                'msg' => 'updatesuccesful'
+                'msg' => 'deletesuccesful'
             ];
         }
         return [
@@ -398,15 +456,7 @@ class MainModel {
      *      @example
      *          [
      *              'columns' => 'product_name, product_price'  -   Column names in database. If you want to fetch all columns don't set this. 
-     * 
-     * 
-     *              'value' => 2                                -   This value is used to find column that corresponds with models primary key.
-     *                                                              Looks automatically for primary key in model rules. If one is not set
-     *                                                              this method returns null.
-     * 
-     *              'value_field => 'product_name'              -   Change column that is used to find data
-     * 
-     * 
+     *
      *              'values => [                                -   Set multiple criterias for finding data (ex. age = 18 AND name = "John").
      *                  'product_name' => 'computer',               "product_name" acts as column and 'computer' acts as value to search for. 
      *                  'product_id' => 24                          
@@ -422,77 +472,104 @@ class MainModel {
      *      if developer does not want to fetch everything.
      * 
      */
-    public function Select($data = []) {
+    public function Select($data = [])
+    {
         $fetch_all = false;
-        if(empty($data['columns'])) {
+        if (empty($data['columns'])) {
             $data['columns'] = '*';
         }
         $where_clause = '';
         $execarr = [];
-        if(isset($data['value'])) {
-            if(isset($data['value_field'])) {
-                $where_clause = ' WHERE ' . $data['value_field'] . ' = :' . $data['value_field'];
-                $execarr = [
-                    ':' . $data['value_field'] => $data['value']
-                ];
-            }
-            else {
-                $where_clause = ' WHERE ' . $this->model->rules['primary_key'] . '= :' . $this->model->rules['primary_key'];
-                $execarr = [
-                    ':' . $this->model->rules['primary_key'] => $data['value']
-                ];
-            }
-        }
-        else if(isset($data['values'])) {
-            switch(array_keys($data['values'])[0]) {
-                case 'normal':
-                    $last_arr_elem = end($data['values']['normal']);
-                    $where_clause = ' WHERE ';
-                    $execarr = [];
-                    foreach($data['values']['normal'] as $column => $value) {
-                        $name = ':' . $column;
-                        $execarr[$name] = $value;
-                        if($last_arr_elem === $value) {
-                            $where_clause .= $column . ' = :' . $column;
-                            continue;
+
+        if (isset($data['values'])) {
+            $where_clause = ' WHERE ';
+            $execarr = [];
+            $last_column = end($data['values']);
+            foreach ($data['values'] as $selector => $parameters) {
+                switch ($selector) {
+                    case 'normal':
+                        $last_arr_elem = end($data['values']['normal']);
+                        foreach ($data['values']['normal'] as $column => $value) {
+                            $name = ':' . $column . '_normal';
+                            $execarr[$name] = $value;
+                            if ($last_arr_elem === $value && $last_column === $data['values']['normal']) {
+                                $where_clause .= $column . ' = ' . $name;
+                                continue;
+                            }
+                            $where_clause .= $column . ' = ' . $name . ' AND ';
                         }
-                        $where_clause .= $column . ' = :' . $column . ' AND ';
-                    }
-                break;
-                case 'between': 
-                    $last_arr_elem = end($data['values']['between']);
-                    $where_clause = ' WHERE ';
-                    $execarr = [];
-                    foreach($data['values']['between'] as $column => $criteria) {
-                        $name = ':' . $column;
-                        
-                    }
-                break;
-                case 'contains': 
-                    $last_arr_elem = end($data['values']['contains']);
-                    $where_clause = ' WHERE ';
-                    $execarr = [];
-                    foreach($data['values']['contains'] as $column => $keyword) {
-                        $name = ':' . $column;
-                        $execarr[] = '%' . $keyword . '%';
-                        if($last_arr_elem === $keyword) {
-                            $where_clause .= $column . ' LIKE ?';
-                            continue;
+                        break;
+                    case 'contains':
+                        $last_arr_elem = end($data['values']['contains']);
+                        foreach ($data['values']['contains'] as $column => $keyword) {
+                            $name = ':' . $column;
+                            $execarr[$name] = '%' . $keyword . '%';
+                            if ($last_arr_elem === $keyword && $last_column === $data['values']['contains']) {
+                                $where_clause .= $column . ' LIKE ' . $name;
+                                continue;
+                            }
+                            $where_clause .= $column . ' LIKE ' . $name . ' AND ';
                         }
-                        $where_clause .= $column . ' LIKE ? ' . ' AND ';
-                    }
-                break;
+                        break;
+                    case 'starts':
+                        $last_arr_elem = end($data['values']['starts']);
+                        foreach ($data['values']['starts'] as $column => $keyword) {
+                            $name = ':' . $column;
+                            $execarr[$name] = $keyword . '%';
+                            if ($last_arr_elem === $keyword && $last_column === $data['values']['starts']) {
+                                $where_clause .= $column . ' LIKE ' . $name;
+                                continue;
+                            }
+                            $where_clause .= $column . ' LIKE ' . $name . ' AND ';
+                        }
+                        break;
+                    case 'ends':
+                        $last_arr_elem = end($data['values']['ends']);
+                        foreach ($data['values']['ends'] as $column => $keyword) {
+                            $name = ':' . $column;
+                            $execarr[$name] = '%' . $keyword;
+                            if ($last_arr_elem === $keyword && $last_column === $data['values']['ends']) {
+                                $where_clause .= $column . ' LIKE ' . $name;
+                                continue;
+                            }
+                            $where_clause .= $column . ' LIKE ' . $name . ' AND ';
+                        }
+                        break;
+                    case 'bigger':
+                        $last_arr_elem = end($data['values']['bigger']);
+                        foreach ($data['values']['bigger'] as $column => $value) {
+                            $name = ':' . $column . '_bigger';
+                            $execarr[$name] = $value;
+                            if ($last_arr_elem === $value && $last_column === $data['values']['bigger']) {
+                                $where_clause .= $column . ' > ' . $name;
+                                continue;
+                            }
+                            $where_clause .= $column . ' > ' . $name . ' AND ';
+                        }
+                        break;
+                    case 'smaller':
+                        $last_arr_elem = end($data['values']['smaller']);
+                        foreach ($data['values']['smaller'] as $column => $value) {
+                            $name = ':' . $column . '_smaller';
+                            $execarr[$name] = $value;
+                            if ($last_arr_elem === $value && $last_column === $data['values']['smaller']) {
+                                $where_clause .= $column . ' < ' . $name;
+                                continue;
+                            }
+                            $where_clause .= $column . ' < ' . $name . ' AND ';
+                        }
+                        break;
+                }
             }
-        }
-        else {
+        } else {
             $fetch_all = true;
         }
         $order_clause = ' ';
-        if(isset($data['order'])) {
+        if (isset($data['order'])) {
             $order_clause .= 'ORDER BY ';
             $last_arr_elem = end($data['order']);
-            foreach($data['order'] as $column => $order) {
-                if($last_arr_elem === $order) {
+            foreach ($data['order'] as $column => $order) {
+                if ($last_arr_elem === $order) {
                     $order_clause .= $column . ' ' . $order;
                     continue;
                 }
@@ -500,80 +577,127 @@ class MainModel {
             }
         }
         $limit_clause = '';
-        if(isset($data['limit'])) {
+        if (isset($data['limit'])) {
             $limit_clause = ' LIMIT ' . $data['limit'];
         }
+        if (isset($data['offset'])) {
+            $limit_clause .= ' OFFSET ' . $data['offset'];
+        }
+
         $query = <<<EOT
             SELECT {$data['columns']} FROM {$this->mname}{$where_clause}{$order_clause}{$limit_clause};
         EOT;
         $query = $this->conn->prepare($query);
         $query->execute($execarr);
-        if($fetch_all === true) {
+        if ($fetch_all === true) {
             return $query->fetchAll(\PDO::FETCH_ASSOC);
         }
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function SelectWithJoin($data) {
-        $this->CallModel($data['tables']['parent']);
-        $parent_model = $this->model;
-        $this->CallModel($data['tables']['child']);
-        $child_model = $this->model;
-        if(empty($parent_model->rules['table'])) {
-            return false;
+    public function SelectWithJoin($data)
+    {
+        if (empty($data['tables']['owner'])) {
+            return [
+                'status' => false,
+                'msg' => 'SQL Error: Owner not set'
+            ];
         }
-        if(empty($child_model->rules['table'])) {
-            return false;
+        if (empty($data['tables']['servant'])) {
+            return [
+                'status' => false,
+                'msg' => 'SQL Error: Servant not set'
+            ];
         }
-        if($parent_model->rules['primarykey'] !== $child_model->rules['foreignkey']) {
-            return false;
+        if (empty($data['columns'])) {
+            $data['columns'] = '*';
+        }
+        if (empty($data['reverse'])) {
+            $data['reverse'] = false;
+        }
+        $this->CallModel($data['tables']['owner']);
+        $owner = $this->model;
+        $this->CallModel($data['tables']['servant']);
+        $servant = $this->model;
+        $connections = [
+            false,
+            false
+        ];
+        $owner_field = '';
+        $servant_field = '';
+        foreach ($owner->rules['connections'] as $key => $value) {
+            if ($key === $data['tables']['servant']) {
+                $servant_field = $value['field'];
+                $connections[0] = true;
+                break;
+            }
+        }
+        foreach ($servant->rules['connections'] as $key => $value) {
+            if ($key === $data['tables']['owner']) {
+                $owner_field = $value['field'];
+                $connections[1] = true;
+                break;
+            }
+        }
+        if (!$connections[0] || !$connections[1]) {
+            return [
+                'status' => false,
+                'msg' => 'invalidtableconnection'
+            ];
         }
         $join_mode = '';
-        switch($data['mode']) {
+        switch ($data['mode']) {
             case 'innerjoin':
                 $join_mode = 'INNER JOIN';
-            break;
+                break;
 
             case 'leftjoin':
                 $join_mode = 'LEFT JOIN';
-            break;
+                break;
 
             case 'rightjoin':
                 $join_mode = 'RIGHT JOIN';
-            break;
-
-            case 'fullouterjoin':
-                $join_mode = 'FULL OUTER JOIN';
-            break;
+                break;
             default:
                 $join_mode = 'INNER JOIN';
-            break;
+                break;
         }
         $where_clause = '';
         $execarr = [];
-        if(isset($data['where'])) {
+        if (isset($data['where'])) {
             $last_bool = false;
             $where_clause = $where_clause . ' WHERE ';
             $last_arr_elem = end($data['where']);
-            foreach($data['where'] as $tablename => $table) {
-                foreach($table as $column => $value) {
+            foreach ($data['where'] as $tablename => $table) {
+                foreach ($table as $column => $value) {
                     $name = ':' . $column;
                     $execarr[$name] = $value;
-                    $where_clause = $where_clause . $data['tables'][$tablename] . '.' . $column . ' = ' . $name;
+
+                    if ($data['tables']['owner'] === $tablename) {
+                        $where_clause = $where_clause . $data['tables']['owner'] . '.' . $column . ' = ' . $name;
+                    } else {
+                        $where_clause = $where_clause . $data['tables']['servant'] . '.' . $column . ' = ' . $name;
+                    }
                 }
             }
         }
-        $foreignkey = $parent_model->rules['primarykey'];
-        $parentn = $parent_model->rules['table'];
-        $childn = $child_model->rules['table'];
-        $query = <<<EOT
-            SELECT * FROM {$parentn} {$join_mode} {$childn}
-             ON {$parentn}.{$foreignkey} = {$childn}.{$foreignkey}
+        $parentn = $owner->rules['table'];
+        $childn = $servant->rules['table'];
+        if ($data['reverse']) {
+            $query = <<<EOT
+            SELECT {$data['columns']} FROM {$childn} {$join_mode} {$parentn}
+             ON {$childn}.{$servant_field} = {$parentn}.{$owner_field}
              {$where_clause}
-        EOT;
+            EOT;
+        } else {
+            $query = <<<EOT
+            SELECT {$data['columns']} FROM {$parentn} {$join_mode} {$childn}
+             ON {$parentn}.{$owner_field} = {$childn}.{$servant_field}
+             {$where_clause}
+            EOT;
+        }
         $query = $this->conn->prepare($query);
         $query->execute($execarr);
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
-?>

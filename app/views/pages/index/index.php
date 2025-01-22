@@ -1,3 +1,4 @@
-<div class="main row">
-    <?php echo $template->LoadRepetitive('repetitive', $products); ?>
+<?php echo $templatedata['isolaatikko']; ?>
+<div class="section-12 height-50 wrap detailbox_container">
+    <?php echo $templatedata['tietolaatikot']; ?>
 </div>

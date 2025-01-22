@@ -1,0 +1,10 @@
+        {
+            "page": 
+            {
+                "url" : "/templates/read",
+                "controller" : "/templates/read/index.php",
+                "actions" : "templates",
+                "name" : "templates",
+                "title" : "templates"
+            }
+        }

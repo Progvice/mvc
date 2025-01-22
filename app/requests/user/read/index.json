@@ -1,15 +1,14 @@
 {
-    "page": 
-    {
-        "url" : "/user/read",
-        "controller" : "/user/read/index.php",
-        "actions" : "user",
-        "name" : "user",
-        "title" : "user",
-        "params": {
-            "/user/read/:id": {
-                "function": "userById"
-            }
-        }
+  "page": {
+    "url": "/user/read",
+    "controller": "/user/read/index.php",
+    "actions": "user",
+    "name": "user",
+    "title": "user",
+    "params": {
+      "id": {
+        "method": "userById"
+      }
     }
+  }
 }

@@ -9,7 +9,7 @@ class Template {
      * 
      *  Purpose of this function is to load data for URI. Data is stored 
      *  in its own JSON file. This data gets processed through this function
-     *  so that we can load 
+     *  so that we can inject it to template
      * 
      * 
      */

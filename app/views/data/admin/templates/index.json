@@ -1,0 +1,25 @@
+{
+  "asdasd": {
+    "template": "detailbox",
+    "data": [
+      {
+        "type": "basic",
+        "data": {
+          "title": "123asdasd"
+        }
+      },
+      {
+        "type": "basic",
+        "data": {
+          "title": "456asdasd"
+        }
+      },
+      {
+        "type": "basic",
+        "data": {
+          "title": "789adasdasdasd"
+        }
+      }
+    ]
+  }
+}

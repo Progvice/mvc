@@ -1,0 +1,11 @@
+{
+  "page": {
+    "url": "/logout",
+    "hidden": true,
+    "controller": "/logout/index.php",
+    "actions": "logout",
+    "name": "logout",
+    "title": "logout",
+    "id": 0
+  }
+}

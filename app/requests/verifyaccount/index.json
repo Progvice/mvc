@@ -1,0 +1,16 @@
+{
+    "page": 
+    {
+        "url" : "/verifyaccount",
+        "controller" : "/verifyaccount/index.php",
+        "actions" : "verifyaccount",
+        "name" : "verifyaccount",
+        "title" : "verifyaccount",
+        "params": {
+            "id": {
+                "method": "verify",
+                "amount": 2
+            }
+        }
+    }
+}

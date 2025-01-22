@@ -1,0 +1,12 @@
+{
+    "page": {
+      "url": "/admin/galleria/upload",
+      "hidden": true,
+      "controller": "/admin/galleria/upload/index.php",
+      "actions": "upload",
+      "name": "upload",
+      "title": "Uploading...",
+      "id": 0
+    }
+  }
+  

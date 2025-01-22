@@ -1,0 +1,10 @@
+        {
+            "page": 
+            {
+                "url" : "/templates/update",
+                "controller" : "/templates/update/index.php",
+                "actions" : "templates",
+                "name" : "templates",
+                "title" : "templates"
+            }
+        }

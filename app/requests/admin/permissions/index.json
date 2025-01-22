@@ -1,0 +1,27 @@
+{
+    "page": {
+      "url": "/admin/permissions",
+      "hidden": true,
+      "controller": "/admin/permissions/index.php",
+      "actions": "permissions",
+      "name": "permissions",
+      "title": "Admin",
+      "id": 0,
+      "params": {
+        "id": {
+            "method": "viewPerm",
+            "view": "viewperm"
+        },
+        "modify": {
+          "method": "modifyPerm"
+        },
+        "create": {
+          "method": "createPerm"
+        },
+        "remove": {
+          "method": "removePerm"
+        }
+      }
+    }
+  }
+  

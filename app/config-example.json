@@ -14,7 +14,13 @@
             "username": "",
             "password": "",
             "charset": "utf8"
-        }
+        },
+        "argon_settings": {
+            "memory_cost": 131072,
+            "threads": 2,
+            "time_cost": 11
+        },
+        "recaptcha_secret": ""
     },
     "production": {
         "server": {
@@ -28,7 +34,13 @@
             "username": "",
             "password": "",
             "charset": "utf8"
-        }
+        },
+        "argon_settings": {
+            "memory_cost": 131072,
+            "threads": 2,
+            "time_cost": 11
+        },
+        "recaptcha_secret": ""
     },
     "settings": {
         "demosettings": {

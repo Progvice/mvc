@@ -1,0 +1,11 @@
+{
+  "page": {
+    "url": "/hinnasto",
+    "hidden": true,
+    "controller": "/hinnasto/index.php",
+    "actions": "hinnasto",
+    "name": "hinnasto",
+    "title": "Hinnasto",
+    "id": 0
+  }
+}

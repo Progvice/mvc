@@ -11,6 +11,10 @@ class DB {
             CONFIG['database']['username'],
             CONFIG['database']['password']
         );
+        if(CONFIG['database']['nativevalues']) {
+            $conn->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, false);
+            $conn->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        }
         return $conn;
     }
 }

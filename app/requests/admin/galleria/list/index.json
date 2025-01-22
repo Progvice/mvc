@@ -1,0 +1,12 @@
+{
+    "page": {
+      "url": "/admin/galleria/list",
+      "hidden": true,
+      "controller": "/admin/galleria/list/index.php",
+      "actions": "list",
+      "name": "list",
+      "title": "List images",
+      "id": 0
+    }
+  }
+  

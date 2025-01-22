@@ -1,0 +1,12 @@
+{
+  "page": {
+    "url": "/tilaakyyti",
+    "hidden": true,
+    "controller": "/tilaakyyti/index.php",
+    "actions": "tilaakyyti",
+    "name": "tilaakyyti",
+    "title": "Tilaa kyyti",
+    "id": 0,
+    "disabled": true
+  }
+}

@@ -1,0 +1,25 @@
+{
+    "page": {
+      "url": "/admin/galleria",
+      "hidden": true,
+      "controller": "/admin/galleria/index.php",
+      "actions": "galleria",
+      "name": "galleria",
+      "title": "Galleria",
+      "id": 0,
+      "params": {
+        "id": {
+          "method": "viewGallery",
+          "view": "gallery"
+        },
+        "deleteimg": {
+          "method": "removeImage"
+        },
+        "addimg": {
+          "method": "addImage",
+          "view": "addimg"
+        }
+      }
+    }
+  }
+  

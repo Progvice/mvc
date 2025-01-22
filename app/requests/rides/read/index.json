@@ -1,0 +1,10 @@
+        {
+            "page": 
+            {
+                "url" : "/rides/read",
+                "controller" : "/rides/read/index.php",
+                "actions" : "rides",
+                "name" : "rides",
+                "title" : "rides"
+            }
+        }

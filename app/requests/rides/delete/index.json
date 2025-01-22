@@ -1,0 +1,10 @@
+        {
+            "page": 
+            {
+                "url" : "/rides/delete",
+                "controller" : "/rides/delete/index.php",
+                "actions" : "rides",
+                "name" : "rides",
+                "title" : "rides"
+            }
+        }

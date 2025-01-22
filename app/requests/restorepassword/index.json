@@ -1,0 +1,12 @@
+{
+    "page": {
+      "url": "/restorepassword",
+      "hidden": true,
+      "controller": "/restorepassword/index.php",
+      "actions": "restorepassword",
+      "name": "restorepassword",
+      "title": "restorepassword",
+      "id": 0
+    }
+  }
+  

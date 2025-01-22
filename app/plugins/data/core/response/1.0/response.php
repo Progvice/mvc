@@ -8,9 +8,6 @@ class Response {
             case 'json': 
                 $this->Json($data);
             break;
-            case 'rawjson':
-                $this->RawJSON($data);
-            break;
             case 'text': 
                 $this->Text($data);
             break;
@@ -19,6 +16,13 @@ class Response {
             break;
             default: 
                 return 'No proper response type is set';
+            break;
+        }
+    }
+    public function SetCode($code) {
+        switch($code) {
+            case 403:
+                http_response_code($code);
             break;
         }
     }
@@ -42,6 +46,9 @@ class Response {
             'status' => true,
             'message' => 'notfound'
         ]);
+    }
+    public function Redirect($path) {
+        header('Location: ' . $path);
     }
 }
 

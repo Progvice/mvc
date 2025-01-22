@@ -1,0 +1,17 @@
+{
+  "page": {
+    "url": "/profiili/ajanvaraukset",
+    "hidden": true,
+    "controller": "/profiili/ajanvaraukset/index.php",
+    "actions": "ajanvaraukset",
+    "name": "ajanvaraukset",
+    "title": "Profiili - ajanvaraukset",
+    "id": 0,
+    "params": {
+      "id": {
+        "method": "getUsersOrders",
+        "amount": 2
+      }
+    }
+  }
+}

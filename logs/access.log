@@ -4613,7 +4613,7 @@
 127.0.0.1 - - [27/Apr/2021:02:42:14 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:42:14 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
 127.0.0.1 - - [27/Apr/2021:02:42:14 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
-127.0.0.1 - - [27/Apr/2021:02:42:14 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 635101
+127.0.0.1 - - [27/Apr/2021:02:42:14 +0300] "GET /img/localhost.png HTTP/1.1" 200 635101
 127.0.0.1 - - [27/Apr/2021:02:42:14 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:42:14 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:42:29 +0300] "GET / HTTP/1.1" 200 3485
@@ -4624,7 +4624,7 @@
 127.0.0.1 - - [27/Apr/2021:02:42:29 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:42:29 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
 127.0.0.1 - - [27/Apr/2021:02:42:29 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
-127.0.0.1 - - [27/Apr/2021:02:42:29 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 635101
+127.0.0.1 - - [27/Apr/2021:02:42:29 +0300] "GET /img/localhost.png HTTP/1.1" 200 635101
 127.0.0.1 - - [27/Apr/2021:02:42:29 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:42:29 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:46:20 +0300] "GET / HTTP/1.1" 200 3485
@@ -4635,7 +4635,7 @@
 127.0.0.1 - - [27/Apr/2021:02:46:20 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:46:20 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:46:20 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:46:20 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 635101
+127.0.0.1 - - [27/Apr/2021:02:46:20 +0300] "GET /img/localhost.png HTTP/1.1" 200 635101
 127.0.0.1 - - [27/Apr/2021:02:46:20 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:46:20 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:46:30 +0300] "GET / HTTP/1.1" 200 3485
@@ -4646,7 +4646,7 @@
 127.0.0.1 - - [27/Apr/2021:02:46:30 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:46:30 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:46:30 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:46:30 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 635101
+127.0.0.1 - - [27/Apr/2021:02:46:30 +0300] "GET /img/localhost.png HTTP/1.1" 200 635101
 127.0.0.1 - - [27/Apr/2021:02:46:30 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:46:30 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:47:08 +0300] "GET / HTTP/1.1" 200 3485
@@ -4657,7 +4657,7 @@
 127.0.0.1 - - [27/Apr/2021:02:47:08 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:47:08 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:47:08 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:47:08 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:47:08 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:47:08 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:47:09 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:47:58 +0300] "GET / HTTP/1.1" 200 3582
@@ -4668,7 +4668,7 @@
 127.0.0.1 - - [27/Apr/2021:02:47:58 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:47:58 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:47:58 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:47:58 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:47:58 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:47:58 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:47:58 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:50:06 +0300] "GET / HTTP/1.1" 200 3842
@@ -4679,7 +4679,7 @@
 127.0.0.1 - - [27/Apr/2021:02:50:06 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:50:06 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:50:06 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:50:06 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:50:06 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:50:06 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:50:06 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:54:51 +0300] "GET / HTTP/1.1" 200 3842
@@ -4690,7 +4690,7 @@
 127.0.0.1 - - [27/Apr/2021:02:54:51 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:54:51 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:54:51 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:54:51 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:54:51 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:54:51 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:54:51 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET / HTTP/1.1" 200 3842
@@ -4701,7 +4701,7 @@
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET / HTTP/1.1" 200 3842
@@ -4712,7 +4712,7 @@
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET / HTTP/1.1" 200 3842
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /css/fonts.css HTTP/1.1" 200 180
@@ -4722,7 +4722,7 @@
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET / HTTP/1.1" 200 3842
@@ -4733,7 +4733,7 @@
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:55:26 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET / HTTP/1.1" 200 3842
@@ -4744,7 +4744,7 @@
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET / HTTP/1.1" 200 3842
@@ -4755,7 +4755,7 @@
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET / HTTP/1.1" 200 3842
@@ -4766,7 +4766,7 @@
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:56:01 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:56:02 +0300] "GET /resume.pdf HTTP/1.1" 302 243
@@ -4786,7 +4786,7 @@
 127.0.0.1 - - [27/Apr/2021:02:56:35 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
 127.0.0.1 - - [27/Apr/2021:02:56:35 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:56:35 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
-127.0.0.1 - - [27/Apr/2021:02:56:35 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:56:35 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:56:35 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:56:35 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:56:42 +0300] "GET /projects HTTP/1.1" 200 1742
@@ -4804,7 +4804,7 @@
 127.0.0.1 - - [27/Apr/2021:02:57:11 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:57:11 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:57:11 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:57:11 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:57:11 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:57:11 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:57:11 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:57:12 +0300] "GET / HTTP/1.1" 200 3842
@@ -4815,7 +4815,7 @@
 127.0.0.1 - - [27/Apr/2021:02:57:12 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:57:12 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:57:12 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:57:12 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:57:12 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:57:12 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:57:12 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET / HTTP/1.1" 200 3842
@@ -4826,7 +4826,7 @@
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
-127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET / HTTP/1.1" 200 3842
@@ -4837,7 +4837,7 @@
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /img/cashtracker.png HTTP/1.1" 200 70648
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /img/jjmvc.png HTTP/1.1" 200 51684
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /img/teliacrawler.png HTTP/1.1" 200 7915
-127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:57:13 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:57:45 +0300] "GET /projects HTTP/1.1" 200 3019
@@ -4937,7 +4937,7 @@
 127.0.0.1 - - [27/Apr/2021:02:58:01 +0300] "GET /css/style.css HTTP/1.1" 200 6621
 127.0.0.1 - - [27/Apr/2021:02:58:01 +0300] "GET /js/scripts.js HTTP/1.1" 200 -
 127.0.0.1 - - [27/Apr/2021:02:58:01 +0300] "GET /js/ajax.js HTTP/1.1" 200 2
-127.0.0.1 - - [27/Apr/2021:02:58:01 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:02:58:01 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:02:58:01 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:02:58:01 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:02:58:35 +0300] "GET /resume.pdf HTTP/1.1" 302 243
@@ -5454,7 +5454,7 @@
 127.0.0.1 - - [27/Apr/2021:11:18:31 +0300] "GET /css/style.css HTTP/1.1" 200 6962
 127.0.0.1 - - [27/Apr/2021:11:18:31 +0300] "GET /css/fonts.css HTTP/1.1" 200 180
 127.0.0.1 - - [27/Apr/2021:11:18:31 +0300] "GET /js/ajax.js HTTP/1.1" 200 2
-127.0.0.1 - - [27/Apr/2021:11:18:31 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:11:18:31 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:11:18:31 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:11:18:31 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:11:19:28 +0300] "GET / HTTP/1.1" 200 2410
@@ -5462,7 +5462,7 @@
 127.0.0.1 - - [27/Apr/2021:11:19:28 +0300] "GET /js/scripts.js HTTP/1.1" 200 -
 127.0.0.1 - - [27/Apr/2021:11:19:28 +0300] "GET /css/style.css HTTP/1.1" 200 6962
 127.0.0.1 - - [27/Apr/2021:11:19:28 +0300] "GET /js/ajax.js HTTP/1.1" 200 2
-127.0.0.1 - - [27/Apr/2021:11:19:28 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:11:19:28 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:11:19:28 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:11:19:28 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:11:19:33 +0300] "GET /projects HTTP/1.1" 200 3265
@@ -5472,7 +5472,7 @@
 127.0.0.1 - - [27/Apr/2021:11:20:00 +0300] "GET /js/scripts.js HTTP/1.1" 200 -
 127.0.0.1 - - [27/Apr/2021:11:20:00 +0300] "GET /css/style.css HTTP/1.1" 200 6962
 127.0.0.1 - - [27/Apr/2021:11:20:00 +0300] "GET /js/ajax.js HTTP/1.1" 200 2
-127.0.0.1 - - [27/Apr/2021:11:20:00 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:11:20:00 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:11:20:00 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:11:20:00 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:11:20:03 +0300] "GET /projects HTTP/1.1" 200 3265
@@ -5482,7 +5482,7 @@
 127.0.0.1 - - [27/Apr/2021:11:20:39 +0300] "GET /js/scripts.js HTTP/1.1" 200 -
 127.0.0.1 - - [27/Apr/2021:11:20:39 +0300] "GET /css/style.css HTTP/1.1" 200 6963
 127.0.0.1 - - [27/Apr/2021:11:20:39 +0300] "GET /js/ajax.js HTTP/1.1" 200 2
-127.0.0.1 - - [27/Apr/2021:11:20:39 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:11:20:39 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:11:20:39 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:11:20:39 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:11:21:05 +0300] "GET / HTTP/1.1" 200 2410
@@ -5490,7 +5490,7 @@
 127.0.0.1 - - [27/Apr/2021:11:21:05 +0300] "GET /css/style.css HTTP/1.1" 200 6963
 127.0.0.1 - - [27/Apr/2021:11:21:05 +0300] "GET /js/scripts.js HTTP/1.1" 200 -
 127.0.0.1 - - [27/Apr/2021:11:21:05 +0300] "GET /js/ajax.js HTTP/1.1" 200 2
-127.0.0.1 - - [27/Apr/2021:11:21:05 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:11:21:05 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:11:21:05 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:11:21:05 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET / HTTP/1.1" 200 2410
@@ -5498,7 +5498,7 @@
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /js/scripts.js HTTP/1.1" 200 -
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /css/style.css HTTP/1.1" 200 6963
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /js/ajax.js HTTP/1.1" 200 2
-127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET / HTTP/1.1" 200 2410
@@ -5506,7 +5506,7 @@
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /css/fonts.css HTTP/1.1" 200 180
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /js/scripts.js HTTP/1.1" 200 -
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /js/ajax.js HTTP/1.1" 200 2
-127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:11:21:21 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:11:21:23 +0300] "GET /projects HTTP/1.1" 200 3265
@@ -5549,7 +5549,7 @@
 127.0.0.1 - - [27/Apr/2021:11:24:48 +0300] "GET /css/style.css HTTP/1.1" 200 6963
 127.0.0.1 - - [27/Apr/2021:11:24:48 +0300] "GET /js/scripts.js HTTP/1.1" 200 -
 127.0.0.1 - - [27/Apr/2021:11:24:48 +0300] "GET /js/ajax.js HTTP/1.1" 200 2
-127.0.0.1 - - [27/Apr/2021:11:24:48 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:11:24:48 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:11:24:48 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:11:24:48 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:11:25:05 +0300] "GET /projects/cashtracker HTTP/1.1" 200 1897
@@ -5616,7 +5616,7 @@
 127.0.0.1 - - [27/Apr/2021:11:28:35 +0300] "GET /js/scripts.js HTTP/1.1" 200 -
 127.0.0.1 - - [27/Apr/2021:11:28:35 +0300] "GET /css/style.css HTTP/1.1" 200 6974
 127.0.0.1 - - [27/Apr/2021:11:28:35 +0300] "GET /js/ajax.js HTTP/1.1" 200 2
-127.0.0.1 - - [27/Apr/2021:11:28:35 +0300] "GET /img/suorsataksi.png HTTP/1.1" 200 80382
+127.0.0.1 - - [27/Apr/2021:11:28:35 +0300] "GET /img/localhost.png HTTP/1.1" 200 80382
 127.0.0.1 - - [27/Apr/2021:11:28:35 +0300] "GET /css/fonts/Questrial-Regular.ttf HTTP/1.1" 200 61672
 127.0.0.1 - - [27/Apr/2021:11:28:35 +0300] "GET /favicon.ico HTTP/1.1" 200 1083
 127.0.0.1 - - [27/Apr/2021:11:29:10 +0300] "GET /projects HTTP/1.1" 200 3265
@@ -5956,7 +5956,7 @@
 127.0.0.1 - - [27/Apr/2021:14:03:52 +0300] "GET /projects HTTP/1.1" 200 3537
 127.0.0.1 - - [27/Apr/2021:14:03:53 +0300] "GET /projects/cashtracker HTTP/1.1" 200 3306
 127.0.0.1 - - [28/Apr/2021:12:06:08 +0300] "GET / HTTP/1.1" 200 2410
-127.0.0.1 - - [28/Apr/2021:12:06:08 +0300] "GET /img/suorsataksi.png HTTP/1.1" 304 -
+127.0.0.1 - - [28/Apr/2021:12:06:08 +0300] "GET /img/localhost.png HTTP/1.1" 304 -
 127.0.0.1 - - [28/Apr/2021:12:06:11 +0300] "GET /projects HTTP/1.1" 200 3537
 127.0.0.1 - - [28/Apr/2021:12:07:17 +0300] "GET /projects/cashtracker HTTP/1.1" 200 3306
 127.0.0.1 - - [28/Apr/2021:12:07:22 +0300] "GET /projects HTTP/1.1" 200 3537

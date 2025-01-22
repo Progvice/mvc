@@ -1,0 +1,11 @@
+{
+  "page": {
+    "url": "/palvelut/muut",
+    "hidden": true,
+    "controller": "/palvelut/muut/index.php",
+    "actions": "muut",
+    "name": "muut",
+    "title": "Muut palvelut",
+    "id": 0
+  }
+}

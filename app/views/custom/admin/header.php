@@ -5,24 +5,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="referrer" content="origin">
         <title><?= $title . ' | ' . CONFIG['server']['name'] ?></title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <?php 
-            plugin::load('core:javascript:1.0, core:css:1.0');
+            plugin::load('
+                js,
+                css,
+                templateloader
+            ');
             new Core\App\Css();
             new Core\App\Js();
+            $template = new Core\App\Template();
         ?>
+        <link rel="stylesheet" href="/css/admin.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" integrity="sha512-ELV+xyi8IhEApPS/pSj66+Jiw+sOT1Mqkzlh8ExXihe4zfqbWkxPRi8wptXIO9g73FSlhmquFlUOuMSoXz5IRw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+        <style>
+
+        </style>
     </head>
     <body>
         <header>
             <div class="logo_text">
-                <h2>MVC APPLICATION</h2>
-            </div>
-            <div class="menu">
-                <ul class="menu_ul">
-                    <li><a href="/pages">Pages</a></li>
-                    <li><a href="/configuration">Configuration</a></li>
-                    <li><a href="/controllers">Controllers</a></li>
-                    <li><a href="/plugins">Plugins</a></li>
-                </ul>
+                <h2><a href="/admin">HALLINTAPANEELI</a></h2>
             </div>
         </header>

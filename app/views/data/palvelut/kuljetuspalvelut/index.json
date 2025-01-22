@@ -1,0 +1,118 @@
+{
+    "tietolaatikot": {
+        "template": "detailbox",
+        "data": [
+            {
+                "type": "basic_w_img",
+                "data": {
+                    "title": {
+                        "data": "Kalusto"
+                    },
+                    "content": {
+                        "data": "Sinulla on mahdollisuus liikkua takseillamme kaikkina vuorokauden aikoina ja vuoden jokaisena hetken\u00e4. 12 henkil\u00f6autolla ja 23 tila-autolla tuotamme asiakkaidemme taksipalvelut. Uusia kuvia kalustostamme on tulossa piakkoin!"
+                    },
+                    "img": {
+                        "href": "/img/kalusto.jpg",
+                        "alt": "Taksiauto"
+                    }
+                }
+            },
+            {
+                "type": "basic",
+                "data": {
+                    "title": {
+                        "data": "Tilaa kyyti"
+                    },
+                    "icon": {
+                        "data": "fa fa-phone"
+                    },
+                    "button": {
+                        "data": "Soita Suorsa Taksi",
+                        "href": "tel:"
+                    },
+                    "classes": {
+                        "data": "detailbox center"
+                    }
+                }
+            },
+            {
+                "type": "basic_w_img",
+                "data": {
+                    "title": {
+                        "data": "Invataksi"
+                    },
+                    "content": {
+                        "data": "Huolehdimme, ett\u00e4 voit kulkea huoletta my\u00f6s toisetkin py\u00f6r\u00e4t alla"
+                    },
+                    "img": {
+                        "href": "/img/inva.jpg",
+                        "alt": "Taksiauto"
+                    }
+                }
+            },
+            {
+                "type": "basic",
+                "data": {
+                    "title": {
+                        "data": "Pienkuljetukset"
+                    },
+                    "content": {
+                        "data": "Suorsan pakettipalvelu pit\u00e4\u00e4 siit\u00e4 huolen ett\u00e4 l\u00e4hett\u00e4m\u00e4si paketti on m\u00e4\u00e4r\u00e4np\u00e4\u00e4ss\u00e4 kun halutaan. Tavarakuljetukset voidaan toteuttaa joko takseillamme tai yrityksemme pakettiautolla."
+                    },
+                    "icon": {
+                        "data": "fa fa-gift"
+                    },
+                    "classes": {
+                        "data": "detailbox center"
+                    }
+                }
+            },
+            {
+                "type": "basic_w_img",
+                "data": {
+                    "img": {
+                        "href": "/img/Carsport1.jpg",
+                        "alt": "Taksiauto"
+                    },
+                    "button": {
+                        "data": "Varaa Suorsa Taksi",
+                        "href": "tel:"
+                    }
+                }
+            },
+            {
+                "type": "basic",
+                "data": {
+                    "title": {
+                        "data": "Lentokentt\u00e4kuljetukset"
+                    },
+                    "content": {
+                        "data": "Suorsa Taksilla p\u00e4\u00e4set sujuvasti lentokent\u00e4lle ja lentokent\u00e4lt\u00e4 pois."
+                    },
+                    "icon": {
+                        "data": "fa fa-plane"
+                    },
+                    "classes": {
+                        "data": "detailbox center"
+                    }
+                }
+            }
+        ]
+    },
+    "isolaatikko": {
+        "template": "bigbox",
+        "data": [
+            {
+                "type": "basic",
+                "data": {
+                    "title": {
+                        "data": "Taksipalvelut"
+                    },
+                    "desc": {
+                        "data": "Olemme perinteik\u00e4s ja mukavasti kasvava oululainen taksi- ja kuljetusyritys. Toimintamme on aloitettu vuonna 1927 eli olemme Suomen vanhimpiin lukeutuva taksiyritys. Tuotamme kaikenlaiset taksipalvelut vuoden jokaisena hetken\u00e4. Yrityksess\u00e4mme ty\u00f6skentelee t\u00e4ll\u00e4 hetkell\u00e4 noin sata taksiammattilaista. Kalustoon kuuluu 11 henkil\u00f6autoa ja 22 tila-autoa. P\u00e4ivit\u00e4mme kalustoamme jatkuvasti ja se miellytt\u00e4\u00e4 hyvin asiakkaitamme sek\u00e4 kuljettajiamme. Taksiemme v\u00e4litysyhti\u00f6 on OTAXI. Etenkin uusimmat s\u00e4hk\u00f6autot ovat varsin kysyttyj\u00e4. T\u00e4ht\u00e4\u00e4mme kest\u00e4v\u00e4\u00e4n kasvuun, kokonaisuuden kehitykseen, kaluston ymp\u00e4rist\u00f6yst\u00e4v\u00e4llisyyteen ja onnistumiseen ty\u00f6ss\u00e4mme. Tervetuloa Suorsan matkaan!"
+                    }
+                }
+            }
+        ]
+    }
+}

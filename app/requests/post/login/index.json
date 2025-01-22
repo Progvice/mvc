@@ -1,0 +1,11 @@
+{
+  "page": {
+    "url": "/post/login",
+    "hidden": true,
+    "controller": "/post/login/index.php",
+    "actions": "login",
+    "name": "login",
+    "title": "Login",
+    "id": 0
+  }
+}

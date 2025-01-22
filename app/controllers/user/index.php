@@ -1,11 +1,12 @@
 <?php
     class userController extends Controller {
         public function user() {
-            plugin::load('response');
+            plugin::load('response, templateloader');
+            $template = new \Core\App\Template;
             $response = new Core\App\Response;
             $response->Send('json', [
                 'status' => true,
-                'message' => 'user is working!'
+                'msg' => 'User is working!'
             ]);
         }
         public function getUserByID() {
@@ -13,8 +14,7 @@
             $response = new Core\App\Response;
             $response->Send('json', [
                 'status' => true,
-                'message' => 'Parameters are working',
-                'params' => $this->params
+                'msg' => 'User is working!'
             ]);
         }
     }

@@ -1,0 +1,10 @@
+        {
+            "page": 
+            {
+                "url" : "/appointments/read",
+                "controller" : "/appointments/read/index.php",
+                "actions" : "appointments",
+                "name" : "appointments",
+                "title" : "appointments"
+            }
+        }

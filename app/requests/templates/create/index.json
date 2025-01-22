@@ -1,0 +1,10 @@
+        {
+            "page": 
+            {
+                "url" : "/templates/create",
+                "controller" : "/templates/create/index.php",
+                "actions" : "templates",
+                "name" : "templates",
+                "title" : "templates"
+            }
+        }

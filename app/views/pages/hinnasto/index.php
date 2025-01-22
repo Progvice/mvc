@@ -1,0 +1,1 @@
+<?php echo $templatedata['hinnasto_kuljetus']; ?>

@@ -1,0 +1,21 @@
+{
+    "page": {
+      "url": "/admin/users",
+      "hidden": true,
+      "controller": "/admin/users/index.php",
+      "actions": "users",
+      "name": "users",
+      "title": "users",
+      "id": 0,
+      "params": {
+        "id": {
+            "method": "getUserByID",
+            "view": "userview"
+        },
+        "update": {
+          "method": "updateUser"
+        }
+      }
+    }
+  }
+  

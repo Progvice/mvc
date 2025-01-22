@@ -14,40 +14,40 @@ class Js {
                 if(isset($js_file->normal)) {
                     foreach($js_file->normal as $file) {
                         if(filter_var($file, FILTER_VALIDATE_URL)) {
-                            $js_scripts .= '<script src="' . $file . '" type="text/javascript"></script>' . "\n";
+                            $js_scripts .= '        <script src="' . $file . '" type="text/javascript"></script>' . "\n";
                         }
                         else {
-                            $js_scripts .= '<script src="/js/' . $file . '" type="text/javascript"></script>' . "\n";
+                            $js_scripts .= '        <script src="/js/' . $file . '" type="text/javascript"></script>' . "\n";
                         }
                     }
                 }
                 else if(isset($js_file->async)) {
                     foreach($js_file->async as $file) {
                         if(filter_var($file, FILTER_VALIDATE_URL)) {
-                            $js_scripts .= '<script src="' . $file . '" type="text/javascript" async></script>' . "\n";
+                            $js_scripts .= '        <script src="' . $file . '" type="text/javascript" async></script>' . "\n";
                         }
                         else {
-                            $js_scripts .= '<script src="/js/' . $file . '" type="text/javascript" async></script>' . "\n";
+                            $js_scripts .= '        <script src="/js/' . $file . '" type="text/javascript" async></script>' . "\n";
                         }
                     }
                 }
                 else if(isset($js_file->defer)) {
                     foreach($js_file->defer as $file) {
                         if(filter_var($file, FILTER_VALIDATE_URL)) {
-                            $js_scripts .= '<script src="' . $file . '" type="text/javascript"></script>' . "\n";
+                            $js_scripts .= '        <script src="' . $file . '" type="text/javascript"></script>' . "\n";
                         }
                         else {
-                            $js_scripts .= '<script src="/js/' . $file . '" type="text/javascript"></script>' . "\n";
+                            $js_scripts .= '        <script src="/js/' . $file . '" type="text/javascript"></script>' . "\n";
                         }
                     }
                 }
                 else if(isset($js_file->asfer)) {
                     foreach($js_file->asfer as $file) {
                         if(filter_var($file, FILTER_VALIDATE_URL)) {
-                            $js_scripts .= '<script src="' . $file . '" type="text/javascript" async defer></script>' . "\n";
+                            $js_scripts .= '        <script src="' . $file . '" type="text/javascript" async defer></script>' . "\n";
                         }
                         else {
-                            $js_scripts .= '<script src="/js/' . $file . '" type="text/javascript" async defer></script>' . "\n";
+                            $js_scripts .= '        <script src="/js/' . $file . '" type="text/javascript" async defer></script>' . "\n";
                         }
                     }
                 }
@@ -58,40 +58,40 @@ class Js {
                         if(isset($js_file->normal)) {
                             foreach($js_file->normal as $file) {
                                 if(filter_var($file, FILTER_VALIDATE_URL)) {
-                                    $js_scripts .= '<script src="' . $file . '" type="text/javascript"></script>' . "\n";
+                                    $js_scripts .= '        <script src="' . $file . '" type="text/javascript"></script>' . "\n";
                                 }
                                 else {
-                                    $js_scripts .= '<script src="/js/' . $file . '" type="text/javascript"></script>' . "\n";
+                                    $js_scripts .= '        <script src="/js/' . $file . '" type="text/javascript"></script>' . "\n";
                                 }
                             }
                         }
                         else if(isset($js_file->async)) {
                             foreach($js_file->async as $file) {
                                 if(filter_var($file, FILTER_VALIDATE_URL)) {
-                                    $js_scripts .= '<script src="' . $file . '" type="text/javascript" async></script>' . "\n";
+                                    $js_scripts .= '        <script src="' . $file . '" type="text/javascript" async></script>' . "\n";
                                 }
                                 else {
-                                    $js_scripts .= '<script src="/js/' . $file . '" type="text/javascript" async></script>' . "\n";
+                                    $js_scripts .= '        <script src="/js/' . $file . '" type="text/javascript" async></script>' . "\n";
                                 }
                             }
                         }
                         else if(isset($js_file->defer)) {
                             foreach($js_file->defer as $file) {
                                 if(filter_var($file, FILTER_VALIDATE_URL)) {
-                                    $js_scripts .= '<script src="' . $file . '" type="text/javascript"></script>' . "\n";
+                                    $js_scripts .= '        <script src="' . $file . '" type="text/javascript"></script>' . "\n";
                                 }
                                 else {
-                                    $js_scripts .= '<script src="/js/' . $file . '" type="text/javascript"></script>' . "\n";
+                                    $js_scripts .= '        <script src="/js/' . $file . '" type="text/javascript"></script>' . "\n";
                                 }
                             }
                         }
                         else if(isset($js_file->asfer)) {
                             foreach($js_file->asfer as $file) {
                                 if(filter_var($file, FILTER_VALIDATE_URL)) {
-                                    $js_scripts .= '<script src="' . $file . '" type="text/javascript" async defer></script>' . "\n";
+                                    $js_scripts .= '        <script src="' . $file . '" type="text/javascript" async defer></script>' . "\n";
                                 }
                                 else {
-                                    $js_scripts .= '<script src="/js/' . $file . '" type="text/javascript" async defer></script>' . "\n";
+                                    $js_scripts .= '        <script src="/js/' . $file . '" type="text/javascript" async defer></script>' . "\n";
                                 }
                             }
                         }

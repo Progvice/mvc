@@ -1,0 +1,158 @@
+{
+  "employees": {
+    "template": "employees",
+    "data": [
+      {
+        "type": "employee",
+        "data": {
+          "img": {
+            "href": "/img/default_profile.png",
+            "alt": "Default profile picture"
+          },
+          "name": {
+            "data": "Kimmo Suorsa"
+          },
+          "role": {
+            "data": "Suurvisiiri"
+          }
+        }
+      },
+      {
+        "type": "employee",
+        "data": {
+          "img": {
+            "href": "/img/default_profile.png",
+            "alt": "Default profile picture"
+          },
+          "name": {
+            "data": "Jani Juuso"
+          },
+          "role": {
+            "data": "Web kehitt\u00e4j\u00e4"
+          }
+        }
+      },
+      {
+        "type": "employee",
+        "data": {
+          "img": {
+            "href": "/img/default_profile.png",
+            "alt": "Default profile picture"
+          },
+          "name": {
+            "data": "Jarmo Jarmonen"
+          },
+          "role": {
+            "data": "P\u00e4\u00e4likk\u00f6"
+          }
+        }
+      },
+      {
+        "type": "employee",
+        "data": {
+          "img": {
+            "href": "/img/default_profile.png",
+            "alt": "Default profile picture"
+          },
+          "name": {
+            "data": "Jarmo Jarmonen"
+          },
+          "role": {
+            "data": "P\u00e4\u00e4likk\u00f6"
+          }
+        }
+      },
+      {
+        "type": "employee",
+        "data": {
+          "img": {
+            "href": "/img/default_profile.png",
+            "alt": "Default profile picture"
+          },
+          "name": {
+            "data": "Jarmo Jarmonen"
+          },
+          "role": {
+            "data": "P\u00e4\u00e4likk\u00f6"
+          }
+        }
+      }
+    ]
+  },
+  "laskutustiedot": {
+    "template": "infobox",
+    "data": [
+      {
+        "type": "basic",
+        "data": {
+          "title": {
+            "data": "Laskutustiedot"
+          },
+          "list": [
+            {
+              "title": "Nimi",
+              "value": "Suorsa Taksi & Kuljetus Oy"
+            },
+            {
+              "title": "Verkkolaskuosoite",
+              "value": "003726268275"
+            },
+            {
+              "title": "Operaattoritunnus",
+              "value": "003721291126"
+            },
+            {
+              "title": "V\u00e4litt\u00e4j\u00e4",
+              "value": "Mavento"
+            }
+          ],
+          "classes": {
+            "data": "billing_info"
+          }
+        }
+      },
+      {
+        "type": "basic",
+        "data": {
+          "title": {
+            "data": "Tietoa meist\u00e4"
+          },
+          "list": [
+            {
+              "title": "Osoite",
+              "value": "Ratamotie 24 Halli 25, Oulu 90580"
+            },
+            {
+              "title": "S\u00e4hk\u00f6posti",
+              "value": "tilaus(at)localhost"
+            },
+            {
+              "title": "Y-tunnus",
+              "value": "2626827-5"
+            }
+          ],
+          "classes": {
+            "data": "billing_info"
+          }
+        }
+      }
+    ]
+  },
+  "isolaatikko": {
+    "template": "bigbox",
+    "data": [
+      {
+        "type": "img",
+        "data": {
+          "title": {
+            "data": "YHTEYSTIEDOT"
+          },
+          "bgimg": {
+            "alt": "Kuva ty\u00f6yhteis\u00f6st\u00e4",
+            "href": "/img/moderni.jpg"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "page": {
+    "url": "/palvelut/kuljetuspalvelut",
+    "hidden": true,
+    "controller": "/palvelut/kuljetuspalvelut/index.php",
+    "actions": "kuljetuspalvelut",
+    "name": "kuljetuspalvelut",
+    "title": "Kuljetuspalvelut",
+    "id": 0
+  }
+}

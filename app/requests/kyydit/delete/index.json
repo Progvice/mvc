@@ -1,0 +1,10 @@
+        {
+            "page": 
+            {
+                "url" : "/kyydit/delete",
+                "controller" : "/kyydit/delete/index.php",
+                "actions" : "kyydit",
+                "name" : "kyydit",
+                "title" : "kyydit"
+            }
+        }

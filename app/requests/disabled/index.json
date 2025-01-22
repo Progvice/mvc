@@ -1,0 +1,10 @@
+{
+    "page": 
+    {
+        "url" : "/disabled",
+        "controller" : "/disabled/index.php",
+        "actions" : "disabled",
+        "name" : "disabled",
+        "title" : "Sivu ei käytössä"
+    }
+}

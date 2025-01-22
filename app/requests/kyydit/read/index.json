@@ -1,0 +1,10 @@
+        {
+            "page": 
+            {
+                "url" : "/kyydit/read",
+                "controller" : "/kyydit/read/index.php",
+                "actions" : "kyydit",
+                "name" : "kyydit",
+                "title" : "kyydit"
+            }
+        }

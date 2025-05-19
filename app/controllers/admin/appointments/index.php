@@ -1,5 +1,8 @@
 <?php 
 
+use Core\App\Models\MainModel;
+use Core\App\View;
+use Core\App\Template;
 use Core\App\Auth;
 
 class appointmentsController extends Controller {
@@ -49,12 +52,12 @@ class appointmentsController extends Controller {
             42 => 17.75,
             43 => 18
         ];
-        plugin::load('view, templateloader, models, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('view, templateloader, models, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        $model = new Core\App\Models\MainModel();
+        $model = new MainModel();
         $model->CallModel('appointments');
         $date = date_create(date('Y-m-d'));
         date_sub($date, date_interval_create_from_date_string("1 days"));
@@ -66,20 +69,19 @@ class appointmentsController extends Controller {
                 ]
             ]
         ]);
-        $view = new Core\App\View;
-        $template = new Core\App\Template();
+        $view = new View;
         $view->customelements = [
             'header' => 'admin',
             'footer' => 'admin'
         ];
         $finalAppointments = [];
-        foreach($appointments as $appointment) {
-            foreach($appointment as $column => $value) {
-                if($column === 'slot_from') {
+        foreach ($appointments as $appointment) {
+            foreach ($appointment as $column => $value) {
+                if ($column === 'slot_from') {
                     $slot_from_arr = $times[$value];
                     $appointment['slot_from'] = sprintf('%02d:%02d:%02d', (($slot_from_arr*3600) / 3600), (($slot_from_arr*3600) / 60 % 60), (($slot_from_arr*3600) % 60));
                 }
-                else if($column === 'slot_to') {
+                else if ($column === 'slot_to') {
                     $slot_val = $value;
                     $slot_to_arr = $times[$slot_val];
                     $appointment['slot_to'] = sprintf('%02d:%02d:%02d', (($slot_to_arr*3600) / 3600), (($slot_to_arr*3600) / 60 % 60), (($slot_to_arr*3600) % 60));
@@ -93,16 +95,16 @@ class appointmentsController extends Controller {
         $view->index($this->view);
     }
     function viewAppointment() {
-        plugin::load('view, templateloader, models, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('view, templateloader, models, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        if(!Auth::CheckPerm('appointment_other')) {
+        if (!Auth::CheckPerm('appointment_other')) {
             header('Location: /admin/forbidden');
             return;
         }
-        $model = new Core\App\Models\MainModel();
+        $model = new MainModel();
         $model->CallModel('appointments');
         $appointment = $model->Select([
             'values' => [
@@ -156,12 +158,12 @@ class appointmentsController extends Controller {
             42 => 17.75,
             43 => 18
         ];
-        foreach($appointment[0] as $column => $value) {
-            if($column === 'slot_from') {
+        foreach ($appointment[0] as $column => $value) {
+            if ($column === 'slot_from') {
                 $slot_from_arr = $times[$value];
                 $appointment[0]['slot_from'] = sprintf('%02d:%02d:%02d', (($slot_from_arr*3600) / 3600), (($slot_from_arr*3600) / 60 % 60), (($slot_from_arr*3600) % 60));
             }
-            else if($column === 'slot_to') {
+            else if ($column === 'slot_to') {
                 $slot_val = $value;
                 $slot_to_arr = $times[$slot_val];
                 $appointment[0]['slot_to'] = sprintf('%02d:%02d:%02d', (($slot_to_arr*3600) / 3600), (($slot_to_arr*3600) / 60 % 60), (($slot_to_arr*3600) % 60));
@@ -177,7 +179,7 @@ class appointmentsController extends Controller {
                 ]
             ]
         ]);
-        $view = new Core\App\View;
+        $view = new View();
         $view->customelements = [
             'header' => 'admin',
             'footer' => 'admin'

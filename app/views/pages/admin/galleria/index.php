@@ -5,7 +5,7 @@
     </div>
     <div class="admin_boxes">
         <?php
-        foreach($gallery as $gal) {
+        foreach ($gallery as $gal) {
             $udc = $gal['gname'];
             echo <<<EOS
             <div class="a_box">

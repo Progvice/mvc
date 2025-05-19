@@ -6,7 +6,7 @@
     </div>
     <?php
         $list = '';
-        foreach($sitedata as $sitename => $sdata) {
+        foreach ($sitedata as $sitename => $sdata) {
             $snamearr = explode('/', $sitename);
             $snamefinal = implode('_', $snamearr);
             $list .= <<<EOS

@@ -25,8 +25,8 @@ class prices extends Template {
                 <th>Lisätieto</th>
             </tr>
         EOS;
-        if(isset($data->price) && is_array($data->price)) {
-            foreach($data->price as $price) {
+        if (isset($data->price) && is_array($data->price)) {
+            foreach ($data->price as $price) {
                 $name = isset($price->name) && !empty($price->name) ? $price->name : '';
                 $desc = isset($price->desc) && !empty($price->desc) ? $price->desc : '';
                 $price = isset($price->value) && !empty($price->value) ? '<span class="pricetag">' . $price->value . '</span>' : '';

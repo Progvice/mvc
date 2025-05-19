@@ -26,7 +26,7 @@ namespace Glafuski;
 class WeiTo {
     public function Ether($number) {
         $calc = 19 - strlen($number);
-        if($calc <= 0) {
+        if ($calc <= 0) {
             /*
              *
              *  This code sets decimal point to right spot. Code returns at this point
@@ -39,10 +39,10 @@ class WeiTo {
             $final_number = $intnumber . '.' . $decimalnumber;
             return $final_number;
         }
-        else if($calc === 1) {
+        else if ($calc === 1) {
             $zeroes = '0.';
         }
-        else if($calc > 1) {
+        else if ($calc > 1) {
             $zeroes = '';
             $runonce = false;
             for($counter = 0; $counter < $calc; $counter++) {
@@ -51,7 +51,7 @@ class WeiTo {
                  *  This code needs to run only once
                  *
                  */
-                if($runonce === false) {
+                if ($runonce === false) {
                     $zeroes .= '0.';
                     $runonce = true;
                 }

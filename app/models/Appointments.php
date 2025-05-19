@@ -1,5 +1,7 @@
 <?php
+
 namespace Core\App\Models;
+
 class Appointments extends MainModel {
     protected $rules;
     public function __construct() {

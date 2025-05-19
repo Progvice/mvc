@@ -2,7 +2,7 @@
 
 namespace Core\App;
 
-class ReCaptcha
+class ReCaptcha3
 {
     public function Confirm($client_token)
     {

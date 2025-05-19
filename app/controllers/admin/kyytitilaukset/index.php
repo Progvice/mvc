@@ -1,17 +1,21 @@
 <?php
 
 use Core\App\Auth;
+use Core\App\Response;
+use Core\App\Models\MainModel;
+use Core\App\View;
+use Core\App\Template;
 
 class kyytitilauksetController extends Controller
 {
     public function kyytitilaukset()
     {
-        plugin::load('view, templateloader, models, auth');
+        Plugin::load('view, templateloader, models, auth');
         if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        $models = new Core\App\Models\MainModel();
+        $models = new MainModel();
         $models->CallModel('Guestrides');
         // ua = unaccepted
         $date = date_create(date('Y-m-d'));
@@ -39,8 +43,8 @@ class kyytitilauksetController extends Controller
                     break;
             }
         }
-        $view = new Core\App\View;
-        $template = new Core\App\Template();
+        $view = new View;
+        $template = new Template();
         $view->customelements = [
             'header' => 'admin',
             'footer' => 'admin'
@@ -54,12 +58,12 @@ class kyytitilauksetController extends Controller
     }
     public function getRideDetails()
     {
-        plugin::load('view, models, auth');
+        Plugin::load('view, models, auth');
         if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        $model = new Core\App\Models\MainModel();
+        $model = new MainModel();
         $model->CallModel('guestrides');
         $order = $model->Select([
             'values' => [
@@ -68,7 +72,7 @@ class kyytitilauksetController extends Controller
                 ]
             ]
         ]);
-        $view = new Core\App\View();
+        $view = new View();
         $view->customelements = [
             'header' => 'admin',
             'footer' => 'admin'
@@ -80,8 +84,8 @@ class kyytitilauksetController extends Controller
     }
     public function rejectRide()
     {
-        plugin::load('models, response, auth, email');
-        $response = new Core\App\Response();
+        Plugin::load('models, response, auth, email');
+        $response = new Response();
         if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
@@ -95,7 +99,7 @@ class kyytitilauksetController extends Controller
         }
         $data = json_decode(file_get_contents('php://input'), true);
         $reason = $data['reason'];
-        $models = new Core\App\Models\MainModel();
+        $models = new MainModel();
         $models->CallModel('guestrides');
         $orderid = $models->Select([
             'columns' => 'email, order_date, order_time',
@@ -150,13 +154,13 @@ class kyytitilauksetController extends Controller
     }
     public function acceptRide()
     {
-        plugin::load('models, auth, response, email');
+        Plugin::load('models, auth, response, email');
         if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        $response = new Core\App\Response();
-        $models = new Core\App\Models\MainModel();
+        $response = new Response();
+        $models = new MainModel();
         $models->CallModel('guestrides');
         $orderid = $models->Select([
             'columns' => 'email, order_date, order_time',

@@ -1,11 +1,12 @@
 <?php 
 
 namespace Core\App;
+use Core\App\Models\MainModel;
 
 class Gallery {
     public function LoadGallery($gallery) {
-        \plugin::load('models');
-        $models = new Models\MainModel();
+        \Plugin::load('models');
+        $models = new MainModel();
         $models->CallModel('galleryimg');
         $gallery = $models->Select([
             'values' => [
@@ -17,8 +18,8 @@ class Gallery {
         return $gallery;
     }
     public function ListGalleries() {
-        \plugin::load('models');
-        $models = new Models\MainModel();
+        \Plugin::load('models');
+        $models = new MainModel();
         $models->CallModel('gallery');
         $galleries = $models->Select();
         return $galleries;

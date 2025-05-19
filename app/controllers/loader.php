@@ -10,13 +10,13 @@
 
     Example:
 
-    plugin::load('plugin_name, plugin_name2');
+    Plugin::load('plugin_name, plugin_name2');
 
     Developer is able to call for multiple plugins on same call without
     using load function multiple times. It also makes it easier to
     create cleaner code. 
 
-    plugin::load('
+    Plugin::load('
         plugin_name,
         plugin_name2,
         plugin_name3,
@@ -49,7 +49,7 @@ class Plugin {
         *
     *****/
     public static function json_load() {
-        if(self::$json === null && empty(self::$json)) {
+        if (self::$json === null && empty(self::$json)) {
             self::$json = json_decode(file_get_contents(PLUGIN_PATH . '/plugins.json'));
         }
     }
@@ -70,19 +70,19 @@ class Plugin {
         $aliases = json_decode(file_get_contents(PLUGIN_PATH . '/plugin_aliases.json'));
         foreach ($name_param as $name) {
             $name = trim($name);
-            foreach($aliases as $aliasname => $plugin) {
-                if($aliasname === $name) {
+            foreach ($aliases as $aliasname => $plugin) {
+                if ($aliasname === $name) {
                     $name = $plugin;
                 }
             }
             $plugin = explode(':', $name);
-            if(count($plugin) < 3) {
+            if (count($plugin) < 3) {
 
             }
             $author = $plugin[0];
             $pname = $plugin[1];
             $version = $plugin[2];
-            if(empty(self::$json->$author->$pname->$version)) {
+            if (empty(self::$json->$author->$pname->$version)) {
                 echo '<!-- Error: Could not load: ' . $author . ':' .$pname . ':' . $version . '. Plugin does not exist. -->';
                 continue;
             }
@@ -97,11 +97,11 @@ class Plugin {
     *****/
     public function loadall_dependencies() {
         self::json_load();
-        foreach(self::$json as $plugin) {
-            if(isset($plugin->dependencies)) {
-                foreach($plugin->dependencies as $dependency) {
+        foreach (self::$json as $plugin) {
+            if (isset($plugin->dependencies)) {
+                foreach ($plugin->dependencies as $dependency) {
                     $dname = $dependency->name;
-                    if(empty(self::$json->$dname)) {
+                    if (empty(self::$json->$dname)) {
                         $plugin = [
                             "name" => $dependency->name,
                             "version" => $dependency->version,
@@ -136,7 +136,7 @@ class Plugin {
             $file = file_get_contents('http://jjmvc.net/package?plugin=' . $plugin['name'] . '&v=' . $plugin['version'] . '&author=' . $plugin['author']);
         }
         catch(Exception $e) {
-            if($file === FALSE) {
+            if ($file === FALSE) {
                 echo 'Failed to fetch plugin from package server.<br>';
             }
         }

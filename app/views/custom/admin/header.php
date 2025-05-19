@@ -6,14 +6,14 @@
         <meta name="referrer" content="origin">
         <title><?= $title . ' | ' . CONFIG['server']['name'] ?></title>
         <?php 
-            plugin::load('
+            Plugin::load('
                 js,
                 css,
                 templateloader
             ');
             new Core\App\Css();
             new Core\App\Js();
-            $template = new Core\App\Template();
+            $template = new Template();
         ?>
         <link rel="stylesheet" href="/css/admin.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

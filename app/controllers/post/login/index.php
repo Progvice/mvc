@@ -1,5 +1,10 @@
 <?php
 
+use Core\App\Models\MainModel;
+use Core\App\Response;
+use Core\App\UUID;
+use Core\App\ReCaptcha3;
+
 class loginController extends Controller
 {
     public function login()
@@ -8,9 +13,9 @@ class loginController extends Controller
             header('Location: /');
             return;
         }
-        plugin::load('response, models, recaptcha');
-        $response = new Core\App\Response();
-        $recaptcha = new Core\App\Recaptcha();
+        Plugin::load('response, models, recaptcha');
+        $response = new Response();
+        $recaptcha = new Recaptcha3();
         $data = json_decode(file_get_contents("php://input"));
         $recaptcha_verify = $recaptcha->Confirm($data->token);
         if (empty($_COOKIE['consent'])) {
@@ -32,7 +37,7 @@ class loginController extends Controller
             ]);
             return;
         }
-        $models = new Core\App\Models\MainModel();
+        $models = new MainModel();
         $models->CallModel('users');
         $userdata = $models->Select([
             'values' => [
@@ -72,8 +77,8 @@ class loginController extends Controller
             ]
         ]);
         if (count($loginattempts) < 1) {
-            plugin::load('uuid');
-            $uuid = new Core\App\UUID();
+            Plugin::load('uuid');
+            $uuid = new UUID();
             $models->Insert([
                 'uuid' => $uuid->Create(),
                 'userid' => $userdata[0]['uuid'],

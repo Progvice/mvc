@@ -8,7 +8,7 @@
 </div>
 <div class="profile_content column">
     <?php
-    if(isset($appointment)) {
+    if (isset($appointment)) {
         $orderid = $appointment['uuid'];
         $title = LANG[$appointment['title']] ?? $appointment['title'];
         $desc = $appointment['description'];

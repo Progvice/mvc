@@ -1,14 +1,18 @@
 <?php 
 
+use Core\App\Models\MainModel;
+use Core\App\View;
+use Core\App\Response;
+
 class kyytitilauksetController extends Controller {
     public function kyytitilaukset() {
-        if(!isset($_SESSION['login'])) {
+        if (!isset($_SESSION['login'])) {
             header('Location: /login');
             return;
         }
-        plugin::load('view, models');
+        Plugin::load('view, models');
 
-        $models = new Core\App\Models\MainModel();
+        $models = new MainModel();
         $models->CallModel('guestrides');
         $rides = $models->Select([
             'values' => [
@@ -17,16 +21,16 @@ class kyytitilauksetController extends Controller {
                 ]
             ]
         ]);
-        $view = new Core\App\View();
+        $view = new View();
         $view->variables = [
             'rides' => $rides
         ];
         $view->index($this->view);
     }
     public function getUsersOrders() {
-        plugin::load('view, models');
-        $view = new Core\App\View();
-        $models = new Core\App\Models\MainModel();
+        Plugin::load('view, models');
+        $view = new View();
+        $models = new MainModel();
         $models->CallModel('guestrides');
         $ride = $models->Select([
             'values' => [
@@ -35,12 +39,12 @@ class kyytitilauksetController extends Controller {
                 ]
             ]
         ]);
-        if(!isset($_SESSION['login'])) {
+        if (!isset($_SESSION['login'])) {
             header('Location: /404');
         }
-        if($ride[0]['userid'] !== $_SESSION['login']['uuid']) {
-            plugin::load('response');
-            $response = new Core\App\Response();
+        if ($ride[0]['userid'] !== $_SESSION['login']['uuid']) {
+            Plugin::load('response');
+            $response = new Response();
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Unauthorized access'

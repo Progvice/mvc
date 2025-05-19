@@ -1,21 +1,24 @@
 <?php
-    class userController extends Controller {
-        public function user() {
-            plugin::load('response, templateloader');
-            $template = new \Core\App\Template;
-            $response = new Core\App\Response;
-            $response->Send('json', [
-                'status' => true,
-                'msg' => 'User is working!'
-            ]);
-        }
-        public function getUserByID() {
-            plugin::load('response');
-            $response = new Core\App\Response;
-            $response->Send('json', [
-                'status' => true,
-                'msg' => 'User is working!'
-            ]);
-        }
+
+use Core\App\Response;
+
+class userController extends Controller {
+    public function user() {
+        Plugin::load('response, templateloader');
+        $template = new \Core\App\Template;
+        $response = new Response;
+        $response->Send('json', [
+            'status' => true,
+            'msg' => 'User is working!'
+        ]);
     }
+    public function getUserByID() {
+        Plugin::load('response');
+        $response = new Response;
+        $response->Send('json', [
+            'status' => true,
+            'msg' => 'User is working!'
+        ]);
+    }
+}
 ?>

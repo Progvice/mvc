@@ -3,7 +3,7 @@
         <a href="javascript:history.go(-1)" class="admin_info_btn">Edellinen sivu</a>
         <h1>Käyttöoikeudet</h1>
         <p>Tällä sivulla voit hallinnoida eri käyttöoikeuksia.</p>
-        <?php if($perm_create) {
+        <?php if ($perm_create) {
             echo '<a href="#" class="admin_info_btn" id="addRole">Lisää rooli</a>';
          } 
          ?>
@@ -12,8 +12,8 @@
     </div>
     <div class="admin_boxes">
         <?php
-            if(isset($perms)) {
-                foreach($perms as $perm) {
+            if (isset($perms)) {
+                foreach ($perms as $perm) {
                     $urlname = urlencode($perm['perm_name']);
                     $name = $perm['perm_name'];
                     echo <<<EOS
@@ -28,7 +28,7 @@
             }
         ?>
     </div>
-    <?php if($perm_create) { ?>
+    <?php if ($perm_create) { ?>
         <div class="modal center section-12">
             <div class="modal_close">Sulje</div>
             <div class="modal_content section-12 center">

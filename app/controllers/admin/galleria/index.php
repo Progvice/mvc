@@ -1,17 +1,20 @@
 <?php
 
 use Core\App\Auth;
+use Core\App\View;
+use Core\App\Models\MainModel;
+use Core\App\Response;
 
 class galleriaController extends Controller {
     public function galleria() {
-        plugin::load('view, gallery, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('view, gallery, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
         $gallery = new Core\App\Gallery();
         $gallery_test = $gallery->ListGalleries();
-        $view = new Core\App\View();
+        $view = new View();
         $view->customelements = [
             'header' => 'admin',
             'footer' => 'admin'
@@ -22,18 +25,18 @@ class galleriaController extends Controller {
         $view->index($this->view);
     }
     public function viewGallery() {
-        plugin::load('view, models, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('view, models, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        $view = new Core\App\View;
+        $view = new View;
         $view->customelements = [
             'header' => 'admin',
             'footer' => 'admin'
         ];
         $gallery_name = urldecode($this->params[0]);
-        $models = new Core\App\Models\MainModel();
+        $models = new MainModel();
         // Check if gallery exists
         $models->CallModel('gallery');
         $gallerycheck = $models->Select([
@@ -43,7 +46,7 @@ class galleriaController extends Controller {
                 ]
             ]
         ]);
-        if(count($gallerycheck) < 1) {
+        if (count($gallerycheck) < 1) {
             $view->variables = [
                 'status' => false,
                 'gexists' => false,
@@ -60,7 +63,7 @@ class galleriaController extends Controller {
                 ]
             ]
         ]);
-        if(count($images) < 1) {
+        if (count($images) < 1) {
             $view->variables = [
                 'status' => false,
                 'gexists' => true,
@@ -79,20 +82,20 @@ class galleriaController extends Controller {
         $view->index($this->view);
     }
     public function removeImage() {
-        plugin::load('models, response, auth');
-        $response = new Core\App\Response();
-        if($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
+        Plugin::load('models, response, auth');
+        $response = new Response();
+        if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
             $response->Send('json', [
                 'status' => false,
                 'msg' => LANG['invalidmethod']
             ]);
             return;
         }
-        if(!Auth::CheckPerm('admin_access')) {
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        $models = new Core\App\Models\MainModel();
+        $models = new MainModel();
         $models->CallModel('galleryimg');
         $imgdata = $models->Select([
             'values' => [
@@ -101,14 +104,14 @@ class galleriaController extends Controller {
                 ]
             ]
         ]);
-        if(count($imgdata) < 1) {
+        if (count($imgdata) < 1) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => LANG['gallery']['imgnotexist']
             ]);
             return;
         }
-        if(file_exists(APP_PATH . '/../public' . $imgdata[0]['imgpath'])) {
+        if (file_exists(APP_PATH . '/../public' . $imgdata[0]['imgpath'])) {
             unlink(APP_PATH . '/../public' . $imgdata[0]['imgpath']);
         }
         $deleteImage = $models->Delete([
@@ -123,12 +126,12 @@ class galleriaController extends Controller {
 
     }
     public function addImage() {
-        plugin::load('view, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('view, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        $view = new Core\App\View();
+        $view = new View();
         $view->customelements = [
             'header' => 'admin',
             'footer' => 'admin'

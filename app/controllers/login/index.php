@@ -1,13 +1,15 @@
 <?php
 
+use Core\App\View;
+
 class loginController extends Controller {
     public function login() {
-        if(isset($_SESSION['login'])) {
+        if (isset($_SESSION['login'])) {
             header('Location: /profiili');
             return;
         }
-        plugin::load('view');
-        $view = new Core\App\View();
+        Plugin::load('view');
+        $view = new View();
         $view->customelements = [
             'header' => 'empty',
             'footer' => 'empty'

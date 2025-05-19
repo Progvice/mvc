@@ -1,5 +1,5 @@
-<?php echo $templateData->getBlock('isolaatikko') ?>
+<?php echo $template->getBlock('isolaatikko') ?>
 <div class="employee_list detailbox_container">
-    <!-- <?php echo $templateData->getBlock('employees') ?> -->
+    <!-- <?php echo $template->getBlock('employees') ?> -->
 </div>
-<?php echo $templateData->getBlock('laskutustiedot'); ?>
+<?php echo $template->getBlock('laskutustiedot'); ?>

@@ -50,7 +50,7 @@
                 42 => 17.75,
                 43 => 18
             ];
-            foreach($appointments as $appointment) {
+            foreach ($appointments as $appointment) {
                 $appointment_date = date('d.m.Y', strtotime($appointment['appointment_day']));
                 $from_clock = $appointment['slot_from'];
                 $to_clock = $appointment['slot_to'];

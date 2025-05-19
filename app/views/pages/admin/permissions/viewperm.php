@@ -3,15 +3,15 @@
         <h1>Käyttöoikeudet <?php echo isset($perm[0]['perm_name']) ? '- ' . $perm[0]['perm_name'] : '' ?></h1>
         <p>Tällä sivulla voit hallinnoida eri käyttöoikeuksia.</p>
         <a href="javascript:history.go(-1)" class="admin_info_btn">Edellinen sivu</a>
-    <?php if(isset($error)) { ?>
+    <?php if (isset($error)) { ?>
         <h1>Käyttöoikeutta ei löydy</h1>
     <?php } ?>
 
-    <?php if(isset($perm)) { ?>
+    <?php if (isset($perm)) { ?>
             <form class="changeperms" id="changeperms" action="/admin/permissions/modify/send" method="post">
                 <?php
-                    foreach($perm[0] as $key => $value) {
-                        if($key !== 'perm_name' && $key !== 'perm_priority') { 
+                    foreach ($perm[0] as $key => $value) {
+                        if ($key !== 'perm_name' && $key !== 'perm_priority') { 
                             $checked = $value ? 'checked' : '';
                             $name = LANG['perms'][$key];
                             echo <<<EOS
@@ -21,12 +21,12 @@
                             </div>
                             EOS;
                         }
-                        if($key === 'perm_name') {
+                        if ($key === 'perm_name') {
                             echo <<<EOS
                                 <input type="hidden" value="{$value}" id="{$key}"/>
                             EOS;
                         }
-                        if($key === 'perm_priority') {
+                        if ($key === 'perm_priority') {
                             $name = LANG['perms'][$key];
                             echo <<<EOS
                                 <div class="perms">
@@ -50,7 +50,7 @@
         $("#deleteperm").click((e) => {
             e.preventDefault();
             const confirmation = confirm('Oletko varma, että haluat poistaa ryhmän?');
-            if(confirmation) {
+            if (confirmation) {
                 const name = $("#deleteperm").attr('data-name');
                 $.ajax({
                     type: 'DELETE',

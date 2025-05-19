@@ -9,7 +9,7 @@
         $urlarr = explode('_', $params[0]);
         $urlfinal = '/';
         $urlfinal .= implode('/', $urlarr);
-        if(!file_exists(DATA_PATH . $urlfinal . '/index.json')) {
+        if (!file_exists(DATA_PATH . $urlfinal . '/index.json')) {
             echo '<h2>This site data does not exist.';
             return;
         }
@@ -18,8 +18,8 @@
         $hasblock = false;
         $block_data_final = new stdClass();
         $fblock_name = '';
-        foreach($url_data_json as $blockname => $blockdata) {
-            if($blockname === $params[1]) {
+        foreach ($url_data_json as $blockname => $blockdata) {
+            if ($blockname === $params[1]) {
                 $fblock_name = $blockname;
                 $block_data_final = $blockdata;
                 $hasblock = true;
@@ -27,27 +27,27 @@
             }
         }
         
-        if(!$hasblock) {
+        if (!$hasblock) {
             echo '<h2>This block does not exist!';
             return;
         }
         $counter = 0;
         $vcounter = 1;
         $html = '';
-        foreach($block_data_final->data as $column) {
+        foreach ($block_data_final->data as $column) {
             $inputfields = '';
-            foreach($column->data as $objname => $datafield) {
-                foreach($datafield as $name => $value) {
+            foreach ($column->data as $objname => $datafield) {
+                foreach ($datafield as $name => $value) {
                     $string = $objname . '_' . $name;
                     $title = '';
-                    if(isset(LANG['admin'][$string])) {
+                    if (isset(LANG['admin'][$string])) {
                         $title = LANG['admin'][$string];
                     }
                     else {
                         $title = $string;
                     }
-                    if(is_object($value)) {
-                        foreach($value as $svaluefield => $svalue) {
+                    if (is_object($value)) {
+                        foreach ($value as $svaluefield => $svalue) {
                             $inputfields .= <<<EOS
                                 <p>{$title}</p>
                                 <input data-arrpos="{$counter}" data-subarr="true" data-subobjfield="{$svaluefield}" data-objname="{$objname}" data-objfield="{$name}" type="text" value="{$svalue}"/>
@@ -60,12 +60,12 @@
                     <p>{$title}</p>
                     <input data-arrpos="{$counter}" data-objname="{$objname}" data-objfield="{$name}" type="text" value="{$value}"/>
                     EOS;
-                    if($objname === 'img' && $name === 'href') {
+                    if ($objname === 'img' && $name === 'href') {
                         $inputfields .= <<<EOS
                             <a class="pickImg" href="#" data-arrpos="{$counter}" data-objname="{$objname}" data-objfield="{$name}">Valitse kuva</a>
                         EOS;
                     }
-                    if($objname === 'bgimg' && $name === 'href') {
+                    if ($objname === 'bgimg' && $name === 'href') {
                         $inputfields .= <<<EOS
                             <a class="pickImg" href="#" data-arrpos="{$counter}" data-objname="{$objname}" data-objfield="{$name}">Valitse kuva</a>
                         EOS;
@@ -106,7 +106,7 @@
                     let objfield = siblingElements[counter].dataset.objfield;
                     let objvalue = siblingElements[counter].value;
                     
-                    if(siblingElements[counter].dataset.subarr) {
+                    if (siblingElements[counter].dataset.subarr) {
                         let subobjfield = siblingElements[counter].dataset.subobjfield;
                         url_data_raw[block_name]['data'][arrPos]['data'][objname][objfield][subobjfield] = objvalue;
                     }
@@ -176,10 +176,10 @@
                 method: 'GET',
                 url: '/admin/galleria/list'
             }).done((res) => {
-                if(res.status) {
+                if (res.status) {
                     $(".isn_imgs").empty();
                     $(".img_selector").css('display', 'flex');
-                    res.data.forEach(img => {
+                    res.data.foreach (img => {
                         const html = `
                             <div class="is_img">
                                 <img src="${img.imgpath}"/>
@@ -208,7 +208,7 @@
             const objvalue = e.target.getAttribute('value');
             const url = e.target.getAttribute('data-url');
             const elem = $("input").filter(`[data-arrpos="${arrpos}"][data-objname="${objname}"][data-objfield="${objfield}"]`);
-            if(elem.length === 1) {
+            if (elem.length === 1) {
                 elem[0].setAttribute('value', url);
                 $(".img_selector").css('display', 'none');
                 toastr.success('Kuva muutettu onnistuneesti');

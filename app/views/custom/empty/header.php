@@ -8,10 +8,10 @@
     <title><?php echo $title . ' | ' . CONFIG['server']['name'] ?></title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <?php 
-        plugin::load('css, js, templateloader');
+        Plugin::load('css, js, templateloader');
         new Core\App\Css();
         new Core\App\Js();
-        $template = new Core\App\Template();
+        $template = new Template();
     ?>
 </head>
 <body>

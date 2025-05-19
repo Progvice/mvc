@@ -4,7 +4,7 @@ namespace Core\App;
 
 class Lang {
     public function __construct() {
-        if($_SESSION['lang'] === NULL) {
+        if ($_SESSION['lang'] === NULL) {
             $_SESSION['lang'] = 'fi-fi';
         }
     }
@@ -24,7 +24,7 @@ class Lang {
      */
     
     public function FetchDB($values) {
-        if(is_array($values)) {
+        if (is_array($values)) {
             
         }  
     }
@@ -43,7 +43,7 @@ class Lang {
      *
      */
     public function FetchJSON($values) {
-        if(is_array($values)) {
+        if (is_array($values)) {
             
         }
     }

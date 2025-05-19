@@ -23,35 +23,35 @@ class Email {
 
     
     public function Send() {
-        if(!isset($this->msg)) {
+        if (!isset($this->msg)) {
             return [
                 'status' => false,
                 'msg' => 'Message is not set'
             ];
         }
-        if(!$this->from) {
+        if (!$this->from) {
             return [
                 'status' => false,
                 'msg' => 'From has not been set'
             ];
         }
-        if(!isset($this->subject)) {
+        if (!isset($this->subject)) {
             return [
                 'status' => false,
                 'msg' => 'Subject has not been set'
             ];
         }
-        if(!isset($this->recipients)) {
+        if (!isset($this->recipients)) {
             return [
                 'status' => false,
                 'msg' => 'No recipients have been set'
             ];
         }
-        if(isset($this->enableBCC)) {
+        if (isset($this->enableBCC)) {
             $this->headers['Bcc'] = $this->recipients;
         }
         $didEmailSend = mail($this->recipients, $this->subject, $this->msg, $this->headers);
-        if(!$didEmailSend) {
+        if (!$didEmailSend) {
             return [
                 'status' => false,
                 'msg' => 'Email has not been sent'
@@ -63,17 +63,17 @@ class Email {
         ];
     }
     public function SetHeader(string $name, $value) {
-        if(isset($this->defaultHeaders[$name])) {
+        if (isset($this->defaultHeaders[$name])) {
             $correctName = $this->defaultHeaders[$name][0];
             $this->headers[$correctName] = $value;
-            if($name === 'from') {
+            if ($name === 'from') {
                 $this->from = true;
             }
         }
     }
     public function SetRecipients($recipients, $settings = []) {
-        foreach($recipients as $rec) {
-            if(end($recipients) !== $rec) {
+        foreach ($recipients as $rec) {
+            if (end($recipients) !== $rec) {
                 $this->recipients .= $rec . ', ';
                 continue;
             }
@@ -82,7 +82,7 @@ class Email {
     }
     
     public function Template($name, $data) {
-        if(!file_exists(__DIR__ . '/templates/' . $name . '.php')) {
+        if (!file_exists(__DIR__ . '/templates/' . $name . '.php')) {
             return [
                 'status' => false,
                 'msg' => 'Email template does not exist.'

@@ -1,12 +1,15 @@
 <?php
-    class userController extends Controller {
-        public function user() {
-            plugin::load('response');
-            $response = new Core\App\Response;
-            $response->Send('json', [
-                'status' => true,
-                'message' => 'user is working!'
-            ]);
-        }
+
+use Core\App\Response;
+
+class userController extends Controller {
+    public function user() {
+        Plugin::load('response');
+        $response = new Response;
+        $response->Send('json', [
+            'status' => true,
+            'message' => 'user is working!'
+        ]);
     }
+}
 ?>

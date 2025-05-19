@@ -1,13 +1,15 @@
 <?php
 
+use Core\App\View;
+
 class registerController extends Controller {
     public function register() {
-        if(isset($_SESSION['login'])) {
+        if (isset($_SESSION['login'])) {
             header('Location: /');
             return;
         }
-       plugin::load('view');
-       $view = new Core\App\View();
+       Plugin::load('view');
+       $view = new View();
        $view->customelements = [
            'header' => 'empty',
            'footer' => 'empty'

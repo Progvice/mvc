@@ -1,4 +1,4 @@
-<?php if(isset($uuid)) { ?>
+<?php if (isset($uuid)) { ?>
 <a href="/" class="login_logo"><img src="/img/logo_yellow.png" alt="Logo" /></a>
 <div class="height-50 column formbox">
     <h2><?php echo LANG['restorepassword']; ?></h2>
@@ -29,7 +29,7 @@ $(document).ready(() => {
         const newPassAgain = $("#newpassagain").val();
         const code = $("#uuid").val();
         
-        if(newPass !== newPassAgain) {
+        if (newPass !== newPassAgain) {
             toastr.warning('Salasanat eivät täsmää!');
             return;
         }

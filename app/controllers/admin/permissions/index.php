@@ -1,20 +1,23 @@
 <?php 
 
 use Core\App\Auth;
+use Core\App\View;
+use Core\App\Models\MainModel;
+use Core\App\Response;
 
 class permissionsController extends Controller {
     public function permissions() {
-        plugin::load('view, models, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('view, models, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        $models = new Core\App\Models\MainModel();
+        $models = new MainModel();
         $models->CallModel('perms');
         $perms = $models->Select([
             'columns' => 'perm_name'
         ]);
-        $view = new Core\App\View();
+        $view = new View();
         $view->customelements = [
             'header' => 'admin',
             'footer' => 'admin'
@@ -26,17 +29,17 @@ class permissionsController extends Controller {
         $view->index($this->view);
     }
     public function viewPerm() {
-        plugin::load('view, models, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('view, models, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        if(!Auth::CheckPerm('groups_read')) {
+        if (!Auth::CheckPerm('groups_read')) {
             header('Location: /admin/forbidden');
             return;
         }
-        $view = new Core\App\View();
-        $models = new Core\App\Models\MainModel();
+        $view = new View();
+        $models = new MainModel();
         $models->CallModel('perms');
         $perm = $models->Select([
             'values' => [
@@ -49,7 +52,7 @@ class permissionsController extends Controller {
             'header' => 'admin',
             'footer' => 'admin'
         ];
-        if(count($perm) < 1) {
+        if (count($perm) < 1) {
             $view->variables = [
                 'error' => 'invalidperm'
             ];
@@ -63,24 +66,24 @@ class permissionsController extends Controller {
         $view->index($this->view);
     }
     public function modifyPerm() {
-        plugin::load('response, models, auth');
-        $response = new Core\App\Response();
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('response, models, auth');
+        $response = new Response();
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        if(!Auth::CheckPerm('groups_update')) {
+        if (!Auth::CheckPerm('groups_update')) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Ei oikeuksia muokata käyttöoikeuksia'
             ]);
             return;
         }
-        $models = new Core\App\Models\MainModel();
+        $models = new MainModel();
         $data = json_decode(file_get_contents('php://input'), true);
         $priority = Auth::GetPerm('perm_priority');
         $perm = Auth::GetPerm('perm_name');
-        if($priority < $data['perm_priority'] && $perm !== 'admin') {
+        if ($priority < $data['perm_priority'] && $perm !== 'admin') {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Et voi vaihtaa ' . $data['perm_name'] . ' oikeuksia, koska ' . $data['perm_name'] . ' on korkeampi arvoinen käyttöoikeus.'
@@ -102,9 +105,9 @@ class permissionsController extends Controller {
         ]);
     }
     public function createPerm() {
-        plugin::load('models, auth, response');
-        $response = new Core\App\Response();
-        if(!Auth::CheckPerm('groups_create')) {
+        Plugin::load('models, auth, response');
+        $response = new Response();
+        if (!Auth::CheckPerm('groups_create')) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Sinulla ei ole oikeuksia luoda käyttöoikeuksia'
@@ -112,12 +115,12 @@ class permissionsController extends Controller {
             return;
         }
         $data = json_decode(file_get_contents('php://input'), true);
-        $models = new Core\App\Models\MainModel();
+        $models = new MainModel();
         $models->CallModel('perms');
         $checkInsert = $models->Insert([
             'perm_name' => $data['name']
         ]);
-        if(!$checkInsert['status']) {
+        if (!$checkInsert['status']) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Ryhmän luonti epäonnistui - ' . $checkInsert['msg']
@@ -130,12 +133,12 @@ class permissionsController extends Controller {
         ]);
     }
     public function removePerm() {
-        plugin::load('models, auth, response');
-        $response = new Core\App\Response();
-        $models = new Core\App\Models\MainModel();
+        Plugin::load('models, auth, response');
+        $response = new Response();
+        $models = new MainModel();
         $models->CallModel('perms');
 
-        if(!Auth::CheckPerm('groups_remove')) {
+        if (!Auth::CheckPerm('groups_remove')) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Sinulla ei ole oikeuksia poistaa käyttöoikeuksia'
@@ -143,7 +146,7 @@ class permissionsController extends Controller {
             return;
         }
         $data = json_decode(file_get_contents('php://input'), true);
-        if($data['name'] === 'default' || $data['name'] === 'admin') {
+        if ($data['name'] === 'default' || $data['name'] === 'admin') {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Ylläpitäjä- ja oletusryhmää ei voi poistaa'
@@ -157,7 +160,7 @@ class permissionsController extends Controller {
                 ]
             ]
         ]);
-        if(count($perm) < 1) {
+        if (count($perm) < 1) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Ryhmää ei ole olemassa'
@@ -166,7 +169,7 @@ class permissionsController extends Controller {
         }
         $priority = Auth::GetPerm('perm_priority');
         $currentPerm = Auth::GetPerm('perm_name');
-        if($priority < $perm[0]['perm_priority'] && $currentPerm !== 'admin') {
+        if ($priority < $perm[0]['perm_priority'] && $currentPerm !== 'admin') {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Et voi poistaa ' . $perm[0]['perm_name'] . ' ryhmää, koska ' . $perm[0]['perm_name'] . ' on korkeampi arvoinen käyttöoikeusryhmä.'
@@ -178,7 +181,7 @@ class permissionsController extends Controller {
                 'perm_name' => $data['name']
             ]
         ]);
-        if(!$checkDelete['status']) {
+        if (!$checkDelete['status']) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Ryhmän poistaminen epäonnistui - ' . $checkDelete['msg']

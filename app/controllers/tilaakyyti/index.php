@@ -1,11 +1,15 @@
 <?php 
 
+use Core\App\Models\MainModel;
+use Core\App\Response;
+use Core\App\View;
+
 class tilaakyytiController extends Controller {
     public function tilaakyyti() {
-        plugin::load('view, models');
-        $view = new Core\App\View();
-        if(isset($_SESSION['login'])) {
-            $models = new Core\App\Models\MainModel();
+        Plugin::load('view, models');
+        $view = new View();
+        if (isset($_SESSION['login'])) {
+            $models = new MainModel();
             $models->CallModel('users');
             $user = $models->Select([
                 'values' => [

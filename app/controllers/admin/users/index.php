@@ -3,17 +3,19 @@
 use Core\App\Auth;
 use Core\App\Response;
 use Core\App\Models\MainModel;
+use Core\App\View;
+use Core\App\Template;
 
 class usersController extends Controller {
     public function users() {
-        plugin::load('view, templateloader, models, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('view, templateloader, models, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
 
-        $view = new Core\App\View;
-        $template = new Core\App\Template();
+        $view = new View;
+        $template = new Template();
         $view->customelements = [
             'header' => 'admin',
             'footer' => 'admin'
@@ -21,16 +23,16 @@ class usersController extends Controller {
         $view->index($this->view);
     }
     public function getUserByID() {
-        plugin::load('view, templateloader, models, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('view, templateloader, models, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        if(!Auth::CheckPerm('user_read')) {
+        if (!Auth::CheckPerm('user_read')) {
             header('Location: /admin/forbidden');
             return;
         }
-        $view = new Core\App\View;
+        $view = new View;
         $userid = htmlspecialchars($this->params[0]);
         $models = new MainModel();
         $models->CallModel('users');
@@ -46,7 +48,7 @@ class usersController extends Controller {
             'header' => 'admin',
             'footer' => 'admin'
         ];
-        if(count($user) < 1) {
+        if (count($user) < 1) {
             $view->variables = [
                 'error' => true,
                 'msg' => 'Käyttäjää ei löytynyt'
@@ -66,13 +68,13 @@ class usersController extends Controller {
         $view->index($this->view);
     }
     public function updateUser() {
-        plugin::load('response, models, auth');
+        Plugin::load('response, models, auth');
         $response = new Response;
-        if(!Auth::CheckPerm('admin_access')) {
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        if(!Auth::CheckPerm('user_update')) {
+        if (!Auth::CheckPerm('user_update')) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Sinulla ei ole oikeuksia muuttaa käyttäjätietoja'
@@ -90,7 +92,7 @@ class usersController extends Controller {
                 ]
             ]
         ]);
-        if(count($userperm) < 1) {
+        if (count($userperm) < 1) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'permnotset'
@@ -109,7 +111,7 @@ class usersController extends Controller {
         ]);
         $currentPerm = Auth::GetPerm('perm_priority');
         $perm_name = Auth::GetPerm('perm_name');
-        if($perm[0]['perm_priority'] >= $currentPerm && $perm_name !== 'admin') {
+        if ($perm[0]['perm_priority'] >= $currentPerm && $perm_name !== 'admin') {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Sinulla ei ole oikeutta muokata käyttäjiä joilla on isompi tai yhtä suuri käyttöoikeus'
@@ -123,7 +125,7 @@ class usersController extends Controller {
             ],
             'data' => $data['data']
         ]);
-        if(!$userupdate['status']) {
+        if (!$userupdate['status']) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => $userupdate['msg']

@@ -2,16 +2,16 @@
 
 class profiiliController extends Controller {
     public function profiili() {
-        if(!isset($_SESSION['login'])) {
+        if (!isset($_SESSION['login'])) {
             header('Location: /login');
             return;
         }
-        plugin::load('view, models');
-        $view = new Core\App\View();
-        $models = new Core\App\Models\MainModel();
+        Plugin::load('view, models');
+        $view = new View();
+        $models = new MainModel();
         $models->CallModel('users');
 
-        if(!isset($_SESSION['login']['uuid'])) {
+        if (!isset($_SESSION['login']['uuid'])) {
             $view->variables = [
                 'error' => 'Error: Profile not found'
             ];

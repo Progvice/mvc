@@ -10,8 +10,8 @@
     <div class="section-6 profile_c_block column">
         <h1><?php echo LANG['mydetails']; ?></h1>
         <form id="profile_update" class="profile_c_form" action="/user/update" method="POST">
-            <?php if(isset($userdata)) {
-                foreach($userdata[0] as $name => $value) {
+            <?php if (isset($userdata)) {
+                foreach ($userdata[0] as $name => $value) {
                     $label_field = LANG[$name];
                     echo <<<EOS
                         <label for="{$name}_ifield">{$label_field}</label>
@@ -91,7 +91,7 @@
             const newPass = $("#newpass").val();
             const newPassAgain = $("#newpassagain").val();
             
-            /*if(newPass !== newPassAgain) {
+            /*if (newPass !== newPassAgain) {
                 toastr.warning('Salasanat eivät täsmää!');
                 return;
             }*/

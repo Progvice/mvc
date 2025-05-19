@@ -20,18 +20,18 @@ class Template {
         $template_link = DATA_PATH . $uri . '/index.json';
         $template = json_decode(file_get_contents($template_link));
         $datalist = [];
-        foreach($template as $block_name => $data) {
-            if(!file_exists(TEMPLATE_PATH . $data->template . '/index.php')) {
+        foreach ($template as $block_name => $data) {
+            if (!file_exists(TEMPLATE_PATH . $data->template . '/index.php')) {
                 continue;
             }
             $name = $data->template;
 
-            if(!class_exists($name)) {
+            if (!class_exists($name)) {
                 require TEMPLATE_PATH . $data->template . '/index.php';
             }
-            foreach($data->data as $block) {
+            foreach ($data->data as $block) {
                 $class = new $name;
-                if(!array_key_exists($block_name, $datalist)) {
+                if (!array_key_exists($block_name, $datalist)) {
                     $datalist[$block_name] = $class->load($block);
                     continue;
                 }
@@ -58,24 +58,18 @@ class Template {
      */
     public function load($template) {
 
-        if(!file_exists(VIEW_PATH . '/../templates/' . $template['name'] . '.php')) {
+        if (!file_exists(VIEW_PATH . '/../templates/' . $template['name'] . '.php')) {
             echo 'Template does not exist.!';
             return;
         }
-        if(empty($template['data'])) {
-            $template['data'] = [];
-        }
+
         $name = $template['name'];
-        if(!class_exists($name)) {
-            require VIEW_PATH . '/../templates/'. $template['name'] . '.php';
+        if (!class_exists($name)) {
+            require VIEW_PATH . '/../templates/'. $name . '.php';
         }
         $class = new $name;
-        $final_template = $class->load($template['data']);
+        $final_template = $class->load(isset($template['data']) ? $template['data'] : []);
         return $final_template;
-    }
-
-    public function loadStyles($template) {
-        
     }
 
     public function getBlock($blockName) {

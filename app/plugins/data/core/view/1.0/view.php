@@ -42,26 +42,22 @@ class View {
     *   @return void
     */
     public function index($view) {
-        if(!file_exists($view)) {
+        if (!file_exists($view)) {
             echo '<h1>JJMVC Error</h1><p>No view set. Contact server administrator if you see this message.</p>';
             return;
         }
-        if(!isset($this->variables['title'])) {
+        if (!isset($this->variables['title'])) {
             $this->variables['title'] = CONFIG['server']['name'];    
         }
         extract($this->variables);
         $header = VIEW_PATH . '/header.php';
         $footer = VIEW_PATH . '/footer.php';
-        if($this->customelements !== null) {
-            if(isset($this->customelements['header'])) {
-                if(file_exists(VIEW_PATH . '/../custom/' . $this->customelements['header'] . '/header.php')) {
-                    $header = VIEW_PATH . '/../custom/' . $this->customelements['header'] . '/header.php';
-                }
+        if ($this->customelements !== null) {
+            if (isset($this->customelements['header']) && file_exists(VIEW_PATH . '/../custom/' . $this->customelements['header'] . '/header.php')) {
+                $header = VIEW_PATH . '/../custom/' . $this->customelements['header'] . '/header.php';
             }
-            if(isset($this->customelements['footer'])) {
-                if(file_exists(VIEW_PATH . '/../custom/' . $this->customelements['footer'] . '/footer.php')) {
-                    $footer = VIEW_PATH . '/../custom/' . $this->customelements['footer'] . '/footer.php';   
-                }
+            if (isset($this->customelements['footer']) && file_exists(VIEW_PATH . '/../custom/' . $this->customelements['footer'] . '/footer.php')) {
+                $footer = VIEW_PATH . '/../custom/' . $this->customelements['footer'] . '/footer.php';   
             }
         }
         ob_start();

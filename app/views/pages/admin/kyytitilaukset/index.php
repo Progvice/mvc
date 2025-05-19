@@ -12,12 +12,12 @@
         <div id="unacceptedrides" class="section-12 column">
         <h2>Hyväksymättömät kyydit</h2>
         <?php
-        if(isset($uarides)) {
+        if (isset($uarides)) {
             $html = '';
-            if(count($uarides) < 1) {
+            if (count($uarides) < 1) {
                 echo '<h4>Ei hyväksyttäviä kyytejä</h4>';
             }
-            foreach($uarides as $ride) {
+            foreach ($uarides as $ride) {
                 $date = $ride['order_date'];
                 $time = $ride['order_time'];
                 $from = $ride['address_from'];
@@ -62,12 +62,12 @@
         <div style="display: none;" id="acceptedrides" class="section-12 column">
         <h2>Hyväksytyt kyydit</h2>
         <?php
-        if(isset($rides)) {
+        if (isset($rides)) {
             $html = '';
-            if(count($rides) < 1) {
+            if (count($rides) < 1) {
                 echo '<h4>Ei hyväksyttyjä kyytejä</h4>';
             }
-            foreach($rides as $ride) {
+            foreach ($rides as $ride) {
                 $date = $ride['order_date'];
                 $time = $ride['order_time'];
                 $from = $ride['address_from'];
@@ -111,12 +111,12 @@
         <div style="display: none;" id="cancelledrides" class="section-12 column">
         <h2>Perutut tilaukset</h2>
         <?php 
-            if(isset($cancelledrides)) {
+            if (isset($cancelledrides)) {
                 $html = '';
-                if(count($cancelledrides) < 1) {
+                if (count($cancelledrides) < 1) {
                     echo '<h4>Ei peruttuja kyytejä</h4>';
                 }
-                foreach($cancelledrides as $ride) {
+                foreach ($cancelledrides as $ride) {
                     $date = $ride['order_date'];
                     $time = $ride['order_time'];
                     $from = $ride['address_from'];

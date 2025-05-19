@@ -2,6 +2,9 @@
 
 namespace Core\App\Models;
 
+use Core\App\DB;
+use \Plugin;
+
 class MainModel
 {
     protected $model;
@@ -9,8 +12,8 @@ class MainModel
     protected $conn;
     public function CallModel($name)
     {
-        \plugin::load('db');
-        $this->conn = \Core\App\DB::Connect();
+        Plugin::load('db');
+        $this->conn = DB::Connect();
         $name = ucfirst($name);
         if (!file_exists(MODEL_PATH . '/' . $name . '.php')) {
             return [

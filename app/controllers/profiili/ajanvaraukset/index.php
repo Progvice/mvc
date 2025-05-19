@@ -1,12 +1,16 @@
 <?php
+
+use Core\App\Models\MainModel;
+use Core\App\View;
+
 class ajanvarauksetController extends Controller {
     public function ajanvaraukset() {
-        if(!isset($_SESSION['login'])) {
+        if (!isset($_SESSION['login'])) {
             header('Location: /login');
             return;
         }
-        plugin::load('view, models');
-        $models = new Core\App\Models\MainModel();
+        Plugin::load('view, models');
+        $models = new MainModel();
         $models->CallModel('appointments');
         $appointments = $models->Select([
             'values' => [
@@ -62,7 +66,7 @@ class ajanvarauksetController extends Controller {
         ];
         $appointments_new = [];
         $counter = 0;
-        foreach($appointments as $appointment) {
+        foreach ($appointments as $appointment) {
             $appointments_new[$counter] = $appointment;
             $slot_to = intval($appointment['slot_to']);
             $slot_from = intval($appointment['slot_from']);
@@ -72,16 +76,16 @@ class ajanvarauksetController extends Controller {
             $appointments_new[$counter]['slot_to'] = sprintf('%02d:%02d:%02d', (($slot_to_arr*3600) / 3600), (($slot_to_arr*3600) / 60 % 60), (($slot_to_arr*3600) % 60));
             $counter++;
         }
-        $view = new Core\App\View();
+        $view = new View();
         $view->variables = [
             'appointments' => $appointments_new
         ];
         $view->index($this->view);
     }
     public function getUsersOrders() {
-        plugin::load('view, models');
-        $view = new Core\App\View();
-        $models = new Core\App\Models\MainModel();
+        Plugin::load('view, models');
+        $view = new View();
+        $models = new MainModel();
         $models->CallModel('appointments');
         $appointment = $models->Select([
             'values' => [
@@ -135,21 +139,21 @@ class ajanvarauksetController extends Controller {
             42 => 17.75,
             43 => 18
         ];
-        if(count($appointment) < 1) {
+        if (count($appointment) < 1) {
             header('Location: /404');
             return;
         }
-        if($appointment[0]['userid'] !== $_SESSION['login']['uuid']) {
+        if ($appointment[0]['userid'] !== $_SESSION['login']['uuid']) {
             header('Location: /404');
             return;
         }
         $appointment_new = [];
-        foreach($appointment[0] as $column => $value) {
-            if($column === 'slot_from') {
+        foreach ($appointment[0] as $column => $value) {
+            if ($column === 'slot_from') {
                 $slot_from_arr = $times[$value];
                 $appointment[0]['slot_from'] = sprintf('%02d:%02d:%02d', (($slot_from_arr*3600) / 3600), (($slot_from_arr*3600) / 60 % 60), (($slot_from_arr*3600) % 60));
             }
-            else if($column === 'slot_to') {
+            else if ($column === 'slot_to') {
                 $slot_val = $value;
                 $slot_to_arr = $times[$slot_val];
                 $appointment[0]['slot_to'] = sprintf('%02d:%02d:%02d', (($slot_to_arr*3600) / 3600), (($slot_to_arr*3600) / 60 % 60), (($slot_to_arr*3600) % 60));

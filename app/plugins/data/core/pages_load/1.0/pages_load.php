@@ -8,17 +8,17 @@ class Load {
         $path = realpath(REQUEST_PATH);
         $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
         $json_list = [];
-        foreach($objects as $json_fp){
-            if(is_file($json_fp)) {
+        foreach ($objects as $json_fp){
+            if (is_file($json_fp)) {
                 $json = file_get_contents($json_fp);
                 $json = json_decode($json);
-                if(empty($json->page)){
+                if (empty($json->page)){
                     continue;   
                 }
-                if(isset($json->page->hidden) && $json->page->hidden === true) {
+                if (isset($json->page->hidden) && $json->page->hidden === true) {
                     continue;
                 }
-                if(isset($json->page->url)) {
+                if (isset($json->page->url)) {
                     array_push($json_list, $json->page->url);
                 }
             }

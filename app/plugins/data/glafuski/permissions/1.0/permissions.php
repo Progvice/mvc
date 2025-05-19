@@ -2,10 +2,10 @@
 
 class Permissions {
     public function __construct() {
-        plugin::load('activerecord');
+        Plugin::load('activerecord');
     }
     public function checkPermission() {
-        if(isset($_SESSION['id'])) {
+        if (isset($_SESSION['id'])) {
             $user = user::find_by_pk($_SESSION['id']);
             return $user->perm;
         }
@@ -13,7 +13,7 @@ class Permissions {
     }
     
     public function setPermission($uid, $perm) {
-        if($this->checkPermission() === 99) {
+        if ($this->checkPermission() === 99) {
             $user = user::find_by_pk($uid);
             $user->perm = $perm;
             $user->save();

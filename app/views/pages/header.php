@@ -6,11 +6,12 @@
     <meta name="referrer" content="origin">
     <title><?= $title . ' | ' . CONFIG['server']['name'] ?></title>
     <?php 
-            plugin::load('css, js, templateloader');
-            new Core\App\Css();
-            new Core\App\Js();
-            $template = new Core\App\Template();
-        ?>
+        Plugin::load('css, js, templateloader');
+        new Core\App\Css();
+        new Core\App\Js();
+
+        $template = isset($template) ? $template : new Core\App\Template();
+    ?>
 </head>
 <body>
     <header>
@@ -20,7 +21,7 @@
         <?php echo $template->load(['name' => 'HeaderMenu']); ?>
         <button class="menubutton"><i class="fas fa-bars"></i></button>
     </header>
-    <?php if(empty($_COOKIE['consent'])) { ?>
+    <?php if (empty($_COOKIE['consent'])) { ?>
         <div class="cn_bg"></div>
         <div class="cookienotification">
             <h1><?php echo LANG['usescookies']; ?></h1>

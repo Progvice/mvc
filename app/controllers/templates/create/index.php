@@ -1,12 +1,15 @@
-        <?php
-            class templatesController extends Controller {
-                public function templates() {
-                    plugin::load('response');
-                    $response = new Core\App\Response;
-                    $response->Send('json', [
-                        'status' => true,
-                        'message' => 'templates is working!'
-                    ]);
-                }
-            }
-        ?>
+<?php
+
+use Core\App\Response;
+
+class templatesController extends Controller {
+    public function templates() {
+        Plugin::load('response');
+        $response = new Response;
+        $response->Send('json', [
+            'status' => true,
+            'message' => 'templates is working!'
+        ]);
+    }
+}
+?>

@@ -1,10 +1,18 @@
 <?php
+
+use Core\App\Response;
+use Core\App\ReCaptcha3;
+use Core\App\Models\MainModel;
+use Core\App\UUID;
+use Core\App\View;
+use Core\App\Recaptcha2;
+
 class userController extends Controller
 {
     public function user()
     {
-        plugin::load('response, models, recaptcha');
-        $response = new Core\App\Response;
+        Plugin::load('response, models, recaptcha');
+        $response = new Response;
         if (!isset($_SESSION['login'])) {
             $response->Send('json', [
                 'status' => false,
@@ -13,7 +21,7 @@ class userController extends Controller
             return;
         }
         $data = json_decode(file_get_contents("php://input"), true);
-        $recaptcha = new Core\App\Recaptcha();
+        $recaptcha = new Recaptcha3();
         if (!isset($data['token'])) {
             $response->Send('json', [
                 'status' => false,
@@ -26,7 +34,7 @@ class userController extends Controller
             $response->Send('json', $recaptcha_verify);
             return;
         }
-        $models = new Core\App\Models\MainModel();
+        $models = new MainModel();
         $models->CallModel('users');
         $update = $models->Update([
             'where' => [
@@ -49,8 +57,8 @@ class userController extends Controller
     }
     public function changePassword()
     {
-        plugin::load('response, models');
-        $response = new Core\App\Response();
+        Plugin::load('response, models');
+        $response = new Response();
         $data = json_decode(file_get_contents('php://input'));
         if (!isset($_SESSION['login']['uuid'])) {
             header('Location: /404');
@@ -78,7 +86,7 @@ class userController extends Controller
             ]);
             return;
         }
-        $model = new Core\App\Models\MainModel();
+        $model = new MainModel();
         $model->CallModel('users');
         $user = $model->Select([
             'values' => [
@@ -117,9 +125,9 @@ class userController extends Controller
     }
     public function createPasswordRestore()
     {
-        plugin::load('response, models, uuid, email');
-        $response = new Core\App\Response();
-        $uuid = new Core\App\UUID();
+        Plugin::load('response, models, uuid, email');
+        $response = new Response();
+        $uuid = new UUID();
 
         $data = json_decode(file_get_contents('php://input'));
 
@@ -137,14 +145,14 @@ class userController extends Controller
             ]);
             return;
         }
-        plugin::load('recaptcha_two');
-        $recaptcha = new Core\App\Recaptcha();
+        Plugin::load('recaptcha_two');
+        $recaptcha = new Recaptcha2();
         $rc_result = $recaptcha->Confirm($data->token);
         if (!$rc_result['status']) {
             $response->Send('json', $rc_result);
             return;
         }
-        $model = new Core\App\Models\MainModel();
+        $model = new MainModel();
         $model->CallModel('users');
         $user = $model->Select([
             'values' => [
@@ -205,8 +213,8 @@ class userController extends Controller
     }
     public function handlePasswordRestore()
     {
-        plugin::load('view, models');
-        $model = new Core\App\Models\MainModel();
+        Plugin::load('view, models');
+        $model = new MainModel();
         $model->CallModel('passwordreset');
         $resetRequest = $model->Select([
             'values' => [
@@ -220,7 +228,7 @@ class userController extends Controller
             return;
         }
         $expireTime = $resetRequest[0]['expires'];
-        $view = new Core\App\View();
+        $view = new View();
         $view->customelements = [
             'header' => 'empty',
             'footer' => 'empty'
@@ -248,8 +256,8 @@ class userController extends Controller
     public function changePasswordWithCode()
     {
         $data = json_decode(file_get_contents('php://input'));
-        plugin::load('response, models, recaptcha_two');
-        $response = new Core\App\Response();
+        Plugin::load('response, models, recaptcha_two');
+        $response = new Response();
         if (!isset($data->token)) {
             $response->Send('json', [
                 'status' => false,
@@ -257,7 +265,7 @@ class userController extends Controller
             ]);
             return;
         }
-        $recaptcha = new Core\App\Recaptcha();
+        $recaptcha = new Recaptcha2();
         $rc_result = $recaptcha->Confirm($data->token);
         if (!$rc_result['status']) {
             $response->Send('json', $rc_result);
@@ -279,7 +287,7 @@ class userController extends Controller
             return;
         }
 
-        $model = new Core\App\Models\MainModel();
+        $model = new MainModel();
         $model->CallModel('passwordreset');
         $passwordchange = $model->Select([
             'values' => [

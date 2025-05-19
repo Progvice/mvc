@@ -18,20 +18,20 @@ class gallery extends Template {
         $text = '';
         $list = '';
         $classes = isset($data->classes->data) ? $data->classes->data : '';
-        if(isset($data->title->data)) {
+        if (isset($data->title->data)) {
             $title = <<<EOS
                 <h1>{$data->title->data}</h1>
             EOS;
         }
-        if(isset($data->text->data)) {
+        if (isset($data->text->data)) {
             $text = <<<EOS
                 <p>{$data->text->data}</p>
             EOS;
         }
-        if(isset($data->list->data)) {
-            if(is_array($data->list->data)) {
+        if (isset($data->list->data)) {
+            if (is_array($data->list->data)) {
                 $list .= '<ul>';
-                foreach($data->list->data as $value) {
+                foreach ($data->list->data as $value) {
                     $list .= <<<EOS
                         <li><span>{$value->title}</span><br> {$value->value}</li>
                     EOS;

@@ -1,7 +1,7 @@
 <div class="main section-12 column height-100">
     <div class="gallery column">
         <?php
-        if($gexists) {
+        if ($gexists) {
             echo <<<EOS
             <a class="admin_info_btn" href="/admin/galleria/addimg/{$guuid}">Lisää kuva</a>
             EOS;
@@ -9,9 +9,9 @@
         ?>
         <div class="section-12 row gimgs">
         <?php
-            if($status) {
-                if(count($images) >= 1) {
-                    foreach($images as $img) {
+            if ($status) {
+                if (count($images) >= 1) {
+                    foreach ($images as $img) {
                         echo $template->load([
                             'name' => 'gallery',
                             'data' => $img
@@ -34,7 +34,7 @@
         $(".deleteimg").click((e) => {
             e.preventDefault();
             const confirmation = confirm('Oletko varma, että haluat poistaa kuvan?');
-            if(confirmation) {
+            if (confirmation) {
                 $.ajax({
                     type: 'DELETE',
                     url: e.target.href

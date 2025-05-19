@@ -2,6 +2,7 @@
 
 namespace Core\App;
 use \Firebase\JWT\JWT;
+
 class JwtExtra {
     private $jwts;
     private $alg;
@@ -14,10 +15,10 @@ class JwtExtra {
     public function GetToken() {
         $headers = getallheaders();
         $finalheader = '';
-        if(empty($headers['authorization']) && isset($headers['Authorization'])) {
+        if (empty($headers['authorization']) && isset($headers['Authorization'])) {
             $finalheader = $headers['Authorization'];
         }
-        else if(empty($headers['Authorization']) && isset($headers['authorization'])) {
+        else if (empty($headers['Authorization']) && isset($headers['authorization'])) {
             $finalheader = $headers['authorization'];
         }
         else {
@@ -34,10 +35,10 @@ class JwtExtra {
     }
     public function Verify($token) {
         $data = $this->Decode($token);
-        if($data->expire < time()) {
+        if ($data->expire < time()) {
             return false;
         }
-        if($data->iss !== $_SERVER['SERVER_NAME']) {
+        if ($data->iss !== $_SERVER['SERVER_NAME']) {
             return false;
         }
         return true;

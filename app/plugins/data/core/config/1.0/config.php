@@ -16,21 +16,20 @@ class Config {
      *
      */
     public function modify_setting($setting_name, $setting) {
-        if(isset($this->config->settings->$setting_name)) {
+        if (isset($this->config->settings->$setting_name)) {
             $value_exists = false;
-            foreach($this->config->settings->$setting_name->possible_values as $dvalue) {
-                if($setting === $dvalue) {
+            foreach ($this->config->settings->$setting_name->possible_values as $dvalue) {
+                if ($setting === $dvalue) {
                     $value_exists = true;
                 }
             }
-            if($value_exists === true) {
+            if ($value_exists === true) {
                 $this->config->settings->$setting_name->value = $setting;
             }
             else {
                 echo 'Invalid value!';
             }
         }
-        var_dump($this->config);
     }
     /*
      * @name    create_setting()
@@ -42,7 +41,7 @@ class Config {
      * @return  void
      */
     public function create_setting($setting_name, $setting, $possible_setting_values) {
-        if(isset($this->config->settings->$setting_name)) {
+        if (isset($this->config->settings->$setting_name)) {
             echo 'This setting exists already.';
             return;
         }
@@ -52,12 +51,12 @@ class Config {
         * if developer forgets to add it.
     *****/
         $valid_setting = false;
-        foreach($possible_setting_values as $setting_value) {
-            if($setting_value === $setting) {
+        foreach ($possible_setting_values as $setting_value) {
+            if ($setting_value === $setting) {
                 $valid_setting = true;
             }
         }
-        if($valid_setting === false) {
+        if ($valid_setting === false) {
             array_push($possible_setting_values, $setting);
         }
         $this->config->settings->$setting_name->value = $setting;
@@ -70,8 +69,8 @@ class Config {
      ****/
     
     public function list_settings() {
-        foreach($this->config->settings as $setting) {
-            var_dump($setting);
+        foreach ($this->config->settings as $setting) {
+            
         }
     }
     public function save() {

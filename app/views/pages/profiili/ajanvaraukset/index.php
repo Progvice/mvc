@@ -9,8 +9,8 @@
 <div class="profile_content column">
     <h1>Tilaustiedot</h1>
     <?php
-        if(isset($appointments)) {
-            if(count($appointments) > 0) {
+        if (isset($appointments)) {
+            if (count($appointments) > 0) {
                 $html = <<<EOS
                     <table>
                         <tr>
@@ -20,7 +20,7 @@
                             <th>Lisätietoja</th>
                         </tr>
                 EOS;
-                foreach($appointments as $appointment) {
+                foreach ($appointments as $appointment) {
                     $uuid = $appointment['uuid'];
                     $time_from = $appointment['slot_from'];
                     $time_to = $appointment['slot_to'];

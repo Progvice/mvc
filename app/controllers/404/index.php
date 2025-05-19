@@ -1,10 +1,13 @@
 <?php
-    class notfoundController extends Controller {
-        public function notfound (){
-            plugin::load('view');
-            http_response_code(404);
-            $view = new Core\App\View;
-            $view->index($this->view);
-        }
+
+use Core\App\View;
+
+class notfoundController extends Controller {
+    public function notfound() {
+        Plugin::load('view');
+        http_response_code(404);
+        $view = new View;
+        $view->index($this->view);
     }
+}
 ?>

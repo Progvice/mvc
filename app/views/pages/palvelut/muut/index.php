@@ -1,8 +1,8 @@
-<?php echo $templateData->getBlock('isolaatikko'); ?>
+<?php echo $template->getBlock('isolaatikko'); ?>
 <div class="section-12 wrap detailbox_container">
-    <?php echo $templateData->getBlock('tietolaatikot'); ?>
+    <?php echo $template->getBlock('tietolaatikot'); ?>
 </div>
-<?php if(isset($_SESSION['login']) && false) { ?>
+<?php if (isset($_SESSION['login']) && false) { ?>
 <div class="datepicker">
     <h1>Ajanvaraus</h1>
     <div class="dp_selectfields">
@@ -53,7 +53,7 @@ $(document).ready(function() {
                     const time = new Date((res.data[slot].time * 3600) * 1000).toISOString().substr(11,
                         8);
                     const intSlot = parseInt(slot);
-                    if(intSlot !== 43) {
+                    if (intSlot !== 43) {
                         const elem = '<div class="datepicker_time" data-slot="' + res.data[slot].slot +
                         '" data-clickable="' + res.data[slot].available + '">' + time + '</div>';
                         $(".datepicker_results").append(elem);
@@ -102,16 +102,16 @@ $(document).ready(function() {
 
             for(selectSlot; selectSlot < slotCount; selectSlot++) {
                 let timeElement = $('*[data-slot="' + selectSlot + '"]');
-                if(selectSlot >= 43) {
+                if (selectSlot >= 43) {
                     return;
                     break;
                 }
-                if(slotCount >= 44) {
+                if (slotCount >= 44) {
                     toastr.warning('Aika menee yli sulkemisajan!');
                     return;
                     break;
                 }
-                if(timeElement[0].attributes[2].value === 'false') {
+                if (timeElement[0].attributes[2].value === 'false') {
                     toastr.warning("Aika menee toisen ajan päälle! Valitse toinen aika.");
                     $(".datepicker_time").attr("style", null);
                     return;
@@ -151,7 +151,7 @@ $(document).ready(function() {
 </script>
 <?php } 
 else {
-    plugin::load('templateloader');
+    Plugin::load('templateloader');
     //echo $template->load(['name' => 'loginrequired']);
 }
 ?>

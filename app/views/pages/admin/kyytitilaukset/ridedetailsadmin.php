@@ -1,6 +1,6 @@
 <div class="main section-12 column height-100">
     <div class="admin_infobox">
-        <?php if(isset($order) && !empty($order)) {
+        <?php if (isset($order) && !empty($order)) {
             $order = $order[0];
             $status = LANG[$order['order_status']];
             
@@ -18,7 +18,7 @@
                 break;
             }
             $comment = '';
-            if($order['order_status'] === 'cancelled' && isset($order['order_comment'])) {
+            if ($order['order_status'] === 'cancelled' && isset($order['order_comment'])) {
                 $comment = <<<EOS
                 <div class="odt_destination">
                     <div class="odtd_box">
@@ -109,7 +109,7 @@
             e.preventDefault();
             const reason = $("#reason").val();
             const confirmation = confirm('Oletko varma, että haluat peruuttaa tilauksen?');
-            if(confirmation) {
+            if (confirmation) {
                 $.ajax({
                     type: 'POST',
                     url: e.target.getAttribute('href'),

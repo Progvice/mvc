@@ -8,7 +8,7 @@
 </div>
 <div class="profile_content column">
     <?php
-    if(isset($ride)) {
+    if (isset($ride)) {
         $orderid = $ride[0]['uuid'];
         $date = date('d.m.Y', strtotime($ride[0]['order_date']));
         $time = $ride[0]['order_time'];
@@ -20,7 +20,7 @@
         $status = $ride[0]['order_status'];
         $status_lang = LANG[$status];
         $comment = '';
-        if($ride[0]['order_status'] === 'cancelled') {
+        if ($ride[0]['order_status'] === 'cancelled') {
             $comment = <<<EOS
                 <hr>
                 <h3>Peruutuksen syy</h3>

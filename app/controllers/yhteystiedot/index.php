@@ -1,12 +1,16 @@
 <?php 
+
+use Core\App\Template;
+use Core\App\View;
+
 class yhteystiedotController extends Controller {
     public function yhteystiedot() {
-        plugin::load('view, templateloader');
-        $template = new Core\App\Template();
+        Plugin::load('view, templateloader');
+        $template = new Template();
         $template->loadData($this->base_uri);
-        $view = new Core\App\View();
+        $view = new View();
         $view->variables = [
-            'templateData' => $template
+            'template' => $template
         ];
         $view->index($this->view);
     }

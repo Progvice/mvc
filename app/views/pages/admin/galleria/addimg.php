@@ -22,12 +22,12 @@
         const initialText = "Klikkaa tästä tai vedä kuvatiedosto tähän <?php echo ini_get('upload_max_filesize'); ?>B";
         function handleDrop(event) {
             event.preventDefault();
-            if(event.dataTransfer.files.length > 1) {
+            if (event.dataTransfer.files.length > 1) {
                 toastr.warning("Voit pudottaa vain yhden tiedoston kerrallaan!");
                 return;
             }
             let filesize = Number.parseFloat(event.dataTransfer.files[0].size / (1024 * 1024)).toFixed(2);
-            if(filesize >= PHP_MAX_FILE_SIZE) {
+            if (filesize >= PHP_MAX_FILE_SIZE) {
                 toastr.warning('Tiedosto on liian suuri!');
                 return;
             }
@@ -41,12 +41,12 @@
         $(document).ready(function() {
             $("#fileinput").change(function(e) {
                 e.preventDefault();
-                if(event.target.files.length > 1) {
+                if (event.target.files.length > 1) {
                     toastr.warning("Voit ladata ainoastaan yhden tiedoston!");
                     return;
                 }
                 let filesize = Number.parseFloat(event.target.files[0].size / (1024 * 1024)).toFixed(2);
-                if(filesize >= PHP_MAX_FILE_SIZE) {
+                if (filesize >= PHP_MAX_FILE_SIZE) {
                     toastr.warning('Tiedosto on liian suuri!');
                     return;
                 }
@@ -73,7 +73,7 @@
                         $("#submitbtn").attr('disabled', true);
                         let dots = '';
                         loadingInterval = setInterval(() => {
-                            if(dots.length > 2) {
+                            if (dots.length > 2) {
                                 dots = '';
                             }
                             dots = dots + '.';
@@ -82,7 +82,7 @@
                     },
                     success: function(data) {
                         $("#submitbtn").attr('disabled', false);
-                        if(!data.status) {
+                        if (!data.status) {
                             toastr.warning(data.msg)
                             return;
                         }

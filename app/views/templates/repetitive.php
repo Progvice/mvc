@@ -4,10 +4,10 @@ class Repetitive extends Template {
     static protected $template;
     private function CreateButton($buttondata) {
         
-        if(!$buttondata['link']) {
+        if (!$buttondata['link']) {
             $button = '<!-- Button is missing link -->';
         }
-        else if(!$buttondata['text']) {
+        else if (!$buttondata['text']) {
             $button = '<!-- Button is missing text -->';
         }
         else {
@@ -22,7 +22,7 @@ class Repetitive extends Template {
     }
     public function load($values) {
         $button = '';
-        if(isset($values['button'])) {
+        if (isset($values['button'])) {
             $button = $this->CreateButton($values['button']);
         }
         self::$template = <<<EOT

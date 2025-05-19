@@ -15,7 +15,7 @@
 namespace Core\App;
 class Csrf {
     public function Generate() {
-        if(isset($_COOKIE['csrf-token'])) {
+        if (isset($_COOKIE['csrf-token'])) {
             return;
         }
         $length = 32;
@@ -31,13 +31,13 @@ class Csrf {
         setcookie('csrf-token', implode('', $pieces), time()+3600);
     }
     public function GenerateInput() {
-        if(isset($_COOKIE['csrf-token'])) {
+        if (isset($_COOKIE['csrf-token'])) {
             return '<input type="hidden" name="csrf-token" value="' . $_COOKIE['csrf-token'] . '"/>';
         }
     }
     public function Verify() {
-        if(isset($_POST['csrf-token'])) {
-            if($_COOKIE['csrf-token'] !== $_POST['csrf-token']) {
+        if (isset($_POST['csrf-token'])) {
+            if ($_COOKIE['csrf-token'] !== $_POST['csrf-token']) {
                 echo 'Invalid CSRF token. Data was not sent.';
                 exit;
             }

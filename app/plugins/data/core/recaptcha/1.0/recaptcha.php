@@ -15,7 +15,7 @@ class Recaptcha {
         $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $this->secret_key . '&response=' . $_POST['g-recaptcha-response'] . '&remoteip=' . $_SERVER['REMOTE_ADDR'];
         $response = file_get_contents($url);
         $this->response = json_decode($response, true);
-        if(isset($this->response['error-codes'][0])) {
+        if (isset($this->response['error-codes'][0])) {
             switch($this->response['error-codes'][0]) {
                 case 'missing-input-secret':
                     $this->returnvalue = 'ReCaptcha secret key is missing. Please contact site admin!';

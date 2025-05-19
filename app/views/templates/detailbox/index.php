@@ -3,7 +3,7 @@ use Core\App\Template;
 class detailbox extends Template {
     static protected $template;
     public function load($values) {
-        if(!isset($values->type)) {
+        if (!isset($values->type)) {
             return '';
         }
         $html = '';
@@ -26,9 +26,9 @@ class detailbox extends Template {
         $icon = '';
         $button = '';
         $classes = isset($data->classes->data) ? $data->classes->data : 'detailbox';
-        if(isset($data->prices)) {
-            foreach($data->prices as $price) {
-                if(isset($price->title, $price->price)) {
+        if (isset($data->prices)) {
+            foreach ($data->prices as $price) {
+                if (isset($price->title, $price->price)) {
                     $prices .= <<<EOS
                     <div class="column fpage_prices">
                         <h5 class="fpage_prices_title">{$price->title}</h5>
@@ -39,8 +39,8 @@ class detailbox extends Template {
             }
             $prices .= '</div>';
         }
-        if(isset($data->icon)) {
-            if(isset($data->icon->data)) {
+        if (isset($data->icon)) {
+            if (isset($data->icon->data)) {
                 $icon = <<<EOS
                 <div class="dbox_icon">
                     <i class="{$data->icon->data}"></i>
@@ -48,8 +48,8 @@ class detailbox extends Template {
                 EOS;
             }
         }
-        if(isset($data->button)) {
-            if(isset($data->button->data, $data->button->href)) {
+        if (isset($data->button)) {
+            if (isset($data->button->data, $data->button->href)) {
                 $button = <<<EOS
                     <a href="{$data->button->href}" class="button yellowborder">{$data->button->data}</a>
                 EOS;
@@ -71,20 +71,20 @@ class detailbox extends Template {
         $button = '';
         $classes = isset($data->classes->data) ? $data->classes->data : 'detailbox';
 
-        if(isset($data->icon->data)) {
+        if (isset($data->icon->data)) {
             $icon = <<<EOS
             <div class="dbox_icon">
                 <i class="{$data->icon->data}"></i>
             </div>
             EOS;
         }
-        if(isset($data->title->data)) {
+        if (isset($data->title->data)) {
             $title = '<h2 class="yellow_hl">' . $data->title->data . '</h2>';
         }
-        if(isset($data->content->data)) {
+        if (isset($data->content->data)) {
             $content = '<p>' . $data->content->data .'</p>';
         }
-        if(isset($data->button->data, $data->button->href)) {
+        if (isset($data->button->data, $data->button->href)) {
             $button = '<a href="' . $data->button->href . '" class="button yellowborder">' . $data->button->data . '</a>';
         }
         $html = <<<EOS
@@ -104,13 +104,13 @@ class detailbox extends Template {
         $bgimgs = '';
         $classes = isset($data->classes->data) ? $data->classes->data : 'detailbox';
 
-        if(isset($data->title->data)) {
+        if (isset($data->title->data)) {
             $title = '<h2 class="yellow_hl">' . $data->title->data . '</h2>';
         }
-        if(isset($data->content->data)) {
+        if (isset($data->content->data)) {
             $content = '<p>' . $data->content->data . '</p>';
         }
-        if(isset($data->button->data)) {
+        if (isset($data->button->data)) {
             $button = '<a href="' . $data->button->href . '" class="button yellowborder">' . $data->button->data . '</a>';
         }
         $bgcontent = <<<EOS
@@ -120,7 +120,7 @@ class detailbox extends Template {
             {$button}
         </div>
         EOS;
-        if(isset($data->img->href, $data->img->alt)) {
+        if (isset($data->img->href, $data->img->alt)) {
             $bgimgs = <<<EOS
             <div class="bgimg_images">
                 <img class="bgimg_img" src="{$data->img->href}" alt="{$data->img->alt}"/>

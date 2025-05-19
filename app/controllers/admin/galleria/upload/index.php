@@ -1,27 +1,30 @@
 <?php 
 
 use Core\App\Auth;
+use Core\App\Response;
+use Core\App\Models\MainModel;
+use Core\App\UUID;
 
 class uploadController extends Controller {
     public function upload() {
-        if($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return;
         }
-        plugin::load('response, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('response, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
 
-        $response = new Core\App\Response();
-        if(!isset($_FILES['file'])) {
+        $response = new Response();
+        if (!isset($_FILES['file'])) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Tiedostoa ei ole lähetetty'
             ]);
             return;
         }
-        if(!getimagesize($_FILES['file']['tmp_name'])) {
+        if (!getimagesize($_FILES['file']['tmp_name'])) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Tiedosto ei ole kuvatiedosto!'
@@ -29,7 +32,7 @@ class uploadController extends Controller {
             return;
         }
         $filetype = explode('/', $_FILES['file']['type']);
-        if($filetype[0] !== 'image') {
+        if ($filetype[0] !== 'image') {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Tiedosto ei ole kuvatiedosto!'
@@ -38,8 +41,8 @@ class uploadController extends Controller {
         }
         $eName = explode('.', $_FILES['file']['name']);
         $fileExtension = end($eName);
-        if(!empty($_POST['name'])) {
-            if(!preg_match('/^([A-Za-z0-9ÄÖäö\s]){2,200}$/', $_POST['name'])) {
+        if (!empty($_POST['name'])) {
+            if (!preg_match('/^([A-Za-z0-9ÄÖäö\s]){2,200}$/', $_POST['name'])) {
                 $response->Send('json', [
                     'status' => false,
                     'msg' => 'Kuvan nimi on virheellinen. Kuvan nimessä voi olla vain kirjaimia ja numeroita.'
@@ -47,7 +50,7 @@ class uploadController extends Controller {
                 return;
             }
             $name = str_replace(' ', '_', $_POST['name']);
-            if(file_exists(APP_PATH . '/../public/img/' . $name . '.' . $fileExtension)) {
+            if (file_exists(APP_PATH . '/../public/img/' . $name . '.' . $fileExtension)) {
                 $name = $name . '_' . time();
             }
         }
@@ -58,7 +61,7 @@ class uploadController extends Controller {
         }
         $destination = APP_PATH . '/../public/img/' . $name . '.' . $fileExtension;
         $moveFile = move_uploaded_file($_FILES['file']['tmp_name'], $destination);
-        if(!$moveFile) {
+        if (!$moveFile) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Tiedostoa ei ladattu palvelimelle'
@@ -66,16 +69,16 @@ class uploadController extends Controller {
             return;
         }
         $imgSize = getimagesize(APP_PATH . '/../public/img/' . $name . '.' . $fileExtension);
-        if(!is_array($imgSize)) {
+        if (!is_array($imgSize)) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Tiedosto ei ole kuvatiedosto.'
             ]);
             return;
         }
-        plugin::load('models, uuid');
-        $uuid = new Core\App\UUID();
-        $models = new Core\App\Models\MainModel();
+        Plugin::load('models, uuid');
+        $uuid = new UUID();
+        $models = new MainModel();
         $models->CallModel('galleryimg');
         $insertion = $models->Insert([
             'uuid' => $uuid->Create(),
@@ -85,7 +88,7 @@ class uploadController extends Controller {
             'imgpath' => '/img/' . $name . '.' . $fileExtension,
             'description' => $_POST['description']
         ]);
-        if(!$insertion['status']) {
+        if (!$insertion['status']) {
             $response->Send('json', [
                 'status' => false,
                 'msg' => 'Kuvaa ei lisätty tietokantaan onnistuneesti. '

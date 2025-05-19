@@ -1,5 +1,10 @@
 <?php
 
+use Core\App\Response;
+use Core\App\Models\MainModel;
+use Core\App\UUID;
+use Core\App\Recaptcha2;
+
 class registerController extends Controller
 {
     public function register()
@@ -9,8 +14,8 @@ class registerController extends Controller
             return;
         }
 
-        plugin::load('response');
-        $response = new Core\App\Response();
+        Plugin::load('response');
+        $response = new Response();
 
         $required = [
             'firstname',
@@ -53,17 +58,17 @@ class registerController extends Controller
             ]);
             return;
         }
-        plugin::load('recaptcha_two');
-        $recaptcha = new Core\App\Recaptcha();
+        Plugin::load('recaptcha_two');
+        $recaptcha = new Recaptcha2();
         $rc_result = $recaptcha->Confirm($data['token']);
         if (!$rc_result['status']) {
             $response->Send('json', $rc_result);
             return;
         }
-        plugin::load('models, uuid, email');
-        $models = new Core\App\Models\MainModel();
+        Plugin::load('models, uuid, email');
+        $models = new MainModel();
         $models->CallModel('users');
-        $uuid = new Core\App\UUID();
+        $uuid = new UUID();
         $user_data = [
             'uuid' => $uuid->Create(),
             'permgroup' => 'default',

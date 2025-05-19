@@ -1,15 +1,17 @@
 <?php 
 
+use Core\App\Response;
+
 class cookiesController extends Controller {
     public function cookies() {}
     public function consent() {
-        plugin::load('response');
-        $response = new Core\App\Response();
+        Plugin::load('response');
+        $response = new Response();
         switch($this->params[0]) {
             case 'acceptall':
                 $expire = time() + 15552000;
                 $cookieSet = setcookie('consent', 'all', $expire, '/', CONFIG['server']['host']);
-                if(!$cookieSet) {
+                if (!$cookieSet) {
                     $response->Send('json', [
                         'status' => false,
                         'msg' => LANG['cookiesnotset']
@@ -25,7 +27,7 @@ class cookiesController extends Controller {
             case 'acceptnecessary':
                 $expire = time() + 15552000;
                 $cookieSet = setcookie('consent', 'necessary', $expire, '/', CONFIG['server']['host']);
-                if(!$cookieSet) {
+                if (!$cookieSet) {
                     $response->Send('json', [
                         'status' => false,
                         'msg' => LANG['cookiesnotset']

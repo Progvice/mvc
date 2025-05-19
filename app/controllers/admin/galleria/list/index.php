@@ -1,18 +1,20 @@
 <?php
 
 use Core\App\Auth;
+use Core\App\Response;
+use Core\App\Models\MainModel;
 
 class listController extends Controller {
     public function list() {
-        plugin::load('models, response, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('models, response, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }
-        $models = new Core\App\Models\MainModel();
+        $models = new MainModel();
         $models->CallModel('Galleryimg');
         $images = $models->Select();
-        $response = new Core\App\Response();
+        $response = new Response();
         $response->Send('json', [
             'status' => true,
             'data' => $images

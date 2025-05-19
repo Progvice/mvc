@@ -19,17 +19,17 @@ class BigBox extends Template {
         $img = '';
         $title = '';
         $desc = '';
-        if(isset($data->img->data, $data->img->src)) {
+        if (isset($data->img->data, $data->img->src)) {
             $img .= <<<EOS
                 <img src="{$data->img->src}" alt="{$data->img->data}" class="logo"/> 
             EOS;
         }
-        if(isset($data->title->data)) {
+        if (isset($data->title->data)) {
             $title .= <<<EOS
                 <h1 class="bb_title">{$data->title->data}</h1>
             EOS;
         }
-        if(isset($data->desc->data)) {
+        if (isset($data->desc->data)) {
             $desc .= <<<EOS
                 <p class="bb_desc">{$data->desc->data}</p>
             EOS;
@@ -52,9 +52,9 @@ class BigBox extends Template {
         $desc = '';
         $stringarr = explode('___', $data->title->data);
         $final_string = '';
-        if(count($stringarr) > 1) {
+        if (count($stringarr) > 1) {
             for($counter = 0; $counter < count($stringarr); $counter++) {
-                if($counter % 2 !== 0) {
+                if ($counter % 2 !== 0) {
                     $final_string .= '<span class="yb_highlight">' . $stringarr[$counter] . '</span>';
                     continue;
                 }
@@ -66,22 +66,22 @@ class BigBox extends Template {
         }
 
 
-        if(isset($data->img->alt, $data->img->href)) {
+        if (isset($data->img->alt, $data->img->href)) {
             $img .= <<<EOS
                 <img src="{$data->img->href}" alt="{$data->img->alt}" class="logo"/> 
             EOS;
         }
-        if(isset($data->title->data)) {
+        if (isset($data->title->data)) {
             $title .= <<<EOS
                 <h1 class="">{$final_string}</h1>
             EOS;
         }
-        if(isset($data->bgimg->href, $data->bgimg->alt)) {
+        if (isset($data->bgimg->href, $data->bgimg->alt)) {
             $bgimg .= <<<EOS
                 <img src="{$data->bgimg->href}" alt="{$data->bgimg->alt}" class="bgimg_img"/>
             EOS;
         }
-        if(isset($data->desc->data)) {
+        if (isset($data->desc->data)) {
             $desc .= <<<EOS
                 <p class="bb_desc">{$data->desc->data}</p>
             EOS;

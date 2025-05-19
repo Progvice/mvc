@@ -87,7 +87,7 @@ can be loaded in every part of request. Plugins can be loaded in other plugins t
 
 Plugin loader is lightweight and simple to use.
 
-    plugin::load('plugin_name1, plugin_name2, etc...');
+    Plugin::load('plugin_name1, plugin_name2, etc...');
 
 ### **Core plugins**
 
@@ -119,7 +119,7 @@ In this file developer can create aliases for plugins. Aliases make it easier to
 
 ### **Plugin request structure**
 
-    plugin::load('
+    Plugin::load('
         maker:name:version,
         maker:name:version
     ');
@@ -181,7 +181,7 @@ How plugins are stored with information that is set above:
 
 And then how to load plugins:
 
-    plugin::load('
+    Plugin::load('
         author:pluginname:1.0,
         otherauthor:pluginname:1.2
     ');
@@ -233,13 +233,13 @@ After that developer is able to load plugin as "alias_name"
 
 **EXAMPLE**
 
-    plugin::load('alias_name');
+    Plugin::load('alias_name');
 
 Aliases and normal syntax can used at the same time.
 
 **EXAMPLE**
 
-    plugin::load('
+    Plugin::load('
         alias_name,
         author:pluginname:1.0
     ');
@@ -276,8 +276,8 @@ written in the same controller that parameter is connected to.
 Lets say that we send request to this URI "/user/id/203858" with method below:
 
     public function getUserByID() {
-        plugin::load('response');
-        $response = new Core\App\Response;
+        Plugin::load('response');
+        $response = new Response;
         $response->Send('json', [
             'status' => true,
             'message' => 'Parameters are working',

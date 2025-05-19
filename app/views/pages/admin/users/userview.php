@@ -4,31 +4,31 @@
         <h1>Käyttäjä sivu</h1>
         <p>Tällä sivulla voit hallinnoida yksittäistä käyttäjää.</p>
 
-        <?php if(isset($error)){ ?>
+        <?php if (isset($error)){ ?>
             <h1><?php echo $msg; ?></h1>
         <?php } ?>
 
-        <?php if(isset($user)) {?>
+        <?php if (isset($user)) {?>
             <div class="userform">
                 <form id="changeuser" action="/admin/users/modify/send" method="POST">
                     <?php 
-                    foreach($user[0] as $field => $value) {
-                        if($field === 'uuid') {
+                    foreach ($user[0] as $field => $value) {
+                        if ($field === 'uuid') {
                             echo <<<EOS
                                 <input id="{$field}" type="hidden" placeholder="{$lang}" name="{$field}" value="{$value}"/>
                             EOS;
                             continue;
                         }
                         $lang = LANG[$field];
-                        if($field === 'permgroup') {
+                        if ($field === 'permgroup') {
                             $html = <<<EOS
                             <div class="inputs">
                                 <label for="{$field}">{$lang}</label>
                                 <select id="{$field}" name="{$field}">
                             EOS;
-                            foreach($perms as $pvalue) {
+                            foreach ($perms as $pvalue) {
                                 $val = $pvalue['perm_name'];
-                                if($value === $val) {
+                                if ($value === $val) {
                                     $html .= <<<EOS
                                         <option value="{$val}" selected>{$val}</option>
                                     EOS;
@@ -78,10 +78,10 @@
             json.phonenumber = $("#phonenumber").val();
             const uuid = $("#uuid").val();
 
-            fields.forEach(field => {
+            fields.foreach (field => {
                 let newVal = json[field];
                 let oldVal = jsonOrig[field];
-                if(newVal !== oldVal) {
+                if (newVal !== oldVal) {
                     finalJson[field] = newVal;
                 }
             });

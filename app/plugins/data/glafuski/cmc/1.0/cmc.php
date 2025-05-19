@@ -30,7 +30,7 @@ class Cmc {
          *  set to 1 by default
          *
          */
-        if(empty($array['amount'])) {
+        if (empty($array['amount'])) {
             $array['amount'] = '1';
         }
         $parameters = [

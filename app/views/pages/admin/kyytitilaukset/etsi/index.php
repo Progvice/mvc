@@ -60,13 +60,13 @@ $(document).ready(() => {
                 break;
             }
             console.log(res);
-            if(res.status) {
+            if (res.status) {
                 $(".results").empty();
-                if(res === undefined) {
+                if (res === undefined) {
                     toastr.warning('Kyytejä ei löytynyt');
                     return;
                 }
-                res.data.forEach(ride => {
+                res.data.foreach (ride => {
 
                     const dateArray = ride.order_date.split('-');
                     const dateArrReversed = dateArray.reverse();

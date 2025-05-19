@@ -1,5 +1,10 @@
 <?php
 
+use Core\App\View;
+use Core\App\Models\MainModel;
+use Core\App\Response;
+use Core\App\UUID;
+
 class verifyaccountController extends Controller
 {
     public function verifyaccount()
@@ -8,8 +13,8 @@ class verifyaccountController extends Controller
             header('HTTP/1.1 404 Not Found');
             header('Location: /404');
         }
-        plugin::load('view');
-        $view = new Core\App\View();
+        Plugin::load('view');
+        $view = new View();
         $msg = [];
         switch ($_GET['msg']) {
             case 'success':
@@ -40,9 +45,9 @@ class verifyaccountController extends Controller
     }
     public function verify()
     {
-        plugin::load('response, models');
-        $response = new Core\App\Response();
-        $models = new Core\App\Models\MainModel();
+        Plugin::load('response, models');
+        $response = new Response();
+        $models = new MainModel();
         $models->CallModel('userverification');
         $verification = $models->Select([
             'values' => [
@@ -61,8 +66,8 @@ class verifyaccountController extends Controller
         }
         $time_diff = time() - $verification[0]['tstamp'];
         if ($time_diff > 7200) {
-            plugin::load('uuid, email');
-            $uuid = new Core\App\UUID();
+            Plugin::load('uuid, email');
+            $uuid = new UUID();
             $newid = $uuid->Create();
 
             $models->Update([

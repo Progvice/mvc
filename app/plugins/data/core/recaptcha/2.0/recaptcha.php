@@ -1,6 +1,6 @@
 <?php
 namespace Core\App;
-class Recaptcha {
+class Recaptcha2 {
     public $json;
     public $secret_key;
     public $returnvalue;
@@ -12,7 +12,7 @@ class Recaptcha {
     public function Confirm($client_token) {
         $user_ip_addr = '';
         // Check that if service is used behind Clourflare.
-        if(isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+        if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
             $user_ip_addr = $_SERVER['HTTP_CF_CONNECTING_IP'];
         }
         else {
@@ -31,7 +31,7 @@ class Recaptcha {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = json_decode(curl_exec($ch), true);
         curl_close($ch);
-        if(!$res['success']) {
+        if (!$res['success']) {
             $msg = '';
             switch($res['error-codes'][0]) {
                 case 'missing-input-secret':

@@ -1,4 +1,4 @@
-<?php echo $templateData->getBlock('isolaatikko') ?>
+<?php echo $template->getBlock('isolaatikko') ?>
 <div class="detailbox_container wrap section-12">
-    <?php echo $templateData->getBlock('tietolaatikot') ?>
+    <?php echo $template->getBlock('tietolaatikot') ?>
 </div>

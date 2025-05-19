@@ -9,8 +9,8 @@
 <div class="profile_content column">
     <h1>Kyytitilaukset</h1>
     <?php
-        if(isset($rides)) {
-            if(count($rides) > 0) {
+        if (isset($rides)) {
+            if (count($rides) > 0) {
                 
                 $html = <<<EOS
                     <table>
@@ -21,7 +21,7 @@
                             <th>Lisätietoja</th>
                         <tr>
                 EOS;
-                foreach($rides as $ride) {
+                foreach ($rides as $ride) {
                     $date = date('d.m.Y', strtotime($ride['order_date']));
                     $time = $ride['order_time'];
                     $from = $ride['address_from'];

@@ -1,12 +1,15 @@
-        <?php
-            class kyyditController extends Controller {
-                public function kyydit() {
-                    plugin::load('response');
-                    $response = new Core\App\Response;
-                    $response->Send('json', [
-                        'status' => true,
-                        'message' => 'kyydit is working!'
-                    ]);
-                }
-            }
-        ?>
+<?php
+
+use Core\App\Response;
+
+class kyyditController extends Controller {
+    public function kyydit() {
+        Plugin::load('response');
+        $response = new Response;
+        $response->Send('json', [
+            'status' => true,
+            'message' => 'kyydit is working!'
+        ]);
+    }
+}
+?>

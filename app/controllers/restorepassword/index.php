@@ -1,9 +1,11 @@
 <?php 
 
+use Core\App\View;
+
 class restorepasswordController extends Controller {
     public function restorepassword() {
-        plugin::load('view');
-        $view = new Core\App\View();
+        Plugin::load('view');
+        $view = new View();
         $view->customelements = [
             'header' => 'empty',
             'footer' => 'empty'

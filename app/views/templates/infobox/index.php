@@ -18,20 +18,20 @@ class infobox extends Template {
         $text = '';
         $list = '';
         $classes = isset($data->classes->data) ? $data->classes->data : '';
-        if(isset($data->title->data)) {
+        if (isset($data->title->data)) {
             $title = <<<EOS
                 <h1>{$data->title->data}</h1>
             EOS;
         }
-        if(isset($data->text->data)) {
+        if (isset($data->text->data)) {
             $text = <<<EOS
                 <p>{$data->text->data}</p>
             EOS;
         }
-        if(isset($data->list)) {
-            if(is_array($data->list)) {
+        if (isset($data->list)) {
+            if (is_array($data->list)) {
                 $list .= '<ul>';
-                foreach($data->list as $value) {
+                foreach ($data->list as $value) {
                     $list .= <<<EOS
                         <li><span>{$value->title}</span><br> {$value->value}</li>
                     EOS;

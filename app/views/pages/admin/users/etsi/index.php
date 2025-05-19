@@ -43,13 +43,13 @@ $(document).ready(() => {
                 break;
             }
             console.log(res.data);
-            if(res.status) {
+            if (res.status) {
                 $(".results").empty();
-                if(res === undefined) {
+                if (res === undefined) {
                     toastr.warning('Kyytejä ei löytynyt');
                     return;
                 }
-                res.data.forEach(user => {
+                res.data.foreach (user => {
                     const html = `
                         <div class="row wrap section-12">
                             <div class="lc_item column section-20">

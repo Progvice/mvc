@@ -5,8 +5,8 @@ use Core\App\View;
 
 class forbiddenController extends Controller {
     public function forbidden() {
-        plugin::load('view, auth');
-        if(!Auth::CheckPerm('admin_access')) {
+        Plugin::load('view, auth');
+        if (!Auth::CheckPerm('admin_access')) {
             header('Location: /404');
             return;
         }

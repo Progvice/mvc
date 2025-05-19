@@ -1,9 +1,11 @@
 <?php 
 
+use Core\App\View;
+
 class disabledController extends Controller {
     public function disabled() {
-        plugin::load('view');
-        $view = new Core\App\View();
+        Plugin::load('view');
+        $view = new View();
         $view->index($this->view);
     }
 }

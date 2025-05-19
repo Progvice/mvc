@@ -15,14 +15,14 @@ class JJCLI {
    \033[94m JJCLI - Command line for JJMVC \033[0m 
    
 EOT;
-        if(count($this->args) < 2) {
+        if (count($this->args) < 2) {
             echo <<<EOT
 
             --- Write "php jjcli.php help" to get more information
             --- about commands and arguments.
 EOT;
         }
-        else if(count($this->args) > 1) {
+        else if (count($this->args) > 1) {
             switch($this->args[1]) {
                 case 'help':
                     $this->Help();
@@ -114,8 +114,8 @@ EOT;
         <?php
             class {$name}Controller extends Controller {
                 public function {$name}() {
-                    plugin::load('response');
-                    \$response = new Core\App\Response;
+                    Plugin::load('response');
+                    \$response = new Response;
                     \$response->Send('json', [
                         'status' => true,
                         'message' => '{$name} is working!'
@@ -142,7 +142,7 @@ EOT;
         file_put_contents($path . '/index.json', $requestfile);
     }
     private function CreateCRUD() {
-        if(empty($this->args[2])) {
+        if (empty($this->args[2])) {
             echo <<<EOT
 \33[91m Invalid second argument.\033[0m
 
@@ -154,43 +154,43 @@ EOT;
         $rfolder = __DIR__ . '/app/requests/';
 
         // CREATING REQUEST FILES
-        if(!file_exists($rfolder . $this->args[2])) {
+        if (!file_exists($rfolder . $this->args[2])) {
             mkdir($rfolder . $this->args[2]);
         }
-        if(!file_exists($rfolder . $this->args[2] . '/create')) {
+        if (!file_exists($rfolder . $this->args[2] . '/create')) {
             mkdir($rfolder . $this->args[2] . '/create');
             $this->CreateRequest($this->args[2], $rfolder . $this->args[2] . '/create', '/' . $this->args[2] . '/create');
         }
-        if(!file_exists($rfolder . $this->args[2] . '/read')) {
+        if (!file_exists($rfolder . $this->args[2] . '/read')) {
             mkdir($rfolder . $this->args[2] . '/read');
             $this->CreateRequest($this->args[2], $rfolder . $this->args[2] . '/read', '/' . $this->args[2] . '/read');
         }
-        if(!file_exists($rfolder . $this->args[2] . '/update')) {
+        if (!file_exists($rfolder . $this->args[2] . '/update')) {
             mkdir($rfolder . $this->args[2] . '/update');
             $this->CreateRequest($this->args[2], $rfolder . $this->args[2] . '/update', '/' . $this->args[2] . '/update');
         }
-        if(!file_exists($rfolder . $this->args[2] . '/delete')) {
+        if (!file_exists($rfolder . $this->args[2] . '/delete')) {
             mkdir($rfolder . $this->args[2] . '/delete');
             $this->CreateRequest($this->args[2], $rfolder . $this->args[2] . '/delete', '/' . $this->args[2] . '/delete');
         }
 
         // CREATING CONTROLLERS 
-        if(!file_exists($cfolder . $this->args[2])) {
+        if (!file_exists($cfolder . $this->args[2])) {
             mkdir($cfolder . $this->args[2]);
         }
-        if(!file_exists($cfolder . $this->args[2] . '/create')) {
+        if (!file_exists($cfolder . $this->args[2] . '/create')) {
             mkdir($cfolder . $this->args[2] . '/create');
             $this->CreateController($this->args[2], $cfolder . $this->args[2] . '/create');
         }
-        if(!file_exists($cfolder . $this->args[2] . '/read')) {
+        if (!file_exists($cfolder . $this->args[2] . '/read')) {
             mkdir($cfolder . $this->args[2] . '/read');
             $this->CreateController($this->args[2], $cfolder . $this->args[2] . '/read');
         }
-        if(!file_exists($cfolder . $this->args[2] . '/update')) {
+        if (!file_exists($cfolder . $this->args[2] . '/update')) {
             mkdir($cfolder . $this->args[2] . '/update');
             $this->CreateController($this->args[2], $cfolder . $this->args[2] . '/update');
         }
-        if(!file_exists($cfolder . $this->args[2] . '/delete')) {
+        if (!file_exists($cfolder . $this->args[2] . '/delete')) {
             mkdir($cfolder . $this->args[2] . '/delete');
             $this->CreateController($this->args[2], $cfolder . $this->args[2] . '/Delete');
         }
@@ -199,7 +199,7 @@ EOT;
 
     private function Devmode() {
         $json = json_decode(file_get_contents(__DIR__ . '/app/config.json'));
-        if(empty($this->args[2])) {
+        if (empty($this->args[2])) {
             echo <<<EOT
 \33[91m Invalid second argument.\033[0m
 
@@ -228,7 +228,7 @@ EOT;
     }
 
     private function CreateModel() {
-        if(empty($this->args[2])) {
+        if (empty($this->args[2])) {
             echo <<<EOT
 \33[91m Invalid second argument.\033[0m
 
@@ -237,25 +237,25 @@ EOT;
             return;
         }
 
-        if(file_exists(__DIR__ . '/app/models/' . $this->args[2] . '.php')){
+        if (file_exists(__DIR__ . '/app/models/' . $this->args[2] . '.php')){
             echo <<<EOT
             \33[91m Model exists already! \033[0m
 EOT;
             return;
         }
         $rules = '';
-        if(isset($this->args[4])) {
+        if (isset($this->args[4])) {
             $rules = $rules . '\'primary_key \' => ' . $this->args[4] . '\',' . "\n";
         }
-        if(isset($this->args[3])) {
+        if (isset($this->args[3])) {
             $rulesarray = explode(',', $this->args[3]);
-            foreach($rulesarray as $rule) {
+            foreach ($rulesarray as $rule) {
                 $ruleset = explode(':', $rule);
                 $rcount = count($ruleset);
                 $counter = 2;
                 $rules = $rules . '            \'' . $ruleset[0] . '\' => [' . "\n";
-                if(isset($ruleset[1]) && !empty($ruleset[1])) {
-                    if($counter !== $rcount) {
+                if (isset($ruleset[1]) && !empty($ruleset[1])) {
+                    if ($counter !== $rcount) {
                         $rules = $rules . '                \'length\' => ' . $ruleset[1] . ',' . "\n";
                     }
                     else {
@@ -263,8 +263,8 @@ EOT;
                     }
                     $counter = $counter + 1;
                 }
-                if(isset($ruleset[2]) && !empty($ruleset[2])) {
-                    if($counter !== $rcount) {
+                if (isset($ruleset[2]) && !empty($ruleset[2])) {
+                    if ($counter !== $rcount) {
                         $rules = $rules . '                \'type\' => \'' . $ruleset[2] . '\',' . "\n";
                     }
                     else {
@@ -272,8 +272,8 @@ EOT;
                     }
                     $counter = $counter + 1;
                 }
-                if(isset($ruleset[3]) && !empty($ruleset[3])) {
-                    if($counter !== $rcount) {
+                if (isset($ruleset[3]) && !empty($ruleset[3])) {
+                    if ($counter !== $rcount) {
                         $rules = $rules . '                \'required\' => ' . $ruleset[3] . ',' . "\n";
                     }
                     else {
@@ -281,8 +281,8 @@ EOT;
                     }
                     $counter = $counter + 1;
                 }
-                if(isset($ruleset[4]) && !empty($ruleset[4])) {
-                    if($counter !== $rcount) {
+                if (isset($ruleset[4]) && !empty($ruleset[4])) {
+                    if ($counter !== $rcount) {
                         $rules = $rules . '                \'unique\' => ' . $ruleset[4] . ',' . "\n";
                     }
                     else {
@@ -290,7 +290,7 @@ EOT;
                     }
                     $counter = $counter + 1;
                 }
-                if($rule === end($rulesarray)) {
+                if ($rule === end($rulesarray)) {
                     $rules = $rules . "\n" . '            ]';
                 }
                 else {
@@ -328,7 +328,7 @@ EOT;
     }
     private function CreateTemplate() {
 
-        if(empty($this->args[2])) {
+        if (empty($this->args[2])) {
             echo <<<EOT
 \33[91m Invalid second argument.\033[0m
 
@@ -337,7 +337,7 @@ EOT;
             return;
         }
 
-        if(file_exists(__DIR__ . '/app/views/templates/' . $this->args[2] . '.php')){
+        if (file_exists(__DIR__ . '/app/views/templates/' . $this->args[2] . '.php')){
             echo <<<EOT
             \33[91m Model exists already! \033[0m
 EOT;

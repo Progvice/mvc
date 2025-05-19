@@ -11,7 +11,7 @@
         Plugin::load('css, js, templateloader');
         new Core\App\Css();
         new Core\App\Js();
-        $template = new Template();
+        $template = $template ?? new Core\App\Template();
     ?>
 </head>
 <body>

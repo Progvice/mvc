@@ -1,6 +1,6 @@
 {
     "tietolaatikot": {
-        "template": "detailbox",
+        "template": "Detailbox",
         "data": [
             {
                 "type": "basic_w_img",

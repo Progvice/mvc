@@ -1,6 +1,6 @@
 <?php
 use Core\App\Template;
-class detailbox extends Template {
+class Detailbox extends Template {
     static protected $template;
     public function load($values) {
         if (!isset($values->type)) {

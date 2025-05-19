@@ -337,30 +337,36 @@ EOT;
             return;
         }
 
-        if (file_exists(__DIR__ . '/app/views/templates/' . $this->args[2] . '.php')){
+        if (file_exists(__DIR__ . '/app/views/templates/' . $this->args[2] . '/index.php')){
             echo <<<EOT
-            \33[91m Model exists already! \033[0m
+            \33[91m Template exists already! \033[0m
 EOT;
             return;
         }
         $eot = 'EOT;';
         $template = <<<EOT
-        <?php
-        namespace Core\App\Template;
-        class {$this->args[2]} extends \Core\App\Template {
-            static protected \$template;
-            public function load(\$values) {
-                self::\$template = <<<EOT
-                    <h1>{$this->args[2]} works!</h1>
-                {$eot}
-                return self::\$template;
-            }
-        }
-        ?>
+<?php
+
+use Core\App\Template;
+
+class {$this->args[2]} extends Template {
+    public function load(\$values) {
+        \$this->collectStyle(__DIR__);
+        return <<<EOT
+            <h1>{$this->args[2]} works!</h1>
+        {$eot}
+    }
+}
+?>
 EOT;
-        $modelfile = fopen(__DIR__ . '/app/views/templates/' . $this->args[2] . '.php', "w");
+        mkdir(__DIR__ . '/app/views/templates/' . $this->args[2]);
+        $modelfile = fopen(__DIR__ . '/app/views/templates/' . $this->args[2] . '/index.php', "w");
         fwrite($modelfile, $template);
         fclose($modelfile);
+        
+        $cssFile = fopen(__DIR__ . '/app/views/templates/' . $this->args[2] . '/style.css', "w");
+        fwrite($cssFile, "/* Template style */");
+        fclose($cssFile);
     }
 }
 $cli = new JJCLI($argv);

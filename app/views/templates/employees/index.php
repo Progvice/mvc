@@ -1,8 +1,8 @@
 <?php
-namespace Core\App\Template;
-class employees extends \Core\App\Template {
+use Core\App\Template;
+class employees extends Template {
     static protected $template;
-    public function Load($values) {
+    public function load($values) {
         $html = '';
         switch($values->type) {
             case 'employee':

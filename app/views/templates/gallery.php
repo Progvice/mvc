@@ -1,8 +1,8 @@
 <?php
-namespace Core\App\Template;
-class gallery extends \Core\App\Template {
+use Core\App\Template;
+class gallery extends Template {
     static protected $template;
-    public function Load($values) {
+    public function load($values) {
         $filename = isset($values['fname']) ? ' - ' . $values['fname'] : '';
         $fullnameHTML = isset($values['imgname']) ? '<h5>' . $values['imgname'] . $filename . '</h5>' : '';
         $descriptionHTML = isset($values['description']) ? '<p>' . $values['description'] . '</p>' : ''; 

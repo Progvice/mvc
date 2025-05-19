@@ -13,29 +13,32 @@ class Template {
      * 
      * 
      */
-    public function LoadData($uri) {
+
+    public $blocks;
+
+    public function loadData($uri) {
         $template_link = DATA_PATH . $uri . '/index.json';
         $template = json_decode(file_get_contents($template_link));
         $datalist = [];
         foreach($template as $block_name => $data) {
             if(!file_exists(TEMPLATE_PATH . $data->template . '/index.php')) {
-                echo 'Template does not exist';
                 continue;
             }
-            $name = '\Core\App\Template\\' . $data->template;
+            $name = $data->template;
+
             if(!class_exists($name)) {
                 require TEMPLATE_PATH . $data->template . '/index.php';
             }
             foreach($data->data as $block) {
                 $class = new $name;
                 if(!array_key_exists($block_name, $datalist)) {
-                    $datalist[$block_name] = $class->Load($block);
+                    $datalist[$block_name] = $class->load($block);
                     continue;
                 }
-                $datalist[$block_name] .= $class->Load($block);
+                $datalist[$block_name] .= $class->load($block);
             }
         }
-        return $datalist;
+        $this->blocks = $datalist;
     }
 
     /*
@@ -53,22 +56,31 @@ class Template {
      *              
      *  
      */
-    public function Load($templatedata) {
+    public function load($template) {
 
-        if(!file_exists(VIEW_PATH . '/../templates/' . $templatedata['name'] . '.php')) {
+        if(!file_exists(VIEW_PATH . '/../templates/' . $template['name'] . '.php')) {
             echo 'Template does not exist.!';
             return;
         }
-        if(empty($templatedata['data'])) {
-            $templatedata['data'] = [];
+        if(empty($template['data'])) {
+            $template['data'] = [];
         }
-        $name = '\Core\App\Template\\' . $templatedata['name'];
+        $name = $template['name'];
         if(!class_exists($name)) {
-            require VIEW_PATH . '/../templates/'. $templatedata['name'] . '.php';
+            require VIEW_PATH . '/../templates/'. $template['name'] . '.php';
         }
         $class = new $name;
-        $final_template = $class->Load($templatedata['data']);
+        $final_template = $class->load($template['data']);
         return $final_template;
+    }
+
+    public function loadStyles($template) {
+        
+    }
+
+    public function getBlock($blockName) {
+        if (isset($this->blocks[$blockName])) return $this->blocks[$blockName];
+        return $blockName . ' is not defined';
     }
 }
 

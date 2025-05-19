@@ -3,10 +3,10 @@
         public function index() {
             plugin::load('view, templateloader');
             $template = new \Core\App\Template();
-            $data = $template->LoadData('/etusivu');
+            $template->loadData('/etusivu');
             $view = new Core\App\View;
             $view->variables = [
-                'templatedata' => $data,
+                'templateData' => $template,
                 'uri' => $this->base_uri
             ];
             $view->index($this->view);

@@ -1,8 +1,8 @@
 <?php
-namespace Core\App\Template;
-class header_menu extends \Core\App\Template {
+use Core\App\Template;
+class HeaderMenu extends Template {
     static protected $template;
-    public function Load($values) {
+    public function load($values) {
         $submenu_icon = '';
         if(MENU['config']['submenu']['fa_icon_enabled']) {
             $submenu_icon = '<i class="' . MENU['config']['submenu']['fa_icon'] . '" aria-hidden="true"></i>';

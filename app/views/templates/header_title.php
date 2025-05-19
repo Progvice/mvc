@@ -1,8 +1,8 @@
 <?php
-namespace Core\App\Template;
-class header_title extends \Core\App\Template {
+use Core\App\Template;
+class header_title extends Template {
     protected $template;
-    public function Load($values) {
+    public function load($values) {
         $name = CONFIG['server']['name'];
         $this->template = <<<EOT
             <div class="header_title">

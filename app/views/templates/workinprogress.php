@@ -1,10 +1,10 @@
 <?php 
 
-namespace Core\App\Template;
+use Core\App\Template;
 
-class workinprogress extends \Core\App\Template {
+class workinprogress extends Template {
     static protected $template;
-    public function Load($values) {
+    public function load($values) {
         self::$template = <<<EOS
             <div class="section-12 column height-50 infobox">
                 <h1>Tilauskalenteri</h1>

@@ -1,1 +1,1 @@
-<?php echo $templatedata['hinnasto_kuljetus']; ?>
+<?php echo $templateData->getBlock('hinnasto_kuljetus'); ?>

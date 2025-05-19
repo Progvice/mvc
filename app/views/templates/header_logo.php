@@ -1,8 +1,8 @@
 <?php
-namespace Core\App\Template;
-class header_logo extends \Core\App\Template {
+use Core\App\Template;
+class header_logo extends Template {
     protected $template;
-    public function Load($values) {
+    public function load($values) {
         $this->template = <<<EOT
             <div class="hlogo">
                 <img src="/img/logo.png" alt="#"/>

@@ -78,7 +78,7 @@
             <form class="admin_templates">
                 <h1>Laatikko {$vcounter}</h1>
                 {$inputfields}
-                <button data-arrpos="{$counter}" class="savetemplatedata">{$save_text}</button>
+                <button data-arrpos="{$counter}" class="savetemplate">{$save_text}</button>
             </form>
             EOS;
             $counter = $counter + 1;
@@ -96,7 +96,7 @@
             let block_name = "<?php echo $fblock_name; ?>";
             let url = "<?php echo $urlfinal; ?>";
             let url_data_raw = <?php echo $url_data_raw; ?>;
-            $(".savetemplatedata").click(function(e){
+            $(".savetemplate").click(function(e){
                 e.preventDefault();
                 let = arrPos = $(this).data('arrpos');
                 let siblingElements = $(this).siblings("input");

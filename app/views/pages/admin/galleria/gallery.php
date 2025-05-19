@@ -12,7 +12,7 @@
             if($status) {
                 if(count($images) >= 1) {
                     foreach($images as $img) {
-                        echo $template->Load([
+                        echo $template->load([
                             'name' => 'gallery',
                             'data' => $img
                         ]);

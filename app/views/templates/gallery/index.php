@@ -1,8 +1,8 @@
 <?php
-namespace Core\App\Template;
-class gallery extends \Core\App\Template {
+use Core\App\Template;
+class gallery extends Template {
     static protected $template;
-    public function Load($values) {
+    public function load($values) {
         $html = '';
         switch($values->type) {
             case 'basic': 

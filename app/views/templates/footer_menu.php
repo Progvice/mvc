@@ -1,6 +1,8 @@
 <?php
-namespace Core\App\Template;
-class footer_menu extends \Core\App\Template {
+
+use Core\App\Template;
+
+class footer_menu extends Template {
     static protected $template;
     public function __construct($values) {
         $menu = '';

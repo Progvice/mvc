@@ -1,8 +1,8 @@
 <?php
-namespace Core\App\Template;
-class testagain extends \Core\App\Template {
+use Core\App\Template;
+class testagain extends Template {
     static protected $template;
-    public function Load($values) {
+    public function load($values) {
         self::$template = <<<EOT
             <h1>testagain works!</h1>
         EOT;

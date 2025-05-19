@@ -1,6 +1,6 @@
 <?php
-namespace Core\App\Template;
-class repetitive extends \Core\App\Template {
+use Core\App\Template;
+class Repetitive extends Template {
     static protected $template;
     private function CreateButton($buttondata) {
         
@@ -20,7 +20,7 @@ class repetitive extends \Core\App\Template {
 
         return $button;
     }
-    public function Load($values) {
+    public function load($values) {
         $button = '';
         if(isset($values['button'])) {
             $button = $this->CreateButton($values['button']);

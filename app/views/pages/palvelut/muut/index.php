@@ -1,6 +1,6 @@
-<?php echo $templatedata['isolaatikko'] ?>
+<?php echo $templateData->getBlock('isolaatikko'); ?>
 <div class="section-12 wrap detailbox_container">
-    <?php echo $templatedata['tietolaatikot']; ?>
+    <?php echo $templateData->getBlock('tietolaatikot'); ?>
 </div>
 <?php if(isset($_SESSION['login']) && false) { ?>
 <div class="datepicker">
@@ -152,6 +152,6 @@ $(document).ready(function() {
 <?php } 
 else {
     plugin::load('templateloader');
-    //echo $template->Load(['name' => 'loginrequired']);
+    //echo $template->load(['name' => 'loginrequired']);
 }
 ?>

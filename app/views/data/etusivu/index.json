@@ -131,7 +131,7 @@
         ]
     },
     "isolaatikko": {
-        "template": "bigbox",
+        "template": "BigBox",
         "data": [
             {
                 "type": "img",

@@ -1,8 +1,8 @@
 <?php
-namespace Core\App\Template;
-class detailbox extends \Core\App\Template {
+use Core\App\Template;
+class detailbox extends Template {
     static protected $template;
-    public function Load($values) {
+    public function load($values) {
         if(!isset($values->type)) {
             return '';
         }

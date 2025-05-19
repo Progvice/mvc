@@ -349,7 +349,7 @@ EOT;
         namespace Core\App\Template;
         class {$this->args[2]} extends \Core\App\Template {
             static protected \$template;
-            public function Load(\$values) {
+            public function load(\$values) {
                 self::\$template = <<<EOT
                     <h1>{$this->args[2]} works!</h1>
                 {$eot}

@@ -1,8 +1,9 @@
 <?php
-namespace Core\App\Template;
-class infobox extends \Core\App\Template {
+use Core\App\Template;
+
+class infobox extends Template {
     static protected $template;
-    public function Load($values) {
+    public function load($values) {
         $html = '';
         switch($values->type) {
             case 'basic': 

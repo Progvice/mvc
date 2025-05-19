@@ -60,7 +60,7 @@
         }
       }
     },
-    "bigbox": {
+    "BigBox": {
       "types": ["index"],
       "index": {}
     },

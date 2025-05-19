@@ -63,7 +63,7 @@ class Plugin {
         *           /app/plugins/plugin_aliases.json
         *   @return void
     *****/
-    public static function Load($name_param) {
+    public static function load($name_param) {
         self::json_load();
         $test_param = $name_param;
         $name_param = explode(',', $name_param);

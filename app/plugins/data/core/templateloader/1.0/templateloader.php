@@ -15,7 +15,7 @@ class Template {
      */
 
     public $blocks;
-    public $styles = '';
+    public static $styles = '';
 
     public function loadData($uri) {
         $template_link = DATA_PATH . $uri . '/index.json';
@@ -82,7 +82,7 @@ class Template {
     public function collectStyle($dir) {
         if (!file_exists($dir . '/style.css')) return;
         $styles = file_get_contents($dir . '/style.css');
-        $this->styles = $this->styles . "\n\n" . $styles;
+        self::$styles = self::$styles . "\n\n" . $styles;
     }
 }
 

@@ -11,39 +11,6 @@
       "lang": "homepage",
       "link": "/",
       "fa_icon": "fas fa-home"
-    },
-    "services": {
-      "lang": "services",
-      "link": "#",
-      "fa_icon": "fas fa-cubes",
-      "submenu": [
-        {
-          "lang": "taxiservices",
-          "link": "/palvelut/kuljetuspalvelut",
-          "fa_icon": "fas fa-taxi"
-        },
-        {
-          "lang": "otherservices",
-          "link": "/palvelut/muut",
-          "fa_icon": "fas fa-hand-holding-heart"
-        }
-      ]
-    },
-    "prices": {
-      "lang": "prices",
-      "link": "/hinnasto",
-      "fa_icon": "fas fa-tags"
-    },
-    "contactinfo": {
-      "lang": "contactinfo",
-      "link": "/yhteystiedot",
-      "fa_icon": "far fa-comments"
-    },
-    "orderride": {
-      "lang": "orderride",
-      "link": "/tilaakyyti",
-      "fa_icon": "fas fa-taxi",
-      "disabled": true
     }
   },
   "footer": [{}]

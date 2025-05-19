@@ -3,7 +3,6 @@ use Core\App\Template;
 class HeaderMenu extends Template {
     static protected $template;
     public function load($values) {
-        parent::collectStyle(__DIR__);
         $submenu_icon = '';
         if (MENU['config']['submenu']['fa_icon_enabled']) {
             $submenu_icon = '<i class="' . MENU['config']['submenu']['fa_icon'] . '" aria-hidden="true"></i>';
@@ -42,8 +41,8 @@ class HeaderMenu extends Template {
         }
         $menu .= '</ul></nav>';
         self::$template = $menu;
+        $this->collectStyle(__DIR__);
         return self::$template;
     }
 }
 
-?>

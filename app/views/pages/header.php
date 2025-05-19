@@ -9,7 +9,7 @@
         Plugin::load('css, js, templateloader');
         new Core\App\Css();
         new Core\App\Js();
-        $template = isset($template) ? $template : new Core\App\Template();
+        $template = $template ?? new Core\App\Template();
     ?>
 </head>
 <body>

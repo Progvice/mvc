@@ -66,6 +66,8 @@ class View {
         require $view;
         require $footer;
         $content = ob_get_contents();
+        $styles = Template::$styles;
+        $content = str_replace('</head>', "<style>{$styles}</style></head>", $content);
         ob_end_clean();
         header('Cache-Control: max-age=86400');
         header("Content-Type: text/html");

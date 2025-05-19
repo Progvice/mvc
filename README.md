@@ -342,18 +342,19 @@ This folder is used for storing templates.
 ### **How to create template**
 
     <?php
-        namespace Core\App\Template;
-        class exampletemplate extends \Core\App\Template {
+    use Core\App\Template;
+    class header_title extends Template {
         protected $template;
-
-            public function __construct($values) {
-                $this->template = '
-                    <div class="section-12">
-                        <h1 class="bigtext">' . $values['title'] . '</h1>
-                        <p>' . $values['description'] .'</p>
-                    </div>';
-            }
+        public function load($values) {
+            $name = CONFIG['server']['name'];
+            $this->template = <<<EOT
+                <div class="header_title">
+                    <a href="/"><h2>{$name}</h2></a>
+                </div>
+            EOT;
+            return $this->template;
         }
+    }
 
     ?>
 
@@ -426,7 +427,7 @@ So basically developer can define what data should be and how should it be. Main
 
 **EXAMPLE - INSERT**
 
-    $model = new Core\App\Models\MainModel;
+    $model = MainModel();
     $model->CallModel('user');
 
     $data = [
@@ -438,7 +439,7 @@ So basically developer can define what data should be and how should it be. Main
 
 **EXAMPLE - SELECT**
 
-    $model = new Core\App\Models\MainModel;
+    $model = MainModel();
     $model->CallModel('user');
     $data = $model->Select([
         'values' => [

@@ -50,6 +50,7 @@ class View {
             $this->variables['title'] = CONFIG['server']['name'];    
         }
         extract($this->variables);
+
         $header = VIEW_PATH . '/header.php';
         $footer = VIEW_PATH . '/footer.php';
         if ($this->customelements !== null) {

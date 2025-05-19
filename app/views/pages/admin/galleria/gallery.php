@@ -13,7 +13,7 @@
                 if (count($images) >= 1) {
                     foreach ($images as $img) {
                         echo $template->load([
-                            'name' => 'gallery',
+                            'name' => 'GalleryAdmin',
                             'data' => $img
                         ]);
                     } 

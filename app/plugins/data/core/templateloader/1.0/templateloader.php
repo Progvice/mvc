@@ -15,6 +15,7 @@ class Template {
      */
 
     public $blocks;
+    public $styles = '';
 
     public function loadData($uri) {
         $template_link = DATA_PATH . $uri . '/index.json';
@@ -58,14 +59,15 @@ class Template {
      */
     public function load($template) {
 
-        if (!file_exists(VIEW_PATH . '/../templates/' . $template['name'] . '.php')) {
+        $name = $template['name'];
+
+        if (!file_exists(VIEW_PATH . '/../templates/' . $name . '/' . 'index.php')) {
             echo 'Template does not exist.!';
             return;
         }
 
-        $name = $template['name'];
         if (!class_exists($name)) {
-            require VIEW_PATH . '/../templates/'. $name . '.php';
+            require VIEW_PATH . '/../templates/'. $name . '/' . 'index.php';
         }
         $class = new $name;
         $final_template = $class->load(isset($template['data']) ? $template['data'] : []);
@@ -75,6 +77,12 @@ class Template {
     public function getBlock($blockName) {
         if (isset($this->blocks[$blockName])) return $this->blocks[$blockName];
         return $blockName . ' is not defined';
+    }
+
+    public function collectStyle($dir) {
+        if (!file_exists($dir . '/style.css')) return;
+        $styles = file_get_contents($dir . '/style.css');
+        $this->styles = $this->styles . "\n\n" . $styles;
     }
 }
 

@@ -152,6 +152,5 @@ $(document).ready(function() {
 <?php } 
 else {
     Plugin::load('templateloader');
-    //echo $template->load(['name' => 'loginrequired']);
 }
 ?>

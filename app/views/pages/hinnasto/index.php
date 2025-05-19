@@ -1,1 +1,1 @@
-<?php echo $template->getBlock('hinnasto_kuljetus'); ?>
+<?php echo $template->load(['name' => 'Sample']); ?>

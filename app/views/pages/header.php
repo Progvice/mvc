@@ -9,18 +9,11 @@
         Plugin::load('css, js, templateloader');
         new Core\App\Css();
         new Core\App\Js();
-
         $template = isset($template) ? $template : new Core\App\Template();
     ?>
 </head>
 <body>
-    <header>
-        <a class="logo" href="/">
-            <img src="/img/logo_yellow.png" alt="Logo" />
-        </a>
-        <?php echo $template->load(['name' => 'HeaderMenu']); ?>
-        <button class="menubutton"><i class="fas fa-bars"></i></button>
-    </header>
+    <?php echo $template->load(['name' => 'Header']) ?> 
     <?php if (empty($_COOKIE['consent'])) { ?>
         <div class="cn_bg"></div>
         <div class="cookienotification">

@@ -8,7 +8,8 @@ Feel free to look around the documentation and code. This documentation is old a
 
 WIP
 - Data relations (hasMany, hasOne, belongsTo etc)
-- 
+- Templating system
+- Creating new dynamic templates
 
 1. [Request Path](#request-path)
 2. [Plugins](#plugins)

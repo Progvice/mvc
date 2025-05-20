@@ -2,7 +2,7 @@
 
 ## **Introduction**
 
-Welcome! I have made this tool as practice for myself. Most of the code is built by me exceptions being some 3rd party libraries. I started making this as practice so I could learn how to write PHP. It has gotten better along the years and this project has definetly taught me that how things should be done and how things should be done. This MVC lacks lots of functionalities that most of others provide, but the idea of this project has always been learning. 
+Welcome! I have made this tool as practice for myself. Most of the code is built by me exceptions being some 3rd party libraries. I started making this as practice so I could learn how to write PHP. It has gotten better along the years and this project has definetly taught me that how things should be done and how things should not be done. This MVC lacks lots of functionalities that most of others provide, but the idea of this project has always been learning. 
 
 Feel free to look around the documentation and code. This documentation is old as I have been prioritizing developing the code for now. Most of the functionalities still work the way they are written on this readme.md file. 
 

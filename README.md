@@ -63,13 +63,13 @@ Controller starts with name like "class exampleController extends Controller" an
 
 Requests contain all the parameters of request that needs to be met. 
 
-method - JJMVC method function of controller  
-httpMethod - which HTTP method is used (POST, GET, PUT, PATCH, DELETE)  
-title - This can be used on view to show certain title for page  
-controller - Defines path of controller location inside controllers/ folder  
-hidden - This parameter was initially meant for hiding pages from listing of all pages. This does not have any real use case nowadays.  
-id - Does not really have any use case. Will be removed in the future  
-params - Contains all the possible params of this request route. Params will be explained later  
+**method** - JJMVC method function of controller  
+**httpMethod** - which HTTP method is used (POST, GET, PUT, PATCH, DELETE)  
+**title** - This can be used on view to show certain title for page  
+**controller** - Defines path of controller location inside controllers/ folder  
+**hidden** - This parameter was initially meant for hiding pages from listing of all pages. This does not have any real use case nowadays.  
+**id** - Does not really have any use case. Will be removed in the future  
+**params** - Contains all the possible params of this request route. Params will be explained later  
 
 ### 1.5 Plugins
 

@@ -9,8 +9,8 @@ JJMVC is PHP framework that makes it easier to build full stack web applications
 Let's start with essentials of JJMVC. 
 
 ### 1.1 Folder structure
-
-root/
+```
+root/ \n
 ├── app/
 |   ├── controllers/ - Route controllers
 |   |   ├── loader.php - JJMVC plugin loader
@@ -39,6 +39,7 @@ root/
 |   └── index.php - Entrypoint for the whole application. Every request goes through this file except files in public folder
 |
 └── jjcli.php - JJMVC CLI tool that makes developers life so much easier when using JJMVC
+```
 
 Now we have gone through the folder structure. Folder structure gives you information of how thins 
 

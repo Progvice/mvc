@@ -10,7 +10,7 @@ Let's start with essentials of JJMVC.
 
 ### 1.1 Folder structure
 ```
-root/ \n
+root/
 ├── app/
 |   ├── controllers/ - Route controllers
 |   |   ├── loader.php - JJMVC plugin loader

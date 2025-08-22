@@ -1,0 +1,18 @@
+{
+  "name": "jjmvc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init": "npx @tailwindcss/cli -i ./public/css/style.css -o ./public/css/tailwind.css",
+    "watch": "npx @tailwindcss/cli -i ./public/css/style.css -o ./public/css/tailwind.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "tailwindcss": "^4.1.12"
+  }
+}

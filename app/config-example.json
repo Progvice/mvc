@@ -1,57 +1,52 @@
 {
-    "environment": "development",
-    "version": 1,
-    "version_stage": "alpha",
-    "development": {
-        "server": {
-            "host": "localhost",
-            "name": "JJMVC"
-        },
-        "database": {
-            "dbtype": "mysql",
-            "host": "",
-            "dbname": "",
-            "username": "",
-            "password": "",
-            "charset": "utf8"
-        },
-        "argon_settings": {
-            "memory_cost": 131072,
-            "threads": 2,
-            "time_cost": 11
-        },
-        "recaptcha_secret": ""
+  "environment": "development",
+  "version": 1,
+  "version_stage": "alpha",
+  "development": {
+    "server": {
+      "host": "localhost",
+      "name": "JJMVC"
     },
-    "production": {
-        "server": {
-            "host": "localhost",
-            "name": "JJMVC"
-        },
-        "database": {
-            "dbtype": "mysql",
-            "host": "",
-            "dbname": "",
-            "username": "",
-            "password": "",
-            "charset": "utf8"
-        },
-        "argon_settings": {
-            "memory_cost": 131072,
-            "threads": 2,
-            "time_cost": 11
-        },
-        "recaptcha_secret": ""
+    "database": {
+      "dbtype": "mysql",
+      "host": "db",
+      "dbname": "crmdb",
+      "username": "testi",
+      "password": "testi123",
+      "charset": "utf8"
     },
-    "settings": {
-        "demosettings": {
-            "value": "production",
-            "anyvalue": true,
-            "possible_values": [
-                "test1",
-                "test2",
-                "test3",
-                "production"
-            ]
-        }
+    "argon_settings": {
+      "memory_cost": 131072,
+      "threads": 2,
+      "time_cost": 11
+    },
+    "recaptcha_secret": ""
+  },
+  "production": {
+    "server": {
+      "host": "localhost",
+      "name": "JJMVC"
+    },
+    "database": {
+      "dbtype": "mysql",
+      "host": "",
+      "dbname": "",
+      "username": "",
+      "password": "",
+      "charset": "utf8"
+    },
+    "argon_settings": {
+      "memory_cost": 131072,
+      "threads": 2,
+      "time_cost": 11
+    },
+    "recaptcha_secret": ""
+  },
+  "settings": {
+    "demosettings": {
+      "value": "production",
+      "anyvalue": true,
+      "possible_values": ["test1", "test2", "test3", "production"]
     }
+  }
 }

@@ -8,12 +8,12 @@
             "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js",
             "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js",
             "https://www.google.com/recaptcha/api.js?render=6LfngqseAAAAABp3f1htpLMhEsBlpxNqmcKe-xOq",
-            "script.js"
+            "scripts.js"
           ]
         },
 
         {
-          "async": []
+          "async": ["jjmvc.js"]
         },
 
         {
@@ -38,24 +38,18 @@
             }
           ],
           "/register": [
-          {
-            "asfer": [
-              
-            ]
-          }
+            {
+              "asfer": []
+            }
           ],
           "/restorepassword": [
             {
-              "asfer": [
-                
-              ]
+              "asfer": []
             }
-            ],
+          ],
           "/tilaakyyti": [
             {
-              "asfer": [
-                "https://www.google.com/recaptcha/api.js"
-              ]
+              "asfer": ["https://www.google.com/recaptcha/api.js"]
             }
           ]
         }

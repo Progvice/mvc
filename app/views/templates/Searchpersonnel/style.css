@@ -1,0 +1,9 @@
+/* Template style */
+
+.searchbar {
+    height: 35px;
+    margin-right: auto;
+    margin-left: 10px;
+    min-width: 200px;
+    font-size: 16px;
+}

@@ -1,9 +1,13 @@
 <?php
 
+namespace Core\App\Template;
+
 use Core\App\Template;
 
-class Sample extends Template {
-    public function load($values) {
+class Sample extends Template
+{
+    public function load($values)
+    {
         return <<<EOS
             <div>
                 <h1>Welcome to JJMVC</h1>
@@ -16,7 +20,5 @@ class Sample extends Template {
                 </p>
             </div>
         EOS;
-    } 
+    }
 }
-
-?>

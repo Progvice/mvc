@@ -1,0 +1,11 @@
+<?php
+
+return [
+    "url" => "/",
+    "hidden" => true,
+    "controller" => "/index.php",
+    "actions" => "index",
+    "name" => "index",
+    "title" => "Etusivu",
+    "id" => 0
+];

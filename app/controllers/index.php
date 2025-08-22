@@ -3,15 +3,18 @@
 use Core\App\Template;
 use Core\App\View;
 
-class indexController extends Controller {
-    public function index() {
+class indexController extends Controller
+{
+    public function index()
+    {
         Plugin::load('view, templateloader');
-        $template = new Template();
-        $template->loadData('/etusivu');
         $view = new View();
+
+        $personels = json_decode(file_get_contents('http://localhost/personel/read'), true);
+
         $view->variables = [
-            'template' => $template,
-            'uri' => $this->base_uri
+            'uri' => $this->base_uri,
+            'personnels' => $personels['data'] ?? []
         ];
         $view->index($this->view);
     }

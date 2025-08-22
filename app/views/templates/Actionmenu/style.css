@@ -1,0 +1,41 @@
+/* Template style */
+
+.actionmenu {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.actionmenudesc {
+    width: 100%;
+}
+.actionmenudesc p {
+    font-size: 18px;
+    line-height: 20px;
+}
+.actionmenudesc p a {
+    color: #466fd0;
+    text-decoration: underline;
+}
+
+.actionmenu .actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.actionmenu .actions button {
+    height: 40px;
+    max-width: 100%;
+    background-color: transparent;
+    border: 2px solid #466fd0;
+    color: #466fd0;
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin: 0 5px;
+}
+.actionmenu .actions button:hover {
+    cursor: pointer;
+}

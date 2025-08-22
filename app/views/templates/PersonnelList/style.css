@@ -1,0 +1,76 @@
+/* Template style */
+
+.personnels {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.personnels .personnel {
+    width: 100%;
+    border-bottom: 1px solid grey;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.personnels .nopersonnels {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.personnels .nopersonnels h2 {
+    color: #466fd0;
+}
+
+.personnels .personnel .personnelCol {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.personnels .personnel .personnelCol p {
+    margin: 0;
+}
+
+.personnels .personnel .personnelCol p.bold {
+    font-weight: bold;
+}
+
+.personnels .personnel .personnelCol button {
+    height: 40px;
+    max-width: 100%;
+    background-color: transparent;
+    border: 2px solid #466fd0;
+    color: #466fd0;
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin: 0 5px;
+}
+
+.personnels .personnel .personnelCol button:hover {
+    cursor: pointer;
+}
+.personnels .personnel .personnelCol .personnelActionMenu {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    top: 40px;
+    z-index: 2;
+}
+
+.personnels .personnel .personnelCol .personnelActionMenu button {
+    background-color: #466fd0;
+    color: white;
+    border-bottom: 1px solid black;
+}
+
+.personnels .personnel .personnelCol .personnelActionMenu:hover {
+    display: flex;
+}
+
+.personnels .personnel .personnelCol > button:hover ~ .personnelActionMenu {
+    display: flex;
+}

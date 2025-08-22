@@ -10,6 +10,7 @@ class MainModel
     protected $model;
     protected $mname;
     protected $conn;
+    protected $rules;
     public function CallModel($name)
     {
         Plugin::load('db');
@@ -24,11 +25,64 @@ class MainModel
         require_once MODEL_PATH . '/' . $name . '.php';
         $modelname = 'Core\App\Models\\' . $name;
         $this->model = new $modelname;
+        $this->rules = $this->model->rules;
         if (isset($this->model->rules['table'])) {
             $this->mname = $this->model->rules['table'];
         } else {
             $this->mname = $name;
         }
+    }
+
+    // DO NOT USE THIS FOR USER INPUT
+    public function RawSQL($sql)
+    {
+        $this->conn = DB::Connect();
+        $this->conn->exec($sql);
+    }
+
+    private function pascalToSnake($string)
+    {
+        $snake = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $string));
+        return $snake;
+    }
+
+    public function GetRequiredFields()
+    {
+        $requiredFields = [];
+
+        if (empty($this->rules)) {
+            return [
+                'status' => false,
+                'msg' => 'This action requires use of model'
+            ];
+        }
+
+        foreach ($this->rules as $field => $ruleset) {
+            if (isset($ruleset['required']) && $ruleset['required'] === true) {
+                $requiredFields[] = $field;
+            }
+        }
+        return $requiredFields;
+    }
+    public function GetFields()
+    {
+        if (empty($this->rules)) {
+            return [
+                'status' => false,
+                'msg' => 'This action requires use of model'
+            ];
+        }
+        $fields = [];
+
+        foreach ($this->rules as $field => $ruleset) {
+            if (!isset($ruleset['type'])) continue;
+            $fields[] = $field;
+        }
+        return $fields;
+    }
+    public function LoadModelRules()
+    {
+        return $this->rules;
     }
     /*  
      *  
@@ -266,7 +320,7 @@ class MainModel
             ]);
         }
 
-        $query = 'INSERT INTO ' . $this->mname . ' ';
+        $query = 'INSERT INTO ' . $this->pascalToSnake($this->mname) . ' ';
         $columns = '(';
         $values = '(';
         $last_arr_elem = end($data);
@@ -289,7 +343,7 @@ class MainModel
             return [
                 'status' => true,
                 'msg' => 'insertsuccesful',
-                'id' => $this->conn->lastInsertId()
+                'id' => $this->conn->lastInsertId(),
             ];
         }
         return [
@@ -345,7 +399,7 @@ class MainModel
             ];
         }
 
-        $query = 'UPDATE ' . $this->mname . ' SET ';
+        $query = 'UPDATE ' . $this->pascalToSnake($this->mname) . ' SET ';
         $execarr = [];
         if (!isset($data['data'])) {
             return [
@@ -412,7 +466,8 @@ class MainModel
         if ($returnval) {
             return [
                 'status' => true,
-                'msg' => 'updatesuccesful'
+                'msg' => 'updatesuccesful',
+                'rowcount' => $result->rowCount()
             ];
         }
         return [
@@ -428,7 +483,7 @@ class MainModel
                 'msg' => 'wherenotset'
             ];
         }
-        $query = 'DELETE FROM ' . $this->mname . ' WHERE ';
+        $query = 'DELETE FROM ' . $this->pascalToSnake($this->mname) . ' WHERE ';
         $last_arr_elem_where = end($data['where']);
         foreach ($data['where'] as $column => $value) {
             $cnarr = ':' . $column;
@@ -447,7 +502,8 @@ class MainModel
         if ($returnval) {
             return [
                 'status' => true,
-                'msg' => 'deletesuccesful'
+                'msg' => 'deletesuccesful',
+                'rowcount' => $result->rowCount()
             ];
         }
         return [
@@ -590,8 +646,10 @@ class MainModel
             $limit_clause .= ' OFFSET ' . $data['offset'];
         }
 
+        $mname = $this->pascalToSnake($this->mname);
+
         $query = <<<EOT
-            SELECT {$data['columns']} FROM {$this->mname}{$where_clause}{$order_clause}{$limit_clause};
+            SELECT {$data['columns']} FROM {$mname}{$where_clause}{$order_clause}{$limit_clause};
         EOT;
         $query = $this->conn->prepare($query);
         $query->execute($execarr);
@@ -671,9 +729,7 @@ class MainModel
         $where_clause = '';
         $execarr = [];
         if (isset($data['where'])) {
-            $last_bool = false;
             $where_clause = $where_clause . ' WHERE ';
-            $last_arr_elem = end($data['where']);
             foreach ($data['where'] as $tablename => $table) {
                 foreach ($table as $column => $value) {
                     $name = ':' . $column;

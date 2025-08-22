@@ -1,7 +1,10 @@
 <?php
+
 namespace Core\App;
-class View {
-   /*
+
+class View
+{
+    /*
     *
     *   @var $variables (array)
     *    
@@ -17,7 +20,7 @@ class View {
     *
     */
     public $variables;
-   /*
+    /*
     *   @var $customelements (array)
     *
     *   @example
@@ -30,9 +33,9 @@ class View {
     *           You can load header or footer or both at the same time.
     *
     */
-    
+
     public $customelements;
-   /*
+    /*
     *   @name   index    Set view for user
     *   
     *   @desc   With this method you can output HTML to browser.
@@ -41,13 +44,14 @@ class View {
     *
     *   @return void
     */
-    public function index($view) {
+    public function index($view)
+    {
         if (!file_exists($view)) {
             echo '<h1>JJMVC Error</h1><p>No view set. Contact server administrator if you see this message.</p>';
             return;
         }
         if (!isset($this->variables['title'])) {
-            $this->variables['title'] = CONFIG['server']['name'];    
+            $this->variables['title'] = CONFIG['server']['name'];
         }
         extract($this->variables);
 
@@ -58,7 +62,7 @@ class View {
                 $header = VIEW_PATH . '/../custom/' . $this->customelements['header'] . '/header.php';
             }
             if (isset($this->customelements['footer']) && file_exists(VIEW_PATH . '/../custom/' . $this->customelements['footer'] . '/footer.php')) {
-                $footer = VIEW_PATH . '/../custom/' . $this->customelements['footer'] . '/footer.php';   
+                $footer = VIEW_PATH . '/../custom/' . $this->customelements['footer'] . '/footer.php';
             }
         }
         ob_start();
@@ -67,13 +71,25 @@ class View {
         require $footer;
         $content = ob_get_contents();
         $styles = Template::$styles;
-        $content = str_replace('</head>', "<style>{$styles}</style></head>", $content);
+        $scripts = Template::$scripts;
+
+        $headDetails = <<<EOS
+        <style>{$styles}</style>
+        <script>
+        $(document).ready(function() {
+        {$scripts}
+        });
+        </script>
+        </head>
+        EOS;
+
+        $content = str_replace('</head>', $headDetails, $content);
         ob_end_clean();
         header('Cache-Control: max-age=86400');
         header("Content-Type: text/html");
         echo $content;
     }
-   /*
+    /*
     *   @name   menu    fetch menu for view
     *   
     *   @desc   With this class you can output HTML to browser.
@@ -84,5 +100,3 @@ class View {
     *   @return string
     */
 }
-
-?>

@@ -1,0 +1,9 @@
+<?php
+
+return [
+    "url" => "/user/create",
+    "controller" => "/user/create/index.php",
+    "actions" => "user",
+    "name" => "user",
+    "title" => "user"
+];

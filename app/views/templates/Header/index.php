@@ -1,21 +1,24 @@
-<?php 
+<?php
+
+namespace Core\App\Template;
 
 use Core\App\Template;
 
-class Header extends Template {
-    public function load($values) {
+class Header extends Template
+{
+    public function load($values)
+    {
         $this->collectStyle(__DIR__);
+        $this->collectScript(__DIR__);
+
         $headerMenu = parent::load(['name' => 'HeaderMenu']);
         return <<<EOS
         <header>
-            <a class="logo" href="/">
-                <img src="/img/jjmvc_white.png" alt="Logo" />
-            </a>
-            $headerMenu
-            <button class="menubutton"><i class="fas fa-bars"></i></button>
+            <div class="headermargin">
+                <h1>Henkilötietojärjestelmä</h1>
+                $headerMenu
+            </div>
         </header>
         EOS;
     }
 }
-
-?>

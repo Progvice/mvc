@@ -123,7 +123,7 @@ if ($url === $right_uri || $url_second === $right_uri) {
     $page_found = TRUE;
     require_once CONTROLLER_PATH . '/Controller.php';
     $controller = new Controller();
-    $controller->method = $requests['actions'];
+    $controller->method = $requests['method'];
     $controller->base_uri = $right_uri;
     $controller->params_uri = $final_url;
     $controller->uri_array = $uri;

@@ -5,7 +5,7 @@ return [
     "httpMethod" => "GET",
     "url" => "/personel/read",
     "controller" => "/personel/read/index.php",
-    "actions" => "personel",
+    "method" => "personel",
     "name" => "personel",
     "title" => "personel",
 

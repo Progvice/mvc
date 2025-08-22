@@ -75,7 +75,7 @@ class Template
 
         $templateFullClassname = 'Core\App\Template\\' . $templateClassname;
 
-        $allowedApiTemplates = require CONTROLLER_PATH . '/config/apitemplates.php';
+        $allowedApiTemplates = require APP_PATH . '/config/apitemplates.php';
 
         if (!isset($allowedApiTemplates)) return false;
         if (in_array($templateFullClassname, $allowedApiTemplates)) return true;

@@ -5,7 +5,7 @@ return [
     "httpMethod" => "POST",
     "url" => "/personel/create",
     "controller" => "/personel/create/index.php",
-    "actions" => "personel",
+    "method" => "personel",
     "name" => "personel",
     "title" => "personel"
 ];

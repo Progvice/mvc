@@ -4,7 +4,7 @@ return [
 
     "url" => "/404",
     "controller" => "/404/index.php",
-    "actions" => "notfound",
+    "method" => "notfound",
     "name" => "notfound",
     "title" => "404"
 

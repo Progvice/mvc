@@ -4,7 +4,7 @@ return [
     "url" => "/",
     "hidden" => true,
     "controller" => "/index.php",
-    "actions" => "index",
+    "method" => "index",
     "name" => "index",
     "title" => "Etusivu",
     "id" => 0

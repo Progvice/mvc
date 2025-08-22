@@ -5,7 +5,7 @@ return [
     "httpMethod" => "DELETE",
     "url" => "/personel/delete",
     "controller" => "/personel/delete/index.php",
-    "actions" => "personel",
+    "method" => "personel",
     "name" => "personel",
     "title" => "personel",
     "params" => [

@@ -233,7 +233,7 @@ EOT;
 return [
     "url" => "{$uri}",
     "controller" => "{$uri}/index.php",
-    "actions" => "{$name}",
+    "method" => "{$name}",
     "name" => "{$name}",
     "title" => "{$name}"
 ];

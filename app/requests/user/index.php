@@ -3,7 +3,7 @@
 return [
     "url" => "/user",
     "controller" => "/user/index.php",
-    "actions" => "user",
+    "method" => "user",
     "name" => "user",
     "title" => "user",
     "params" => [

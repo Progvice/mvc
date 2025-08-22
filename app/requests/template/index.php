@@ -4,7 +4,7 @@ return [
     "url" => "/template",
     "hidden" => true,
     "controller" => "/template/index.php",
-    "actions" => "template",
+    "method" => "template",
     "name" => "template",
     "title" => "templateload",
     "id" => 0,

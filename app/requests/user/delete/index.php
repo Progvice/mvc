@@ -3,7 +3,7 @@
 return [
     "url" => "/user/delete",
     "controller" => "/user/delete/index.php",
-    "actions" => "user",
+    "method" => "user",
     "name" => "user",
     "title" => "user",
     "params" => [

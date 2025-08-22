@@ -56,20 +56,20 @@ Controller method has been set on request files.
 ### 1.3 Controllers
 
 Controllers work based on request URI and request file configuration. Fallback of Controller is to send user /404. 
-Controller starts with name like "class exampleController extends Controller" and main method usually is the same name called "example". However method name is really defined in request file and it can be anything. SUggestion is to use same name on classname and on function ex. 
+Controller starts with name like "class exampleController extends Controller" and main method usually is the same name called "example". However method name is really defined in request file and it can be anything. Suggestion is to use same name on classname and on function ex. 
 "exampleController" -> "public function example()".
 
 ### 1.4 Requests
 
 Requests contain all the parameters of request that needs to be met. 
 
-method - JJMVC method function of controller
-httpMethod - which HTTP method is used (POST, GET, PUT, PATCH, DELETE)
-title - This can be used on view to show certain title for page
-controller - Defines path of controller location inside controllers/ folder
-hidden - This parameter was initially meant for hiding pages from listing of all pages. This does not have any real use case nowadays.
-id - Does not really have any use case. Will be removed in the future
-params - Contains all the possible params of this request route. Params will be explained later
+method - JJMVC method function of controller  
+httpMethod - which HTTP method is used (POST, GET, PUT, PATCH, DELETE)  
+title - This can be used on view to show certain title for page  
+controller - Defines path of controller location inside controllers/ folder  
+hidden - This parameter was initially meant for hiding pages from listing of all pages. This does not have any real use case nowadays.  
+id - Does not really have any use case. Will be removed in the future  
+params - Contains all the possible params of this request route. Params will be explained later  
 
 ### 1.5 Plugins
 
@@ -77,15 +77,15 @@ Plugins are essential part of JJMVC. Plugin are pieces of code that can be loade
 possibility of creating flexible solutions. Plugins can also include other plugins. I have been planning on creating 
 dependency tree of plugins like in other package managers (Composer, npm etc). However for now this is just theoretical solution and I will look up to it in the future if JJMVC ever even gets more users or if I feel like programming dependency system. 
 
-Plugins can be loaded easily by just writing 
+Plugins can be loaded easily by just writing  
 
     Plugin::load('response')
 
-Or another way of writing with full path is
+Or another way of writing with full path is  
 
     Plugin::load('core:response:1.0')
 
-Plugin aliases can be set at app/plugins/plugin_aliases.json. 
+Plugin aliases can be set at app/plugins/plugin_aliases.json.  
 
 ### 1.6 Templates and Template loader
 

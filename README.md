@@ -91,16 +91,46 @@ Plugin aliases can be set at app/plugins/plugin_aliases.json.
 
 Templates are part of view that can be loaded within view. Templates can receive data and use that data to view information. Creating templates is easy as you can just use CLI tool to create new template. 
 
-Create new template
+**Create new template**
 
     php jjcli.php createtemplate ExampleTemplate
 
 This will create new template called "ExampleTemplate". Now you can easily load it using JJMVC built-in templateloader. Header has instance of Templateloader so you don't really need to define it yourself. 
 
-How to include template file in view?
+**How to include template file in view?**
 
     $template->load(['name' => 'ExampleTemplate', 'data' => [ANY_DATA_HERE]])
 
 After that ExampleTemplate gets loaded and is shown in view. 
 
-Templates can also be loaded within controllers. 
+#### 1.6.1 API templates
+
+Some templates are available to be loaded through using /template/{templateName} request. You can see and modify templates that are available at **app/config/apitemplates.php**. This could be useful if frontend needs to fetch new view for interactive changes and without changing the page. It can give user better user experience in the end. However be cautios when making it possible to load templates that receive user data. This makes JJMVC more vulnerable to XSS attacks. 
+
+### 1.7 Models
+
+Models contains the business logic of your application. You can define new entities and connections between those entities easily. 
+
+JJCLI provides tools for creating new models, generating SQL out of those models and inserting SQL files in correct order. 
+
+**Create new model**
+
+    php jjcli.php createmodel example -- id
+
+**This command defines that**  
+1. We want to create new model called "example"
+2. -- means that we want to bypass field inputs for now
+3. "id" means that we want to use field "id" as primary key
+
+Field data types that are available and working at the moment are
+
+- number
+- string
+- date
+
+These data types will be extented with more data types in the future. 
+
+#### 1.7.1 order.php file
+
+You can find order.php file at root/sql folder. order.php contains details of which order should every entity be generated to SQL. Child entities have dependencies of parent entities so table of parent entities need to be created first before child entities.
+

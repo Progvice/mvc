@@ -15,6 +15,7 @@ class MainModel
     protected $rules;
     private $model_short_name;
     private $submodels = [];
+    private $selectInChunkSize = 1000;
 
     private function setLoadedModel(MainModel $model, string $name)
     {
@@ -514,12 +515,78 @@ class MainModel
     {
     
     }
+
+    private function getBelongsToFields(array $rules, string $parentClass, string $parentModelName)
+    {
+        if (!isset($rules['belongsTo'])) {
+            return null;
+        }
+
+        foreach ($rules['belongsTo'] as $key => $settings) {
+            if (is_int($key) && $settings === $parentClass) {
+                return [lcfirst($parentModelName) . '_id', 'id'];
+            }
+
+            if ($key !== $parentClass) {
+                continue;
+            }
+
+            if (isset($settings[0]) && isset($settings[1])) {
+                return [$settings[0], $settings[1]];
+            }
+
+            return [lcfirst($parentModelName) . '_id', 'id'];
+        }
+
+        return null;
+    }
+
+    private function addColumnToSelect($columns, string $column)
+    {
+        if (empty($columns) || trim($columns) === '*') {
+            return [$columns, false];
+        }
+
+        $selectedColumns = array_map('trim', explode(',', $columns));
+        if (in_array($column, $selectedColumns, true)) {
+            return [$columns, false];
+        }
+
+        $selectedColumns[] = $column;
+        return [implode(', ', $selectedColumns), true];
+    }
     
     public function Select($data = [], $sub_model_name = "")
     {
         if (empty($data['columns'])) {
             $data['columns'] = '*';
         }
+
+        $hiddenColumns = [];
+        if (isset($data['with'])) {
+            foreach ($data['with'] as $key => $settings) {
+                $class_name = is_int($key) ? $settings : $key;
+                $model_exploded = explode('\\', $class_name);
+                $model_name = end($model_exploded);
+                $this->CallModel($model_name, true);
+                $model_rules = $this->submodels[$model_name]['rules'];
+
+                $childFields = $this->getBelongsToFields($model_rules, $this->model::class, $this->model_short_name);
+                $parentFields = $this->getBelongsToFields($this->rules, $class_name, $model_name);
+                $currentColumn = $childFields[1] ?? $parentFields[0] ?? null;
+
+                if ($currentColumn === null) {
+                    continue;
+                }
+
+                [$data['columns'], $added] = $this->addColumnToSelect($data['columns'], $currentColumn);
+                if ($added) {
+                    $hiddenColumns[] = $currentColumn;
+                }
+            }
+        }
+
+        $mname = empty($sub_model_name) ? $this->pascalToSnake($this->mname) : $this->pascalToSnake($sub_model_name);
         $where_clause = '';
         $execarr = [];
 
@@ -637,6 +704,60 @@ class MainModel
             }
         }
 
+        if (isset($data['has'])) {
+            foreach ($data['has'] as $key => $conditions) {
+                $class_name = is_int($key) ? $conditions : $key;
+                $model_exploded = explode('\\', $class_name);
+                $model_name = end($model_exploded);
+                $this->CallModel($model_name, true);
+                $model_instance = $this->submodels[$model_name]['model'];
+                $model_rules = $this->submodels[$model_name]['rules'];
+
+                $childFields = $this->getBelongsToFields($model_rules, $this->model::class, $this->model_short_name);
+                $parentFields = $this->getBelongsToFields($this->rules, $class_name, $model_name);
+
+                if ($childFields !== null) {
+                    $connectingFields = [
+                        'current' => $childFields[1],
+                        'related' => $childFields[0],
+                    ];
+                } else if ($parentFields !== null) {
+                    $connectingFields = [
+                        'current' => $parentFields[0],
+                        'related' => $parentFields[1],
+                    ];
+                } else {
+                    $connectingFields = null;
+                }
+
+                if ($connectingFields === null) {
+                    throw new \Exception("Invalid connection fields between " . $this->model::class . " and " . $class_name);
+                }
+
+                $related_table = $this->pascalToSnake($model_instance->mname);
+                $has_conditions = [
+                    $related_table . '.' . $connectingFields['related'] . ' = ' . $mname . '.' . $connectingFields['current']
+                ];
+
+                if (!is_array($conditions)) {
+                    $conditions = [];
+                }
+
+                foreach ($conditions as $field => $value) {
+                    $placeholder = ':has_' . count($execarr) . '_' . preg_replace('/[^a-zA-Z0-9_]/', '_', $field);
+                    $execarr[$placeholder] = $value;
+                    $has_conditions[] = $related_table . '.' . $field . ' = ' . $placeholder;
+                }
+
+                $has_clause = 'EXISTS (SELECT 1 FROM ' . $related_table . ' WHERE ' . implode(' AND ', $has_conditions) . ')';
+                if (empty(trim($where_clause))) {
+                    $where_clause = ' WHERE ' . $has_clause;
+                } else {
+                    $where_clause .= ' AND ' . $has_clause;
+                }
+            }
+        }
+
         $order_clause = ' ';
         if (isset($data['order'])) {
             $order_clause .= 'ORDER BY ';
@@ -650,7 +771,7 @@ class MainModel
             }
         }
 
-        $limit_clause = isset($data['limit']) ? ' LIMIT ' . $data['limit'] : ' LIMIT 50' ;
+        $limit_clause = !empty($data['without_limit']) ? ' ' : ' LIMIT 50' ;
 
         if (isset($data['limit'])) {
             $limit_clause = ' LIMIT ' . $data['limit'];
@@ -658,8 +779,6 @@ class MainModel
         if (isset($data['offset'])) {
             $limit_clause .= ' OFFSET ' . $data['offset'];
         }
-
-        $mname = empty($sub_model_name) ? $this->pascalToSnake($this->mname) : $this->pascalToSnake($sub_model_name);
 
         $where_clause = count($execarr) < 1 ? ' ' : $where_clause;
 
@@ -688,41 +807,45 @@ class MainModel
             $model_instance = $this->submodels[$model_name]['model'];
             $model_rules = $this->submodels[$model_name]['rules'];
 
-            if (!isset($model_rules['belongsTo'])) continue;
+            $childFields = $this->getBelongsToFields($model_rules, $this->model::class, $this->model_short_name);
+            $parentFields = $this->getBelongsToFields($this->rules, $class_name, $model_name);
 
-            $isClassArrayValue = in_array($this->model::class, $model_rules['belongsTo']);
-            $isClassArrayKey = array_key_exists($this->model::class, $model_rules['belongsTo']) 
-                && count($model_rules['belongsTo'][$this->model::class]) > 1;
-            $hasOnlyRel = array_key_exists($this->model::class, $model_rules['belongsTo'])
-                && array_key_exists('ref', $model_rules['belongsTo'][$this->model::class])
-                && count($model_rules['belongsTo'][$this->model::class]) === 1;
-
-            $defaultFields = [lcfirst($this->model_short_name) . '_id', 'id'];
-
-            $connectingFields = match(true) {
-                $isClassArrayValue => $defaultFields,
-                $isClassArrayKey => [
-                    $model_rules['belongsTo'][$this->model::class][0],
-                    $model_rules['belongsTo'][$this->model::class][1],
-                ],
-                $hasOnlyRel => $defaultFields,
-                default => null
-            };
+            if ($childFields !== null) {
+                $connectingFields = [
+                    'current' => $childFields[1],
+                    'related' => $childFields[0],
+                ];
+            } else if ($parentFields !== null) {
+                $connectingFields = [
+                    'current' => $parentFields[0],
+                    'related' => $parentFields[1],
+                ];
+            } else {
+                $connectingFields = null;
+            }
 
             if ($connectingFields === null) {
                 throw new \Exception("Invalid connection fields between " . $this->model::class . " and " . $class_name);
             }
 
-            if (!array_key_exists($connectingFields[1], $results[0])) {
+            if (!array_key_exists($connectingFields['current'], $results[0])) {
                 throw new \Exception("Invalid connection field between " . $this->model::class . " and " . $class_name);
             }
 
-            $ids_of_parent = array_column($results, $connectingFields[1]);
+            $ids_of_parent = array_values(array_unique(array_column($results, $connectingFields['current'])));
+
+            if (count($ids_of_parent) < 1) {
+                foreach ($results as &$row) {
+                    $row[$model_name] = [];
+                }
+                unset($row);
+                continue;
+            }
 
             $settings_arr = [
                 'where' => [
                     'in' => [
-                        $connectingFields[0] => $ids_of_parent
+                        $connectingFields['related'] => $ids_of_parent
                     ]
                 ]
             ];
@@ -731,16 +854,47 @@ class MainModel
                 $settings_arr = array_merge_recursive($settings, $settings_arr);
             }
 
-            $sub_results = $model_instance->Select($settings_arr);
+            if (!isset($settings_arr['limit'])) {
+                $settings_arr['without_limit'] = true;
+            }
+
+            $hiddenRelatedColumn = null;
+            [$settings_arr['columns'], $added] = $this->addColumnToSelect($settings_arr['columns'] ?? '*', $connectingFields['related']);
+            if ($added) {
+                $hiddenRelatedColumn = $connectingFields['related'];
+            }
+
+            $sub_results = [];
+            foreach (array_chunk($ids_of_parent, $this->selectInChunkSize) as $ids_chunk) {
+                $chunk_settings_arr = $settings_arr;
+                $chunk_settings_arr['where']['in'][$connectingFields['related']] = $ids_chunk;
+                $sub_results = array_merge($sub_results, $model_instance->Select($chunk_settings_arr));
+            }
+
+            $relatedByKey = [];
+            foreach ($sub_results as $sub) {
+                $key = $sub[$connectingFields['related']];
+
+                if ($hiddenRelatedColumn !== null) {
+                    unset($sub[$hiddenRelatedColumn]);
+                }
+
+                $relatedByKey[$key][] = $sub;
+            }
 
             foreach ($results as &$row) {
-                $related = array_filter($sub_results, fn($sub) =>
-                    $sub[$connectingFields[0]] == $row[$connectingFields[1]]
-                );
-                $row[$model_name] = array_values($related);
+                $row[$model_name] = $relatedByKey[$row[$connectingFields['current']]] ?? [];
             }
             unset($row);
         }
+
+        foreach ($results as &$row) {
+            foreach ($hiddenColumns as $column) {
+                unset($row[$column]);
+            }
+        }
+        unset($row);
+
         return $results;
     }
 

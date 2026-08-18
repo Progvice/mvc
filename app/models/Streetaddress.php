@@ -3,6 +3,8 @@
 namespace Core\App\Models;
 
 use Core\App\Models\Personel;
+use Core\App\Models\Rides;
+use Core\App\Enum\ConstraintEnum;
 
 class Streetaddress extends MainModel
 {
@@ -11,7 +13,11 @@ class Streetaddress extends MainModel
     {
         $this->rules = [
             'primary_key' => 'id',
-            'belongsTo' => [Personel::class],
+            'belongsTo' => [
+                Personel::class => [
+                    'ref' => [ConstraintEnum::DELETE_CASCADE, ConstraintEnum::UPDATE_CASCADE]
+                ]
+            ],
 
             'created_at' => true,
             'modified_at' => true,

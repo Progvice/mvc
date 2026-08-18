@@ -1,11 +1,9 @@
 <?php
-
-
 return [
     "httpMethod" => "POST",
     "url" => "/personel/create",
     "controller" => "/personel/create/index.php",
-    "method" => "personel",
-    "name" => "personel",
+    "method" => "personelCreate",
+    "name" => "PersonelCreate",
     "title" => "personel"
 ];

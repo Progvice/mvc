@@ -1,12 +1,10 @@
 <?php
-
-
 return [
     "httpMethod" => "GET",
     "url" => "/personel/read",
     "controller" => "/personel/read/index.php",
-    "method" => "personel",
-    "name" => "personel",
+    "method" => "personelRead",
+    "name" => "PersonelRead",
     "title" => "personel",
 
     "params" => [
@@ -20,5 +18,4 @@ return [
             "method" => "personelById"
         ]
     ]
-
 ];

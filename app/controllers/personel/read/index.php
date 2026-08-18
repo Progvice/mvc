@@ -2,10 +2,11 @@
 
 use Core\App\Models\MainModel;
 use Core\App\Response;
+use Core\App\Models\Streetaddress;
 
-class personelController extends Controller
+class PersonelReadController extends Controller
 {
-    public function personel()
+    public function personelRead()
     {
         Plugin::load('response, models');
         $response = new Response;
@@ -15,7 +16,13 @@ class personelController extends Controller
 
         $personel = $models->Select([
             'limit' => 10,
-            'offset' => 0
+            'offset' => 0,
+            'where' => [
+                'in' => [
+                    'id' => []
+                ]
+            ],
+            'with' => [Streetaddress::class]
         ]);
 
         $response->Send('json', [
@@ -73,7 +80,8 @@ class personelController extends Controller
         $searchResults = $models->Select([
             'values' => [
                 'contains' => $data
-            ]
+            ],
+            
         ]);
 
         $response->Send('json', [

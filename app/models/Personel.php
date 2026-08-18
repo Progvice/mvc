@@ -3,6 +3,7 @@
 namespace Core\App\Models;
 
 use Core\App\Models\Streetaddress;
+use Core\App\Models\Rides;
 
 class Personel extends MainModel
 {
@@ -11,7 +12,7 @@ class Personel extends MainModel
     {
         $this->rules = [
             'primary_key' => 'id',
-            'hasOne' => [Streetaddress::class],
+            'hasMany' => [Streetaddress::class, Rides::class],
 
             'firstname' => [
                 'length' => 155,
@@ -32,7 +33,7 @@ class Personel extends MainModel
                 'unique' => true
             ],
             'phonenumber' => [
-                'length' => 20,
+                'length' => 22,
                 'type' => 'string',
                 'required' => true,
                 'unique' => true

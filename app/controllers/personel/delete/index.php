@@ -2,9 +2,9 @@
 
 use Core\App\Response;
 
-class personelController extends Controller
+class PersonelDeleteController extends Controller
 {
-    public function personel()
+    public function personelDelete()
     {
         Plugin::load('response, models');
         $response = new Response;

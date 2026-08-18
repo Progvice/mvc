@@ -1,17 +1,15 @@
 <?php
-
-
 return [
     "httpMethod" => "PATCH",
     "url" => "/personel/update",
     "controller" => "/personel/update/index.php",
-    "method" => "personel",
-    "name" => "personel",
+    "method" => "personelUpdate",
+    "name" => "PersonelUpdate",
     "title" => "personel",
     "params" => [
         "update" => [
             "httpMethod" => "PATCH",
-            "method" => "personel"
+            "method" => "personelUpdate"
         ]
     ]
 ];

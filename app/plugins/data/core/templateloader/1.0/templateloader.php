@@ -2,6 +2,9 @@
 
 namespace Core\App;
 
+use Core\App\Models\MainModel;
+use Core\App\Models\PageContent;
+
 class Template
 {
     /*
@@ -81,6 +84,25 @@ class Template
         if (in_array($templateFullClassname, $allowedApiTemplates)) return true;
 
         return false;
+    }
+    
+    public function getPageData($uri) {
+        \Plugin::load('models');
+        $models = new MainModel();
+        $models->CallModel('page');
+        $page = $models->Select([
+            'where' => [
+                'equals' => [
+                    'uri' => $uri
+                ],
+            ],
+            'with' => [PageContent::class => [
+                'with' => [
+                    PageContent::class => []
+                ]
+            ]]
+        ]);
+        return $page;
     }
 
     public function collectStyle($dir)

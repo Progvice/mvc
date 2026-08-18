@@ -1,27 +1,13 @@
 <?php
-/*
- *  This is JJCLI and with it developer can make using JJMVC more easier.
- * 
- * 
- * 
- * 
- */
-
-define('APP_PATH', __DIR__ . '/../app');
-define('CONTROLLER_PATH', APP_PATH . '/controllers/');
-define('MODEL_PATH', APP_PATH . '/models');
-define('REQUEST_PATH', APP_PATH . '/requests');
-define('VIEW_PATH', APP_PATH . '/views/pages');
-define('PLUGIN_PATH', APP_PATH . '/plugins');
-define('JSON_PATH', APP_PATH . '/plugins/json');
-define('DATA_PATH', APP_PATH . '/views/data');
-define('TEMPLATE_PATH', APP_PATH . '/views/templates/');
 
 require __DIR__ . '/app/controllers/loader.php';
+
+use Core\App\Enum\ConstraintEnum;
 
 class JJCLI
 {
     private $args;
+    private $tables;
     public function __construct($argv)
     {
         $this->args = $argv;
@@ -60,10 +46,13 @@ EOT;
                     $this->CreateCRUD();
                     break;
                 case 'createtable':
-                    $this->CreateTable();
+                    $this->CreateTable($this->args);
                     break;
                 case 'generatesql':
                     $this->GenerateSQL();
+                    break;
+                case 'init':
+                    $this->initializeFromDocker();
                     break;
                 default:
                     echo <<<EOT
@@ -73,6 +62,8 @@ EOT;
                     break;
             }
         }
+
+        $this->tables = require __DIR__ . '/sql/order.php';
     }
 
     private function setup($force = false)
@@ -202,44 +193,148 @@ EOT;
             
 EOT;
     }
-    private function Createpage() {}
-    private function CreateController($name, $path)
+    private function Createpage()
     {
-
-        $name = $this->args[2];
-        $controller = <<<EOT
-<?php
-    use Core\App\Response;
-    class {$name}Controller extends Controller {
-        public function {$name}() {
-            Plugin::load('response');
-            \$response = new Response;
-            \$response->Send('json', [
-                'status' => true,
-                'message' => '{$name} is working!'
-            ]);
+        $path = trim($this->args[2]);
+        $name = '';
+        if (!isset($this->args[3])) {
+            $explodedPath = explode('/', $path);
+            $pathLastPathPos = count($explodedPath) - 1;
+            $name = $explodedPath[$pathLastPathPos];
+        } else {
+            $name = $this->args[3];
         }
+
+        $this->CreateController($name, $path, 'page');
+        $this->CreateRequest($name, $path, $path, true);
+        $this->CreateView($path, true);
     }
-?>
-EOT;
-        file_put_contents($path . '/index.php', $controller);
-    }
-    private function CreateRequest($name, $path, $uri)
+    private function CreateView($path, $defaultView = true)
     {
-        $requestfile = <<<EOT
 
+        $defaultViewCode = match (true) {
+            $defaultView === true => <<<PHP
+            <?php echo \$page_content ?>
+            PHP,
+            default => ''
+        };
+
+        $relativePath = __DIR__ . '/app/views/pages' . $path;
+
+        if (!is_dir($relativePath)) {
+            mkdir($relativePath, 0755, true);
+        }
+
+        if (file_exists($relativePath . '/index.php')) {
+            $this->sendConsoleMessage('View file already exists at ' . $relativePath);
+            die();
+        }
+        file_put_contents($relativePath . '/index.php', $defaultViewCode);
+    }
+    private function CreateController($name, $path, $method = 'api')
+    {
+        $methodName = $name;
+        $name = ucfirst($name);
+
+        $controllerContent = match (true) {
+            $method === 'api' => <<<PHP
+Plugin::load('response');
+\$response = new Response();
+\$response->Send('json', [
+    'status' => true,
+    'message' => '{$name} is working!'
+]);
+PHP,
+            $method === 'page' => <<<PHP
+            Plugin::load('view');
+                    \$view = new View();
+                    \$view->variables = [
+                        'page_content' => 'Hello World!'
+                    ];
+                    \$view->index(\$this->view);
+            PHP,
+            default => '',
+        };
+
+        $controllerNamespace = match (true) {
+            $method === 'api' => 'use Core\\App\\Response;',
+            $method === 'page' => 'use Core\\App\\View;',
+            default => 'use Core\\App\\Response;',
+        };
+
+        $controller = <<<EOT
+        <?php
+        {$controllerNamespace}
+        class {$name}Controller extends Controller {
+            public function {$methodName}() {
+                {$controllerContent}
+            }
+        }
+        ?>
+        EOT;
+
+        if (!is_dir(__DIR__ . '/app/controllers' . $path)) {
+            mkdir(__DIR__ . '/app/controllers' . $path, 0755, true);
+        }
+
+        if (file_exists(__DIR__ . '/app/controllers' . $path . '/index.php')) {
+            $this->sendConsoleMessage('Controller already exists at ' . $path . ' - Exiting...', 'error', 'JJCLI - CreateController line ' . __LINE__);
+            die();
+        }
+
+        file_put_contents(__DIR__ . '/app/controllers' . $path . '/index.php', $controller);
+    }
+    private function CreateRequest($name, $path, $uri, $noParams = false)
+    {
+        $methodName = $name;
+        $name = ucfirst($name);
+
+        $httpMethod = match (true) {
+            str_contains($name, 'Create') => 'POST',
+            str_contains($name, 'Read')   => 'GET',
+            str_contains($name, 'Update') => 'PATCH',
+            str_contains($name, 'Delete') => 'DELETE',
+            default => 'GET'
+        };
+        $paramMethod =  match (true) {
+            str_contains($name, 'Create') => 'create',
+            str_contains($name, 'Read')   => 'read',
+            str_contains($name, 'Update') => 'update',
+            str_contains($name, 'Delete') => 'delete',
+            default => $name
+        };
+
+
+        $params = PHP_EOL . <<<PHP
+    "params" => [
+        "{$paramMethod}" => [
+            "method" => "{$methodName}"
+        ] 
+    ]    
+PHP;
+        $setParams = $paramMethod !== 'create' && $noParams === false ? $params : '';
+
+        $requestfile = <<<PHP
 <?php 
-
 return [
+    "httpMethod" => "{$httpMethod}",
     "url" => "{$uri}",
     "controller" => "{$uri}/index.php",
-    "method" => "{$name}",
+    "method" => "{$methodName}",
     "name" => "{$name}",
-    "title" => "{$name}"
+    "title" => "{$name}",{$setParams}
 ];
+PHP;
 
-EOT;
-        file_put_contents($path . '/index.php', $requestfile);
+        if (!is_dir(__DIR__ . '/app/requests' . $path)) {
+            mkdir(__DIR__ . '/app/requests' . $path, 0755, true);
+        }
+
+        if (file_exists(__DIR__ . '/app/requests' . $path . '/index.php')) {
+            $this->sendConsoleMessage('Request file already exists at ' . __DIR__ . '/app/requests' . $path . ' - Exiting...', 'error', 'JJCLI - CreateController line ' . __LINE__);
+            die();
+        }
+        file_put_contents(__DIR__ . '/app/requests' . $path . '/index.php', $requestfile);
     }
     private function CreateCRUD()
     {
@@ -256,23 +351,23 @@ EOT;
 
         // CREATING REQUEST FILES
         if (!file_exists($rfolder . $this->args[2])) {
-            mkdir($rfolder . $this->args[2]);
+            mkdir($rfolder . $this->args[2], 0755, true);
         }
         if (!file_exists($rfolder . $this->args[2] . '/create')) {
             mkdir($rfolder . $this->args[2] . '/create');
-            $this->CreateRequest($this->args[2], $rfolder . $this->args[2] . '/create', '/' . $this->args[2] . '/create');
+            $this->CreateRequest($this->args[2] . 'Create', $this->args[2] . '/create', '/' . $this->args[2] . '/create');
         }
         if (!file_exists($rfolder . $this->args[2] . '/read')) {
             mkdir($rfolder . $this->args[2] . '/read');
-            $this->CreateRequest($this->args[2], $rfolder . $this->args[2] . '/read', '/' . $this->args[2] . '/read');
+            $this->CreateRequest($this->args[2] . 'Read', $this->args[2] . '/read', '/' . $this->args[2] . '/read');
         }
         if (!file_exists($rfolder . $this->args[2] . '/update')) {
             mkdir($rfolder . $this->args[2] . '/update');
-            $this->CreateRequest($this->args[2], $rfolder . $this->args[2] . '/update', '/' . $this->args[2] . '/update');
+            $this->CreateRequest($this->args[2] . 'Update', $this->args[2] . '/update', '/' . $this->args[2] . '/update');
         }
         if (!file_exists($rfolder . $this->args[2] . '/delete')) {
             mkdir($rfolder . $this->args[2] . '/delete');
-            $this->CreateRequest($this->args[2], $rfolder . $this->args[2] . '/delete', '/' . $this->args[2] . '/delete');
+            $this->CreateRequest($this->args[2] . 'Delete', $this->args[2] . '/delete', '/' . $this->args[2] . '/delete');
         }
 
         // CREATING CONTROLLERS 
@@ -281,19 +376,19 @@ EOT;
         }
         if (!file_exists($cfolder . $this->args[2] . '/create')) {
             mkdir($cfolder . $this->args[2] . '/create');
-            $this->CreateController($this->args[2], $cfolder . $this->args[2] . '/create');
+            $this->CreateController($this->args[2] . 'Create', $cfolder . $this->args[2] . '/create');
         }
         if (!file_exists($cfolder . $this->args[2] . '/read')) {
             mkdir($cfolder . $this->args[2] . '/read');
-            $this->CreateController($this->args[2], $cfolder . $this->args[2] . '/read');
+            $this->CreateController($this->args[2] . 'Read', $cfolder . $this->args[2] . '/read');
         }
         if (!file_exists($cfolder . $this->args[2] . '/update')) {
             mkdir($cfolder . $this->args[2] . '/update');
-            $this->CreateController($this->args[2], $cfolder . $this->args[2] . '/update');
+            $this->CreateController($this->args[2] . 'Update', $cfolder . $this->args[2] . '/update');
         }
         if (!file_exists($cfolder . $this->args[2] . '/delete')) {
             mkdir($cfolder . $this->args[2] . '/delete');
-            $this->CreateController($this->args[2], $cfolder . $this->args[2] . '/delete');
+            $this->CreateController($this->args[2] . 'Delete', $cfolder . $this->args[2] . '/delete');
         }
         clearstatcache();
     }
@@ -415,8 +510,7 @@ namespace Core\App\Models;
 class {$modelname} extends MainModel {
     protected \$rules;
     public function __construct() {
-        \$this->rules = [
-{$rules}
+        \$this->rules = [{$rules}
         ];
     }
 }
@@ -426,6 +520,43 @@ EOT;
         fwrite($modelfile, $template);
         fclose($modelfile);
     }
+
+    private function CreateJob()
+    {
+        if (empty($this->args[2])) {
+            echo <<<EOT
+\33[91m Invalid second argument.\033[0m
+
+
+EOT;
+            return;
+        }
+
+        if (file_exists(__DIR__ . '/app/jobs/' . $this->args[2] . '/index.php')) {
+            echo <<<EOT
+            \33[91m Job exists already! \033[0m
+EOT;
+            return;
+        }
+
+        $name = $this->args[2];
+
+
+
+        $jobTemplate = <<<EOT
+<?php 
+
+class {$name}Job extends Jobs {
+    
+    public function init(\$args) {
+        
+    }
+
+}
+
+EOT;
+    }
+
     private function CreateTemplate()
     {
 
@@ -509,6 +640,21 @@ EOT;
         {$field} DATE{$conditions}
         EOS;
     }
+    private function CreateDatetime($field, $isUnique, $isRequired, $lastArrElem)
+    {
+        $conditions = ($isRequired === true ? ' NOT NULL' : '') . ($isUnique === true ? ' UNIQUE' : '') . ($lastArrElem ? '' : ',');
+        return <<<EOS
+        {$field} DATETIME{$conditions}
+        EOS;
+    }
+
+    private function CreateJSON($field, $isUnique, $isRequired, $lastArrElem)
+    {
+        $conditions = ($isRequired === true ? ' NOT NULL' : '') . ($isUnique === true ? ' UNIQUE' : '') . ($lastArrElem ? '' : ',');
+        return <<<EOS
+        {$field} JSON{$conditions}
+        EOS;
+    }
 
     private function toPascalCase(string $text)
     {
@@ -544,7 +690,7 @@ EOT;
 EOT;
         }
         require_once __DIR__ . '/app/plugins/data/core/models/1.0/MainModel.php';
-        require __DIR__ . '/app/models/' . ucfirst($name) . '.php';
+        require_once __DIR__ . '/app/models/' . ucfirst($name) . '.php';
 
         $className = 'Core\\App\\Models\\' . $name;
 
@@ -569,8 +715,10 @@ EOT;
                 || $field === 'created_at'
                 || $field === 'modified_at'
                 || $field === 'hasOne'
+                || $field === 'hasMany'
                 || $field === 'pk_autoincrement'
             ) continue;
+
             if (!isset($rulefields['type']) || empty($rulefields['type'])) {
                 echo <<<EOT
 
@@ -591,17 +739,25 @@ EOT;
 
             $autoIncrement = isset($rulefields['autoincrement']) ? true : false;
 
+            $lineEnding = $lastArrElem === true ? "" : "\n";
+
             switch ($type) {
                 case 'string':
                     $length = isset($rulefields['length']) ? $rulefields['length'] : 255;
-                    $fieldList = $fieldList . '    ' . $this->CreateStringType($field, $length, $isUnique, $isRequired, $lastArrElem) . "\n";
+                    $fieldList = $fieldList . '    ' . $this->CreateStringType($field, $length, $isUnique, $isRequired, $lastArrElem) . $lineEnding;
                     break;
                 case 'number':
                     $length = isset($rulefields['length']) ? $rulefields['length'] : 10;
-                    $fieldList = $fieldList . '    ' . $this->CreateNumberType($field, $length, $isUnique, $isRequired, $lastArrElem, $autoIncrement) . "\n";
+                    $fieldList = $fieldList . '    ' . $this->CreateNumberType($field, $length, $isUnique, $isRequired, $lastArrElem, $autoIncrement) . $lineEnding;
                     break;
                 case 'date':
-                    $fieldList = $fieldList . '    ' . $this->CreateDate($field, $isUnique, $isRequired, $lastArrElem) . "\n";
+                    $fieldList = $fieldList . '    ' . $this->CreateDate($field, $isUnique, $isRequired, $lastArrElem) . $lineEnding;
+                    break;
+                case 'datetime':
+                    $fieldList = $fieldList . '    ' . $this->createDatetime($field, $isUnique, $isRequired, $lastArrElem) . $lineEnding;
+                    break;
+                case 'json':
+                    $fieldList = $fieldList . '    ' . $this->CreateJSON($field, $isUnique, $isRequired, $lastArrElem) . $lineEnding;
                     break;
             }
         }
@@ -610,32 +766,104 @@ EOT;
         $constraints = "";
 
         if (isset($rules['belongsTo']) && is_array($rules['belongsTo'])) {
-            foreach ($rules['belongsTo'] as $subClassName) {
+            foreach ($rules['belongsTo'] as $key => $subClassName) {
+                $params = null;
+                if (!is_int($key)) {
+                    $params = $subClassName;
+                    $subClassName = $key;
+                }
+
+                if ($params !== null && !is_array($params)) {
+                    $this->sendConsoleMessage('belongsTo value should be array. ' . gettype($params) . ' given at ' . $subClassName, 'warning');
+                    continue;
+                }
+
+                if ($params !== null && count($params) > 1) {
+                    if (gettype($params[0]) !== 'string') {
+                        $this->sendConsoleMessage('belongsTo local field should be string. ' . gettype($params[0]) . ' given at ' . $subClassName, 'warning');
+                        continue;
+                    }
+                    if (gettype($params[1]) !== 'string') {
+                        $this->sendConsoleMessage('belongsTo relation field should be string. ' . gettype($params[1]) . ' given at ' . $subClassName, 'warning');
+                        continue;
+                    }
+                }
+
+                $constraint_settings = [];
+
+                if ($params !== null && array_key_exists('ref', $params)) {
+                    if (!is_array($params['ref'])) {
+                        $this->sendConsoleMessage('belongsTo ref needs to be array. ' . gettype($params['ref']) . ' given at ' . $subClassName, 'warning');
+                        return;
+                    }
+                    if (count($params['ref']) > 2 || count($params['ref']) < 1) {
+                        $this->sendConsoleMessage('belongsTo ref should have minimum of 1 option and maximum of 2 options. ' . count($params['ref']) . ' given at ' . $subClassName, 'warning');
+                        return;
+                    }
+                    if (!($params['ref'][0] instanceof ConstraintEnum)) {
+                        $this->sendConsoleMessage('belongsTo ref value 0 is not instance of ' . ConstraintEnum::class);
+                        return;
+                    }
+                    if (isset($params['ref'][1]) && !($params['ref'][1] instanceof ConstraintEnum)) {
+                        $this->sendConsoleMessage('belongsTo ref value 0 is not instance of ' . ConstraintEnum::class);
+                        return;
+                    }
+
+                    $duplicateConstraints = [false, null];
+
+                    foreach (['DELETE', 'UPDATE'] as $sqlMethod) {
+                        if (str_contains($params['ref'][0]->value, $sqlMethod) && str_contains($params['ref'][1]->value, $sqlMethod)) {
+                            $duplicateConstraints = [true, $params['ref']];
+                        }
+                    }
+
+                    if ($duplicateConstraints[0]) {
+                        $invalid_ref_fields = implode(', ', [$params['ref'][0]->value, $params['ref'][1]->value]);
+                        $this->sendConsoleMessage('belongsTo ref cannot have two same kind of actions. ' . $invalid_ref_fields . ' are set at ' . $subClassName, 'warning');
+                        return;
+                    }
+                    $constraint_settings = [$params['ref'][0]->value, $params['ref'][1]->value];
+                }
+
+                $constraint_settings_text = '';
+
+                if (count($constraint_settings) === 1) {
+                    $constraint_settings_text = $constraint_settings[0];
+                } else if (count($constraint_settings) === 2) {
+                    $constraint_settings_text = implode("\n        ", $constraint_settings);
+                }
 
                 $explodedName = explode('\\', $subClassName);
                 $subClassNameWoNamespace = lcfirst(end($explodedName));
 
-                $fieldList = <<<EOS
-                {$fieldList}
-                    {$subClassNameWoNamespace}_id INT UNSIGNED,
-                EOS;
+                $subClassNameFieldName = $params !== null && count($params) > 1 ? $params[0] : $subClassNameWoNamespace . '_id';
+                $primaryKeyForConstraints = $params !== null && count($params) > 1 ? $params[1] : $primaryKeyForConstraints;
 
-                $constraintEnding = end($rules['belongsTo']) === $subClassName ? '' : (count($rules['belongsTo']) > 1 ? ',' : '');
+                $array_key_end = $params !== null ? array_key_last($rules['belongsTo']) : end($rules['belongsTo']);
+
+                $constraintEnding = $array_key_end === $subClassName ? '' : (count($rules['belongsTo']) > 1 ? ',' : '');
                 $newConstraint = <<<EOS
                     CONSTRAINT fk_{$subClassNameWoNamespace}_{$snakeName}
-                        FOREIGN KEY ({$subClassNameWoNamespace}_id) REFERENCES {$subClassNameWoNamespace}({$primaryKeyForConstraints})
-                        ON DELETE CASCADE{$constraintEnding}
+                        FOREIGN KEY ({$subClassNameFieldName}) REFERENCES {$subClassNameWoNamespace}({$primaryKeyForConstraints})
+                        {$constraint_settings_text}{$constraintEnding}
                 EOS;
 
                 $lastConstraint = end($rules['belongsTo']) === $subClassName ? "" : "\n\n";
 
                 $constraints = $constraints . $newConstraint . $lastConstraint;
+
+                $commaLastArr = $primaryKey === '' ? ',' : '';
+
+                $fieldList = <<<EOS
+                {$fieldList}{$commaLastArr}
+                    {$subClassNameFieldName} INT UNSIGNED,
+                EOS;
             }
         }
 
         $primaryKeyBottom = $primaryKey !== "" ? "    PRIMARY KEY (" . $rules['primary_key'] . ')' : '';
 
-        $primaryKeyBottomEnding = $constraints !== '' ? ',' : '';
+        $primaryKeyBottomEnding = $constraints !== '' ? ($primaryKeyBottom === '' ? '' : ',') : '';
 
         $primaryKeyBottom = $primaryKeyBottom . $primaryKeyBottomEnding;
 
@@ -644,16 +872,35 @@ EOT;
         {$primaryKey}
         {$fieldList}
         {$primaryKeyBottom}
-
         {$constraints}
         );
         EOS;
+
 
         if (isset($this->args[3]) && $this->args[3] === true) {
             return $sqlFile;
         }
 
         file_put_contents(__DIR__ . '/sql/' . $name . '.sql', $sqlFile);
+    }
+
+    private function updateSQL() 
+    {
+        $tables = $this->tables;
+        $finalSqlFile = '';
+
+        $sql_state = json_decode(file_get_contents(__DIR__ . '/sql/state.json'), true);
+
+        foreach ($tables as $table) {
+            $loaded_table = new $table();
+            $table_rules = json_encode($loaded_table->LoadModelRules());
+            $table_hash = hash('sha256', $table_rules);
+            
+             if (isset($sql_state[$name], $sql_state[$name]['hash']) && $table_hash !== $sql_state[$name]['hash']) {
+                $this->sendConsoleMessage($name . ' table has changedddddd!', 'warning');
+            }
+
+        }
     }
 
     private function GenerateSQL()
@@ -679,14 +926,31 @@ EOT;
             return;
         }
 
-        $tables = include __DIR__ . '/sql/order.php';
+        $tables = $this->tables;
         $finalSqlFile = '';
-        foreach ($tables['order'] as $table) {
+
+        $sql_state = json_decode(file_get_contents(__DIR__ . '/sql/state.json'), true);
+
+        foreach ($tables as $table) {
+
+            $loaded_table = new $table();
+
+            $model_rules = json_encode($loaded_table->LoadModelRules());
+
             $explodedName = explode('\\', $table);
             $name = end($explodedName);
-            $finalSqlFile = $finalSqlFile . $this->CreateTable([null, null, $name, true]) . "\n\n";
-        }
+            $created_table = $this->CreateTable([null, null, $name, true]);
+            $table_hash = hash('sha256', $model_rules);
 
+            $this->updateSQL();
+
+            if (isset($sql_state[$name], $sql_state[$name]['hash']) && $table_hash !== $sql_state[$name]['hash']) {
+                $this->sendConsoleMessage($name . ' table has changed!', 'warning');
+            }
+
+            $sql_state[$name]['hash'] = hash('sha256', $model_rules);
+            $finalSqlFile = $finalSqlFile . $created_table . "\n\n";
+        }
 
         $config = json_decode(file_get_contents(__DIR__ . '/app/config.json'), true);
         $environment = $config['environment'] ?? null;
@@ -701,21 +965,6 @@ EOT;
             return;
         }
 
-        $finalSqlFile = $finalSqlFile . <<<EOS
-        INSERT INTO personel (firstname, lastname, email, phonenumber, birthday)
-        VALUES 
-        ('Jani', 'Juuso', 'jani.juuso@example.com', '0401234567', '1999-03-06'),
-        ('Laura', 'Korhonen', 'laura.korhonen@example.com', '0509876543', '1988-11-30'),
-        ('Mikko', 'Virtanen', 'mikko.virtanen@example.com', '0412345678', '1992-02-25'),
-        ('Sari', 'Niemi', 'sari.niemi@example.com', '0501122334', '1995-07-14'),
-        ('Timo', 'Heikkinen', 'timo.heikkinen@example.com', '0411223344', '1985-09-09'),
-        ('Anna', 'Laine', 'anna.laine@example.com', '0505566778', '1990-04-22'),
-        ('Jukka', 'Mäkinen', 'jukka.makinen@example.com', '0409988776', '1987-12-15'),
-        ('Katja', 'Salmi', 'katja.salmi@example.com', '0506677889', '1993-06-10'),
-        ('Petri', 'Koskinen', 'petri.koskinen@example.com', '0413344556', '1982-08-03'),
-        ('Marja', 'Hämäläinen', 'marja.hamalainen@example.com', '0502233445', '1996-01-28');
-        EOS;
-
         $dbCredentials = $config[$environment]['database'];
 
         file_put_contents(__DIR__ . '/sql/init.sql', $finalSqlFile);
@@ -728,17 +977,107 @@ EOT;
                 $dbCredentials['username'],
                 $dbCredentials['password']
             );
-
+            $conn->beginTransaction();
             $conn->exec($finalSqlFile);
-        } catch (Error $err) {
+        } catch (PDOException $err) {
+            $msg = $err->getMessage();
             echo <<<EOT
 
-\33[91m Warning! Could not connect to database \033[0m
+\33[91m Error! {$msg} \033[0m
 
 
 EOT;
+            if (isset($conn) && $conn->inTransaction()) {
+                $conn->rollBack();
+            }
             return;
         }
+
+        file_put_contents(__DIR__ . '/sql/state.json', json_encode($sql_state, JSON_PRETTY_PRINT));
+
+        echo "Generated SQL succesfully\n";
+    }
+
+    function initializeFromDocker()
+    {
+        // ensure we have args
+        if (!isset($this->args[2])) {
+            echo "Usage: php jjcli.php init <environment>\n";
+            die(1);
+        }
+
+        $envName = $this->args[2]; // e.g. "development" or "production"
+
+        $exampleFile = __DIR__ . '/app/config-example.json';
+        $configFile  = __DIR__ . '/app/config.json';
+
+        if (!file_exists($exampleFile)) {
+            echo "Example config file not found: $exampleFile\n";
+            die(1);
+        }
+
+        // Copy example to config.json (overwrite each time)
+        if (!copy($exampleFile, $configFile)) {
+            echo "Failed to copy $exampleFile to $configFile\n";
+            die(1);
+        }
+
+        // Load config
+        $config = json_decode(file_get_contents($configFile), true);
+        if (!$config) {
+            echo "Failed to parse $configFile\n";
+            die(1);
+        }
+
+        // Load environment variables from system
+        $dbHost     = getenv("DB_HOST") ?: "db";
+        $dbName     = getenv("MYSQL_DATABASE") ?: "jjmvc";
+        $dbUser     = getenv("MYSQL_USER") ?: "jjmvc";
+        $dbPassword = getenv("MYSQL_PASSWORD") ?: "secret";
+
+        // Update selected environment
+        if (!isset($config[$envName])) {
+            echo "Environment '$envName' not found in config.json\n";
+            die(1);
+        }
+
+        $config["environment"] = $envName;
+        $config[$envName]["database"]["host"]     = $dbHost;
+        $config[$envName]["database"]["dbname"]   = $dbName;
+        $config[$envName]["database"]["username"] = $dbUser;
+        $config[$envName]["database"]["password"] = $dbPassword;
+
+        // Save back to file
+        $json = json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        if (file_put_contents($configFile, $json) === false) {
+            echo "Failed to write $configFile\n";
+            die(1);
+        }
+
+        echo "Configuration initialized and updated for environment '$envName'.\n";
+    }
+    private function sendConsoleMessage($msg, $type = 'warning', $source = '')
+    {
+        $colors = [
+            'info' => "\033[97m",     // white
+            'warning' => "\033[93m",  // yellow
+            'error' => "\033[91m",    // red
+        ];
+
+        $preword = [
+            'info' => 'Info:',
+            'warning' => 'Warning!',
+            'error' => 'Error!'
+        ];
+
+        $preword = isset($preword[$type]) ? $preword[$type] : '';
+
+        $color = $colors[$type] ?? "\033[0m";
+
+        $output =  <<<EOS
+{$color}{$preword} {$msg} - {$source}\033[0m
+EOS;
+        echo $output . PHP_EOL;
     }
 }
 $cli = new JJCLI($argv);

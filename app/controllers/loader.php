@@ -83,7 +83,6 @@ class Plugin {
             $pname = $plugin[1];
             $version = $plugin[2];
             if (empty(self::$json->$author->$pname->$version)) {
-                echo '<!-- Error: Could not load: ' . $author . ':' .$pname . ':' . $version . '. Plugin does not exist. -->';
                 continue;
             }
             require_once PLUGIN_PATH . '/data/' . $author . '/' . $pname . '/' . $version . '/' . self::$json->$author->$pname->$version->file;

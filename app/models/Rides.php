@@ -4,6 +4,9 @@ class Rides extends MainModel {
     protected $rules;
     public function __construct() {
         $this->rules = [
+            'belongsTo' => [
+                Personel::class
+            ],
             'uuid' => [
                 'length' => 36,
                 'type' => 'string',
@@ -19,9 +22,11 @@ class Rides extends MainModel {
             'pickuptime' => [
                 'required' => true,
                 'unique' => false,
+                'type' => 'string',
+                'length' => 255
             ],
             'homeaddr' => [
-                'length' => 255,
+                'length' => 254,
                 'type' => 'string',
                 'required' => true,
                 'unique' => false
@@ -43,7 +48,7 @@ class Rides extends MainModel {
                 'type' => 'string',
                 'required' => false,
                 'unique' => false
-            ]
+            ],
         ];
     }
 }

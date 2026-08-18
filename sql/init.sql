@@ -1,13 +1,23 @@
+CREATE TABLE IF NOT EXISTS jobs (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name TEXT  NOT NULL,
+    action VARCHAR(254) NOT NULL,
+    status VARCHAR(255),
+    jobtype VARCHAR(255),
+
+    PRIMARY KEY (id)
+
+);
+
 CREATE TABLE IF NOT EXISTS personel (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     firstname VARCHAR(155) NOT NULL,
     lastname VARCHAR(155) NOT NULL,
     email VARCHAR(155) NOT NULL UNIQUE,
-    phonenumber VARCHAR(20) NOT NULL UNIQUE,
+    phonenumber VARCHAR(22) NOT NULL UNIQUE,
     birthday DATE,
 
     PRIMARY KEY (id)
-
 
 );
 
@@ -20,21 +30,47 @@ CREATE TABLE IF NOT EXISTS streetaddress (
 
     personel_id INT UNSIGNED,
     PRIMARY KEY (id),
-
     CONSTRAINT fk_personel_streetaddress
         FOREIGN KEY (personel_id) REFERENCES personel(id)
         ON DELETE CASCADE
+        ON UPDATE CASCADE
+
+
 );
 
-INSERT INTO personel (firstname, lastname, email, phonenumber, birthday)
-VALUES 
-('Jani', 'Juuso', 'jani.juuso@example.com', '0401234567', '1999-03-06'),
-('Laura', 'Korhonen', 'laura.korhonen@example.com', '0509876543', '1988-11-30'),
-('Mikko', 'Virtanen', 'mikko.virtanen@example.com', '0412345678', '1992-02-25'),
-('Sari', 'Niemi', 'sari.niemi@example.com', '0501122334', '1995-07-14'),
-('Timo', 'Heikkinen', 'timo.heikkinen@example.com', '0411223344', '1985-09-09'),
-('Anna', 'Laine', 'anna.laine@example.com', '0505566778', '1990-04-22'),
-('Jukka', 'Mäkinen', 'jukka.makinen@example.com', '0409988776', '1987-12-15'),
-('Katja', 'Salmi', 'katja.salmi@example.com', '0506677889', '1993-06-10'),
-('Petri', 'Koskinen', 'petri.koskinen@example.com', '0413344556', '1982-08-03'),
-('Marja', 'Hämäläinen', 'marja.hamalainen@example.com', '0502233445', '1996-01-28');
+CREATE TABLE IF NOT EXISTS rides (
+
+    uuid VARCHAR(36) NOT NULL UNIQUE,
+    userid VARCHAR(36) NOT NULL,
+    pickuptime VARCHAR(255) NOT NULL,
+    homeaddr VARCHAR(254) NOT NULL,
+    zipcode VARCHAR(5) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    apartment VARCHAR(10),
+    personel_id INT UNSIGNED,
+
+    CONSTRAINT fk_personel_rides
+        FOREIGN KEY (personel_id) REFERENCES personel(id)
+        
+);
+
+CREATE TABLE IF NOT EXISTS page (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    uri VARCHAR(255) NOT NULL UNIQUE,
+
+    PRIMARY KEY (id)
+
+);
+
+CREATE TABLE IF NOT EXISTS page_content (
+
+    template VARCHAR(255) NOT NULL,
+    data JSON,
+    page_id INT UNSIGNED,
+
+    CONSTRAINT fk_page_page_content
+        FOREIGN KEY (page_id) REFERENCES page(id)
+        
+);
+

@@ -1,7 +1,5 @@
 <?php
-
 namespace Core\App;
-
 use Core\App\View;
 use \Plugin;
 
